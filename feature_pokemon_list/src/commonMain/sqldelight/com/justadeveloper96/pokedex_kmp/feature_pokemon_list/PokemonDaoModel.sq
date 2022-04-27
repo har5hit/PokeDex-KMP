@@ -1,0 +1,17 @@
+CREATE TABLE PokemonDaoModel (
+  name TEXT NOT NULL PRIMARY KEY,
+  url Text NOT NULL
+);
+
+
+getAll:
+SELECT *
+FROM PokemonDaoModel;
+
+
+insert:
+INSERT OR REPLACE INTO PokemonDaoModel(name,url)
+VALUES ?;
+
+deleteAll:
+DELETE FROM PokemonDaoModel;

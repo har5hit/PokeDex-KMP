@@ -1,0 +1,5 @@
+[*.kt]
+disabled_rules=experimental:package-name,experimental:argument-list-wrapping
+
+[*.kts]
+disabled_rules=experimental:package-name,experimental:argument-list-wrapping,experimental:multiline-if-else
