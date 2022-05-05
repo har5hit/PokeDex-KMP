@@ -41,12 +41,12 @@ object Config {
 
 object Dependencies {
     object Kotlin {
-        private const val version = "1.6.10"
+        private const val version = "1.6.21"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Kotest {
-        private const val version = "5.1.0"
+        private const val version = "5.3.0"
 
         object Common {
             const val property = "io.kotest:kotest-property:$version"
@@ -59,7 +59,7 @@ object Dependencies {
     }
 
     object Mockk {
-        private const val version = "1.12.2"
+        private const val version = "1.12.3"
 
         object Common {
             const val core = "io.mockk:mockk-common:$version"
@@ -71,7 +71,7 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.6.0"
+        private const val version = "1.6.1"
         const val versionNativeMT = "${version}-native-mt"
 
         object Common {
@@ -84,12 +84,14 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "1.6.7"
+        private const val version = "2.0.1"
 
         object Common {
             const val core = "io.ktor:ktor-client-core:$version"
             const val serialization = "io.ktor:ktor-client-serialization:$version"
             const val logging = "io.ktor:ktor-client-logging:$version"
+            const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
+            const val serializationKotlinxJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
         }
 
         object Android {
@@ -122,10 +124,10 @@ object Dependencies {
     }
 
     object Ktlint {
-        const val version = "0.43.2"
+        const val version = "0.45.2"
     }
 
     object Serialization {
-        const val version = "1.6.10"
+        const val version = "1.6.21"
     }
 }

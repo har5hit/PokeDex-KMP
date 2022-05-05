@@ -113,10 +113,6 @@ object AndroidDependencies {
         const val compileSdk = "android-32"
     }
 
-    object OkHttp {
-        val okhttp = "com.squareup.okhttp3:okhttp:4.9.2"
-    }
-
     val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

@@ -10,18 +10,18 @@ import Foundation
 import shared
 
 class AppModule{
-    static let dispatchers = CoroutineDependency.init().dispatchers
+    static var dispatchers = { CoroutineDependency.init().dispatchers }()
     
-    static let networkGateway = IOSNetworkGateway(debug: false)
+    static var networkGateway = { IOSNetworkGateway(debug: false)}()
     
-    static let pokemonApi = PokemonApi(gateway: networkGateway)
+    static var pokemonApi = { PokemonApi(gateway: networkGateway)}()
     
-    static let database = PokemonDatabaseProvider(databaseDriver: PokemonDatabaseProviderFactory()).instance()
+    static var database =  { PokemonDatabaseProvider(databaseDriver: PokemonDatabaseProviderFactory()).instance()}()
     
-    static let pokemonDao = PokemonDao(queries: database.pokemonDaoModelQueries)
+    static var pokemonDao = { PokemonDao(queries: database.pokemonDaoModelQueries) }()
     
     
-    static let pokemonRepository = PokemonRepository(pokemonApi: pokemonApi, pokemonDao: pokemonDao)
+    static var pokemonRepository = { PokemonRepository(pokemonApi: pokemonApi, pokemonDao: pokemonDao)}()
 
 
     static func viewmodel()-> PokemonListViewModel{

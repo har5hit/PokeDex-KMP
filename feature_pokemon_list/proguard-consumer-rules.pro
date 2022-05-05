@@ -1,2 +1,1 @@
--keep class com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.** { *; }
--keep class com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.** { *; }
+-keep class com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.** { *; }

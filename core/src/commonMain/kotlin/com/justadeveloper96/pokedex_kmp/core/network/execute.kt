@@ -29,8 +29,8 @@ import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.NetworkExceptio
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.core.data.network.model.AppServerError
-import io.ktor.client.features.ClientRequestException
-import io.ktor.client.statement.readText
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -41,14 +41,14 @@ suspend inline fun <reified T, reified E> execute(
     return try {
         val body = serviceCall()
         Success(data = transform(body))
-    } catch (exception: ClientRequestException) {
+    } catch (exception: ResponseException) {
         val code = exception.response.status.value
         return try {
             val parser = Json {
                 ignoreUnknownKeys = true
                 isLenient = true
             }
-            val error = parser.decodeFromString<AppServerError>(exception.response.readText())
+            val error = parser.decodeFromString<AppServerError>(exception.response.bodyAsText())
             Unsuccessful(
                 error = error,
                 code = code,
@@ -72,12 +72,4 @@ suspend inline fun <reified T, reified E> execute(
 
 suspend inline fun <reified T> execute(serviceCall: () -> T): AppNetworkResult<T> {
     return execute(serviceCall, { it })
-}
-
-suspend inline fun <reified T> executeWithString(serviceCall: () -> String): AppNetworkResult<T> {
-    val parser = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-    }
-    return execute(serviceCall) { parser.decodeFromString<T>(it) }
 }

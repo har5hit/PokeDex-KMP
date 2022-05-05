@@ -31,6 +31,6 @@ actual object CoroutineDependency {
         io = Dispatchers.Default,
         main = Dispatchers.Main,
         default = Dispatchers.Default,
-        mainImmediate = Dispatchers.Main.immediate
+        mainImmediate = Dispatchers.Main
     )
 }

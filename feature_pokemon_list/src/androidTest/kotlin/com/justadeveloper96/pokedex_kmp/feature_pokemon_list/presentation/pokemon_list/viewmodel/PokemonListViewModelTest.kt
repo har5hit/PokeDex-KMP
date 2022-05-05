@@ -60,7 +60,7 @@ class PokemonListViewModelTest : StringSpec({
 
         viewModel.add(IPokemonListViewModel.Action.Fetch)
 
-        viewModel.stateHolder.value shouldBe IPokemonListViewModel.UIState(list = data2.data.map { it.toPokemonUiModel() },canLoadMore = false)
+        viewModel.stateHolder.value shouldBe IPokemonListViewModel.UIState(list = data2.data.map { it.toPokemonUiModel() }, canLoadMore = false)
 
         viewModel.add(IPokemonListViewModel.Action.Fetch)
 

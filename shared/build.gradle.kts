@@ -99,6 +99,12 @@ kotlin {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force(Dependencies.Coroutines.Common.core)
+    }
+}
+
 android {
     compileSdkVersion(AndroidDependencies.SdkVersion.compileSdk)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")

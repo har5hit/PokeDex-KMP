@@ -1,5 +1,6 @@
 # PokeDex KMP
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://opensource.org/licenses/MIT)
+[![Android CI](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml)
 
 A Demo Application for demonstrating code reuse in Both Android and iOS apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
 
@@ -15,6 +16,8 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
 * [Ktlint](https://ktlint.github.io/) for lint.
 
+# Why KMP?
+All advantages and freedom of native development + code re-usability in other platforms
 
 # Source Line of Code Stats:
 
@@ -26,13 +29,13 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 | feature_pokemon_list | 428 |
 | **Total** | **1208** |
 
-## Host apps
-| App              | sloc count | common code % |
-|----------------------|-----|-----|
-| android              | 210 |82.62%|
-| ios                 | 130 |89.24%|
+## Host apps (Containing views and di code)
+| App              | sloc count | exclusive code % | common code % |
+|----------------------|-----|-----|-----|
+| android              | 210 | 17.38% | **82.62%**|
+| ios                 | 130 | 10.76% | **89.24%**|
 
-Around **~80%** code made common for android and ios app using KMP.
+Around **~80%** code written for a feature can be reused for other platform using KMP.
 
 # Screenshots
 Android             |  iOS
@@ -48,6 +51,7 @@ Android             |  iOS
 * helpers - Generic helper methods for mobile apps
 * core - Application specific common code which are shared by mostly all feature modules
 * feature_* - Feature module
+* shared - Umbrella module for ios. This module loads all sub gradle modules and creates a single framework file for adding to ios project.
 * android - Android host app
 * ios - iOS host app
 

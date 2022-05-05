@@ -28,6 +28,7 @@ import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.AppNetworkResul
 import com.justadeveloper96.pokedex_kmp.core.network.INetworkGateway
 import com.justadeveloper96.pokedex_kmp.core.network.execute
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
@@ -40,7 +41,7 @@ class PokemonApi(val gateway: INetworkGateway) : IPokemonApi {
             gateway.client.get(ENDPOINT) {
                 parameter("offset", offset)
                 parameter("limit", limit)
-            }
+            }.body()
         }
     }
 }
