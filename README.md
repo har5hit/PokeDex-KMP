@@ -15,6 +15,7 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight)
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
 * [Ktlint](https://ktlint.github.io/) for lint.
+* KMP Modules Deployment as libraries for external `Android` and `iOS` apps.
 
 # Why KMP?
 All advantages and freedom of native development + code re-usability in other platforms
@@ -62,27 +63,37 @@ Each individual feature folder structure
 
 * **/data** (All data related files)
   * /entity_1 (for e.g: Person)
-    * /model 
-    * /dao 
+    * /model
+    * /dao
     * /network
     * repository
-    
+
 * **/presentation** (All view related files)
   * /component_1 (for e.g: Person List)
     * /fragment
     * /viewmodel
     * /adapter
     * /view
-      
+
+
+# Deployment as library
+
+* The KMP libraries can be directly accessed by the embedded `Android` and `iOS` module in this project.
+* If these KMP libraries is to be used as independent libraries in external `Android` / `iOS` apps, it can be published to maven repository.
+    * `publishToMavenLocal` task will build and upload the KMP modules as libraries in local maven server which can be used to work in external android/ios apps in same machine.
+    * `publish` task will build and upload the KMP modules as libraries in remote maven server which can be accessed from any machine. Remote maven configuration to be added in `plugins/publish.gradle`.
+* For `Android`, the process is simple as adding gradle dependencies in the Android app to load these hosted libraries.
+* For `iOS`, reference can be taken from this project or [follow this guide](https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html#make-your-cross-platform-application-work-on-ios).
+Pro tip: Keep KMP files inside a folder and not at root level to keep it encapsulated from native `iOS` project files and modify the configuration to support this.
 
 # TODO
 ## iOS
-- [ ] test cases
+- [ ] Test cases
 - [ ] UI Event handling
 - [ ] Dependency injection framework
+- [ ] CI
 
 ## Common
-- [ ] CI
 - [ ] Code Generation templates
 
 # Resources

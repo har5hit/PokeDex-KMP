@@ -28,8 +28,8 @@ plugins {
     kotlin("plugin.serialization") version Dependencies.Serialization.version
 }
 
-version = Config.Package.version
-group = Config.Package.group
+version = ProjectProperties.version
+group = ProjectProperties.group
 
 kotlin {
     android()
@@ -142,3 +142,4 @@ android {
         exclude("META-INF/licenses/**")
     }
 }
+apply(from = "$rootDir/plugins/publish.gradle")

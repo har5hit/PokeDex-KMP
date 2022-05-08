@@ -23,12 +23,6 @@
  */
 
 object Config {
-    object Package {
-        const val group = "com.justadeveloper96.pokedex_kmp"
-
-        const val version = "1.0.0"
-
-    }
 
     object Test {
         const val coverageEnabled = false

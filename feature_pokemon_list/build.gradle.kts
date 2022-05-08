@@ -29,8 +29,8 @@ plugins {
     id("com.squareup.sqldelight")
 }
 
-version = Config.Package.version
-group = Config.Package.group
+version = ProjectProperties.version
+group = ProjectProperties.group
 
 kotlin {
     android()
@@ -118,3 +118,4 @@ sqldelight {
         schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
     }
 }
+apply(from = "$rootDir/plugins/publish.gradle")

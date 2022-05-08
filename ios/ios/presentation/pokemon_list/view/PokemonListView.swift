@@ -3,7 +3,7 @@
 //  ios
 //
 //  Created by Harshith Shetty on 05/05/22.
-//  Copyright © 2022 orgName. All rights reserved.
+//  Copyright © 2022 Harshith Shetty. All rights reserved.
 //
 
 import SwiftUI
