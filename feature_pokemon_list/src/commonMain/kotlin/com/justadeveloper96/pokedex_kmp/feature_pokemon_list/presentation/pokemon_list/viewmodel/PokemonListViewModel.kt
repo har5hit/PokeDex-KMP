@@ -31,6 +31,7 @@ import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -51,10 +52,10 @@ class PokemonListViewModel(
 
     private val limit = 10
 
-    private var offset = MutableStateFlow(0)
-    private var loading = MutableStateFlow(false)
-    private var moreAvailable = MutableStateFlow(true)
-    private var list = MutableStateFlow(listOf<PokemonUiModel>())
+    private val offset = MutableStateFlow(0)
+    private val loading = MutableStateFlow(false)
+    private val moreAvailable = MutableStateFlow(true)
+    private val list = MutableStateFlow(listOf<PokemonUiModel>())
 
     override fun add(action: IPokemonListViewModel.Action) {
         when (action) {
