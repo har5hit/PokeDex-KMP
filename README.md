@@ -3,9 +3,9 @@
 [![Android CI](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml)
 
 A Demo Application for demonstrating code reuse in Both Android and iOS apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
-
 * 100% [Kotlin](https://kotlinlang.org/) for Android and KMP module.
 * 100% [Swift](https://www.swift.org/) for iOS.
+* Kotlin: 1.6.21
 * Test Driven Development
 * MVVM design pattern
 * Multi Module KMP Application Setup
@@ -16,6 +16,8 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
 * [Ktlint](https://ktlint.github.io/) for lint.
 * KMP Modules Deployment as libraries for external `Android` and `iOS` apps.
+* Jetpack Compose.
+* SwiftUI.
 
 # Why KMP?
 All advantages and freedom of native development + code re-usability in other platforms

@@ -32,6 +32,7 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.reposi
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
@@ -56,6 +57,20 @@ class PokemonListViewModel(
     private val moreAvailable = MutableStateFlow(true)
     private val list = MutableStateFlow(listOf<PokemonUiModel>())
 
+    init {
+        vmScope.launch(dispatchers.mainImmediate) {
+            combine(loading, moreAvailable, list) { loading, moreAvailable, list ->
+                IPokemonListViewModel.UIState(
+                    loading = loading,
+                    list = list,
+                    canLoadMore = moreAvailable
+                )
+            }.collect {
+                setState(it)
+            }
+        }
+    }
+
     override fun add(action: IPokemonListViewModel.Action) {
         when (action) {
             IPokemonListViewModel.Action.Fetch -> {
@@ -77,7 +92,6 @@ class PokemonListViewModel(
         vmScope.launch(appCoroutineDispatchers.io) {
             if (moreAvailable.value && !loading.value) {
                 loading.value = true
-                invalidate()
                 fetchNewItems()
             }
         }
@@ -101,17 +115,6 @@ class PokemonListViewModel(
                     pushEvent(IPokemonListViewModel.UIEvent.Message(it.message))
                 }
             }
-            invalidate()
         }
-    }
-
-    private fun invalidate() {
-        setState(
-            IPokemonListViewModel.UIState(
-                loading = loading.value,
-                list = list.value,
-                canLoadMore = moreAvailable.value
-            )
-        )
     }
 }

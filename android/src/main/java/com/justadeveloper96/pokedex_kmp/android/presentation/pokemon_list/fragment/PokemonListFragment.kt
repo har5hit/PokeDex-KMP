@@ -2,26 +2,27 @@ package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.fragm
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.justadeveloper96.pokedex_kmp.android.R
-import com.justadeveloper96.pokedex_kmp.android.databinding.FragmentPokemonListBinding
-import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.adapter.PokemonListAdapter
+import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreen
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
-import com.justadeveloper96.pokedex_kmp.helpers.flow.FlowVMConnector
-import com.justadeveloper96.pokedex_kmp.helpers.fragment.BaseFragment
-import com.justadeveloper96.pokedex_kmp.helpers.view.IView
+import com.justadeveloper96.pokedex_kmp.helpers.flow.VMEventConnector
+import com.justadeveloper96.pokedex_kmp.helpers.view.IEventView
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.getViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Provider
 
 @AndroidEntryPoint
-class PokemonListFragment :
-    BaseFragment<FragmentPokemonListBinding>(),
-    IView<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent> {
+class PokemonListFragment : Fragment(), IEventView<IPokemonListViewModel.UIEvent> {
 
     @Inject
     lateinit var viewModelProvider: Provider<PokemonListViewModel>
@@ -29,31 +30,31 @@ class PokemonListFragment :
         getViewModel { viewModelProvider.get() }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val uiState by viewModel.stateHolder.collectAsState()
+                PokemonListScreen(state = uiState) {
+                    viewModel.add(it)
+                }
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelProvider.get()
-        setupView()
-        subscribe()
+        subscribeEvents()
         viewModel.add(IPokemonListViewModel.Action.Fetch)
     }
 
-    private fun subscribe() {
-        FlowVMConnector(this, viewModel).observe(lifecycleScope)
-    }
-
-    override val layout: Int
-        get() = R.layout.fragment_pokemon_list
-
-    private val adapter by lazy { PokemonListAdapter() }
-
-    private fun setupView() {
-        binding.refresh.setOnRefreshListener {
-            viewModel.add(IPokemonListViewModel.Action.Refresh)
-        }
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.onEndReached {
-            viewModel.add(IPokemonListViewModel.Action.Fetch)
-        }
+    private fun subscribeEvents() {
+        VMEventConnector(this, viewModel.eventHolder) { viewModel.onEventConsumed() }.observe(
+            lifecycleScope
+        )
     }
 
     override fun onEvent(event: IPokemonListViewModel.UIEvent) {
@@ -64,12 +65,5 @@ class PokemonListFragment :
             }
         }
     }
-
     private val TAG = "PokemonListFragment"
-
-    override fun render(state: IPokemonListViewModel.UIState) {
-        Log.d(TAG, "render: ${state.list.size} $state")
-        adapter.items = state.list
-        binding.refresh.isRefreshing = state.loading
-    }
 }

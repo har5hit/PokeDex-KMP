@@ -22,13 +22,34 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
+package com.justadeveloper96.pokedex_kmp.helpers.flow
 
+import androidx.lifecycle.LifecycleCoroutineScope
+import com.justadeveloper96.pokedex_kmp.helpers.view.IEventView
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
-interface IFlowViewModel<T, E> {
-    val stateHolder: StateFlow<T>
-    val eventHolder: Flow<E?>
-    fun onEventConsumed()
+class VMEventConnector<E>(
+    private val view: IEventView<E>,
+    private val eventFlow: Flow<E?>,
+    private val onEventConsumed: () -> Unit
+) {
+
+    fun observe(flowScope: LifecycleCoroutineScope) {
+        flowScope.launch {
+            observeEvent()
+        }
+    }
+
+    private suspend inline fun observeEvent() {
+        supervisorScope {
+            eventFlow.collect { value ->
+                value?.let {
+                    view.onEvent(it)
+                    onEventConsumed()
+                }
+            }
+        }
+    }
 }

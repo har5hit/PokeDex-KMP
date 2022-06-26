@@ -115,4 +115,19 @@ object AndroidDependencies {
 
     val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+
+    object Compose {
+        private const val version = "1.1.1"
+        val compose = "androidx.activity:activity-compose:1.4.0"
+        val material = "androidx.compose.material:material:$version"
+        val animation = "androidx.compose.animation:animation:$version"
+        val tooling = "androidx.compose.ui:ui-tooling:$version"
+        val uiTesting = "androidx.compose.ui:ui-test-junit4:$version"
+    }
+
+    object Coil {
+        val compose = "io.coil-kt:coil-compose:2.1.0"
+    }
+
+    val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.24.12-rc"
 }

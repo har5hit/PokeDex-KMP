@@ -25,12 +25,10 @@
 package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
     ViewModel(dispatchers), IFlowViewModel<T, E> {
@@ -41,31 +39,24 @@ abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
 
     private val _stateHolder: MutableStateFlow<T> = MutableStateFlow(initialState)
 
-    private val _eventHolder: Channel<E?> = Channel(1)
+    private val _eventHolder: MutableStateFlow<E?> = MutableStateFlow(null)
 
     override val eventHolder: Flow<E?>
-        get() = _eventHolder.receiveAsFlow()
+        get() = _eventHolder.asStateFlow()
 
     override val stateHolder: StateFlow<T>
         get() = _stateHolder
-
-    override val stateSnapShot: T
-        get() = _stateHolder.value
 
     init {
         setState(initialState)
     }
 
     protected fun setState(state: T) {
-        vmScope.launch(dispatchers.mainImmediate) {
-            _stateHolder.value = state
-        }
+        _stateHolder.value = state
     }
 
     protected fun pushEvent(event: E?) {
-        vmScope.launch(dispatchers.mainImmediate) {
-            _eventHolder.send(event)
-        }
+        _eventHolder.value = event
     }
 
     override fun onEventConsumed() {

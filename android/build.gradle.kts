@@ -57,9 +57,13 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
     }
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0-rc02"
     }
 }
 
@@ -84,4 +88,13 @@ dependencies {
     implementation(AndroidDependencies.AdapterDelegate.core)
     implementation(AndroidDependencies.AdapterDelegate.layoutcontainer)
     implementation(AndroidDependencies.AdapterDelegate.viewbinding)
+    implementation(AndroidDependencies.Compose.compose)
+    implementation(AndroidDependencies.Compose.material)
+    implementation(AndroidDependencies.Compose.animation)
+    implementation(AndroidDependencies.Compose.tooling)
+    androidTestImplementation(AndroidDependencies.Compose.uiTesting)
+    implementation(AndroidDependencies.Compose.tooling)
+
+    implementation(AndroidDependencies.Coil.compose)
+    implementation(AndroidDependencies.swipeRefreshCompose)
 }

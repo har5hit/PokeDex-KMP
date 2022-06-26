@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,57 +27,18 @@ package com.justadeveloper96.pokedex_kmp.helpers.flow
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.justadeveloper96.pokedex_kmp.helpers.view.IView
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.IFlowViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 
 class FlowVMConnector<T, E>(private val view: IView<T, E>, private val vm: IFlowViewModel<T, E>) {
 
-    fun observe(flowScope: CoroutineScope) {
-        if (flowScope is LifecycleCoroutineScope) {
-            observe(flowScope)
-        } else {
-            flowScope.launch {
-                observeState()
-            }
-            flowScope.launch {
-                observeEvent()
-            }
+    fun observe(flowScope: LifecycleCoroutineScope) {
+        flowScope.launchWhenStarted {
+            observeState()
+        }
+        flowScope.launchWhenResumed {
+            observeEvent()
         }
     }
-
-    fun observe(flowScope: LifecycleCoroutineScope, launchWhen: LaunchWhen = LaunchWhen.STARTED) {
-        when (launchWhen) {
-            LaunchWhen.STARTED -> {
-                flowScope.launchWhenStarted {
-                    observeState()
-                }
-                flowScope.launchWhenStarted {
-                    observeEvent()
-                }
-            }
-
-            LaunchWhen.RESUMED -> {
-                flowScope.launchWhenResumed {
-                    observeState()
-                }
-                flowScope.launchWhenResumed {
-                    observeEvent()
-                }
-            }
-            LaunchWhen.CREATED -> {
-                flowScope.launchWhenCreated {
-                    observeState()
-                }
-                flowScope.launchWhenCreated {
-                    observeEvent()
-                }
-            }
-        }
-    }
-
-    val stateSnapShot: T?
-        get() = vm.stateSnapShot
 
     private val TAG = "FlowVMConnector"
 
@@ -98,9 +59,5 @@ class FlowVMConnector<T, E>(private val view: IView<T, E>, private val vm: IFlow
                 }
             }
         }
-    }
-
-    enum class LaunchWhen {
-        STARTED, RESUMED, CREATED
     }
 }

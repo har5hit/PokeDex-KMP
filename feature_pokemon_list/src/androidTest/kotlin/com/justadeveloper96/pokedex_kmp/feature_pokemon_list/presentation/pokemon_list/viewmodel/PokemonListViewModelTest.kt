@@ -14,13 +14,13 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
 class PokemonListViewModelTest : StringSpec({
 
     val repository: IPokemonRepository = mockk()
 
-    val dispatcher = TestCoroutineDispatcher()
+    val dispatcher = UnconfinedTestDispatcher()
     val dispatchers = AppCoroutineDispatchers(dispatcher, dispatcher, dispatcher, dispatcher)
 
     "inital state test" {

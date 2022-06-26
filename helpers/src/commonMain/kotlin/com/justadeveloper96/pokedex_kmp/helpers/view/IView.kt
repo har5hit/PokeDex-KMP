@@ -24,7 +24,6 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.view
 
-interface IView<T, E> {
+interface IView<T, E> : IEventView<E> {
     fun render(state: T)
-    fun onEvent(event: E)
 }

@@ -22,13 +22,8 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
+package com.justadeveloper96.pokedex_kmp.helpers.view
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
-
-interface IFlowViewModel<T, E> {
-    val stateHolder: StateFlow<T>
-    val eventHolder: Flow<E?>
-    fun onEventConsumed()
+interface IEventView<E> {
+    fun onEvent(event: E)
 }

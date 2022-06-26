@@ -34,6 +34,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:id="@+id/fl_bg"
+            tools:background="@android:color/black"
             android:layout_height="match_parent"
             android:padding="12dp">
 
