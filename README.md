@@ -19,6 +19,7 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Jetpack Compose.
 * SwiftUI.
 * Firebase Crashlytics. Add `google-services.json` for Android and `GoogleService-Info.plist` for iOS.
+* Kermit - Better iOS Crash Report Logging on Kotlin code crashes.
 
 [Blog for more details](https://har5hitn95.medium.com/experience-using-kmp-in-production-apps-for-a-year-2474406d99d4)
 

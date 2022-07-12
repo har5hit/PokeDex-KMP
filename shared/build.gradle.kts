@@ -41,6 +41,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             linkerOpts.add("-lsqlite3")
+            isStatic = true
         }
     }
 
@@ -57,21 +58,21 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":feature_pokemon_list"))
+                api(kotlin("stdlib-common"))
+                api(Dependencies.Kermit.kermit)
+                api(Dependencies.Kermit.crashlytics)
             }
         }
         val commonTest by getting {
             dependencies {
-                api(project(":feature_pokemon_list"))
             }
         }
         val androidMain by getting {
             dependencies {
-                api(project(":feature_pokemon_list"))
             }
         }
         val androidTest by getting {
             dependencies {
-                implementation(project(":feature_pokemon_list"))
             }
         }
 
@@ -80,7 +81,6 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
-                api(project(":feature_pokemon_list"))
             }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)

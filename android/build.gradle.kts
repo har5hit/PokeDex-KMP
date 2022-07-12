@@ -27,7 +27,7 @@ plugins {
     kotlin("android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
-    id("com.google.gms.google-services")
+    // id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
 

@@ -36,7 +36,7 @@ object AndroidDependencies {
         const val compiler = "com.google.dagger:dagger-compiler:$version"
 
         object Hilt {
-            private const val version = "2.41"
+            private const val version = "2.42"
 
             const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
             const val core = "com.google.dagger:hilt-android:$version"

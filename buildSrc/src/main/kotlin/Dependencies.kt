@@ -122,4 +122,10 @@ object Dependencies {
     object Serialization {
         const val version = "1.6.21"
     }
+
+    object Kermit {
+        private const val version = "1.1.3"
+        const val kermit = "co.touchlab:kermit:$version"
+        const val crashlytics = "co.touchlab:kermit-crashlytics:$version"
+    }
 }
