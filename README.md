@@ -19,6 +19,8 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Jetpack Compose.
 * SwiftUI.
 
+[Blog for more details](https://har5hitn95.medium.com/experience-using-kmp-in-production-apps-for-a-year-2474406d99d4)
+
 # Why KMP?
 All advantages and freedom of native development + code re-usability in other platforms
 
