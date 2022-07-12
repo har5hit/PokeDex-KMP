@@ -26,10 +26,10 @@ package com.justadeveloper96.pokedex_kmp.core.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.ios.Ios
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logging
 import kotlinx.serialization.json.Json
 
 class IOSNetworkGateway(private val debug: Boolean) : INetworkGateway {
@@ -37,8 +37,8 @@ class IOSNetworkGateway(private val debug: Boolean) : INetworkGateway {
         get() = HttpClient(Ios) {
             engine {
             }
-            install(ContentNegotiation) {
-                json(
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(
                     Json {
                         prettyPrint = true
                         isLenient = true

@@ -30,7 +30,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
 
-class PokemonDao(val queries: PokemonDaoModelQueries) : IPokemonDao {
+class PokemonDao(private val queries: PokemonDaoModelQueries) : IPokemonDao {
 
     override fun insert(list: List<PokemonDaoModel>) {
         queries.transaction {

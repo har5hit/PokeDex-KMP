@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,36 +29,39 @@ import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.NetworkExceptio
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.core.data.network.model.AppServerError
-import io.ktor.client.plugins.ResponseException
-import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlin.native.concurrent.SharedImmutable
 
-suspend inline fun <reified T, reified E> execute(
-    serviceCall: () -> T,
-    transform: (T) -> E
-): AppNetworkResult<E> {
+data class NetworkResponseData(val code: Int, val body: String?)
+
+@SharedImmutable
+val parser = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
+inline fun <reified T> parseToAppNetworkResult(
+    serviceCall: () -> NetworkResponseData
+): AppNetworkResult<T> {
     return try {
-        val body = serviceCall()
-        Success(data = transform(body))
-    } catch (exception: ResponseException) {
-        val code = exception.response.status.value
-        return try {
-            val parser = Json {
-                ignoreUnknownKeys = true
-                isLenient = true
+        val data = serviceCall()
+        try {
+            if (data.code in 200..299) {
+                val body = parser.decodeFromString<T>(data.body!!)
+                Success(data = body, code = data.code)
+            } else {
+                val error = parser.decodeFromString<AppServerError>(data.body!!)
+                Unsuccessful(
+                    error = error,
+                    code = data.code,
+                    message = error.error
+                )
             }
-            val error = parser.decodeFromString<AppServerError>(exception.response.bodyAsText())
-            Unsuccessful(
-                error = error,
-                code = code,
-                message = error.error
-            )
         } catch (e: Exception) {
-            e.printStackTrace()
-            NetworkException(
-                message = networkExceptionMessage(e),
-                exception = e
+            Unsuccessful(
+                code = data.code,
+                message = networkExceptionMessage(e)
             )
         }
     } catch (e: Exception) {
@@ -68,8 +71,4 @@ suspend inline fun <reified T, reified E> execute(
             exception = e
         )
     }
-}
-
-suspend inline fun <reified T> execute(serviceCall: () -> T): AppNetworkResult<T> {
-    return execute(serviceCall, { it })
 }

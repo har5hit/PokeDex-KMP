@@ -78,14 +78,12 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "2.0.1"
+        private const val version = "1.6.8"
 
         object Common {
             const val core = "io.ktor:ktor-client-core:$version"
             const val serialization = "io.ktor:ktor-client-serialization:$version"
             const val logging = "io.ktor:ktor-client-logging:$version"
-            const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
-            const val serializationKotlinxJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
         }
 
         object Android {
