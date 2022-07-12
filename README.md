@@ -18,6 +18,7 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * KMP Modules Deployment as libraries for external `Android` and `iOS` apps.
 * Jetpack Compose.
 * SwiftUI.
+* Firebase Crashlytics. Add `google-services.json` for Android and `GoogleService-Info.plist` for iOS.
 
 [Blog for more details](https://har5hitn95.medium.com/experience-using-kmp-in-production-apps-for-a-year-2474406d99d4)
 

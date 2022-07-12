@@ -1,5 +1,3 @@
-
-
 /*
  * MIT License
  *
@@ -30,16 +28,11 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 kapt {
     correctErrorTypes = true
-    javacOptions {
-        // These options are normally set automatically via the Hilt Gradle plugin, but we
-        // set them manually to workaround a bug in the Kotlin 1.5.20
-        option("-Adagger.fastInit=ENABLED")
-        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-    }
 }
 
 android {
@@ -64,7 +57,7 @@ android {
         useJUnitPlatform()
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-rc02"
+        kotlinCompilerExtensionVersion = AndroidDependencies.Compose.kotlinCompilerVersion
     }
 }
 
@@ -98,6 +91,7 @@ dependencies {
 
     implementation(AndroidDependencies.Coil.compose)
     implementation(AndroidDependencies.swipeRefreshCompose)
-    implementation(platform("com.google.firebase:firebase-bom:30.2.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(AndroidDependencies.Firebase.bom))
+    implementation(AndroidDependencies.Firebase.analytics)
+    implementation(AndroidDependencies.Firebase.Crashlytics.crashlytics)
 }
