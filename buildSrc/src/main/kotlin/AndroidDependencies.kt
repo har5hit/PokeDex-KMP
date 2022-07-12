@@ -77,22 +77,23 @@ object AndroidDependencies {
     }
 
     object Firebase {
-        val plugin = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
-        val bom = "com.google.firebase:firebase-bom:28.2.0"
-        val analytics = "com.google.firebase:firebase-analytics-ktx"
-        val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        const val bom = "com.google.firebase:firebase-bom:30.2.0"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        object Crashlytics {
+            const val plugin = "com.google.firebase:firebase-crashlytics-gradle:2.9.1"
+            const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        }
     }
 
     object Chucker {
         const val version = "3.5.2"
-        val debug = "com.github.chuckerteam.chucker:library:$version"
-        val release = "com.github.chuckerteam.chucker:library-no-op:$version"
+        const val debug = "com.github.chuckerteam.chucker:library:$version"
+        const val release = "com.github.chuckerteam.chucker:library-no-op:$version"
     }
-
 
     object Google {
         object Services {
-            val plugin = "com.google.gms:google-services:4.3.8"
+            const val plugin = "com.google.gms:google-services:4.3.8"
         }
     }
 
@@ -115,19 +116,20 @@ object AndroidDependencies {
 
     val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-
     object Compose {
         private const val version = "1.1.1"
-        val compose = "androidx.activity:activity-compose:1.4.0"
-        val material = "androidx.compose.material:material:$version"
-        val animation = "androidx.compose.animation:animation:$version"
-        val tooling = "androidx.compose.ui:ui-tooling:$version"
-        val uiTesting = "androidx.compose.ui:ui-test-junit4:$version"
+        const val compose = "androidx.activity:activity-compose:1.4.0"
+        const val material = "androidx.compose.material:material:$version"
+        const val animation = "androidx.compose.animation:animation:$version"
+        const val tooling = "androidx.compose.ui:ui-tooling:$version"
+        const val uiTesting = "androidx.compose.ui:ui-test-junit4:$version"
+        const val kotlinCompilerVersion = "1.2.0-rc02"
+
     }
 
     object Coil {
-        val compose = "io.coil-kt:coil-compose:2.1.0"
+        const val compose = "io.coil-kt:coil-compose:2.1.0"
     }
 
-    val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.24.12-rc"
+    const val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.24.12-rc"
 }

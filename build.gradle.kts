@@ -33,6 +33,8 @@ buildscript {
         classpath(AndroidDependencies.Gradle.plugin)
         classpath(AndroidDependencies.Dagger.Hilt.plugin)
         classpath(Dependencies.SqlDelight.plugin)
+        classpath("com.google.gms:google-services:4.3.13")
+        classpath(AndroidDependencies.Firebase.Crashlytics.plugin)
     }
 }
 
