@@ -29,6 +29,7 @@ plugins {
     kotlin("android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 kapt {
@@ -97,4 +98,6 @@ dependencies {
 
     implementation(AndroidDependencies.Coil.compose)
     implementation(AndroidDependencies.swipeRefreshCompose)
+    implementation(platform("com.google.firebase:firebase-bom:30.2.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }
