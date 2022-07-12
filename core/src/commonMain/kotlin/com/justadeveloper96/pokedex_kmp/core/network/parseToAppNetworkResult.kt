@@ -59,6 +59,7 @@ inline fun <reified T> parseToAppNetworkResult(
                 )
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             Unsuccessful(
                 code = data.code,
                 message = networkExceptionMessage(e)

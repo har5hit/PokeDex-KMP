@@ -27,36 +27,70 @@ package com.justadeveloper96.pokedex_kmp.core.network
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.ApiMessages
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.NetworkException
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
+import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
+import com.justadeveloper96.pokedex_kmp.core.data.network.model.AppServerError
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.net.SocketException
 
-class ApiCallExtensionKtTest : StringSpec({
+class NetworkResponseParsingTest : StringSpec({
 
     "success case" {
         val body = "Abc"
-        execute { body } shouldBe Success(body)
+        val code = 200
+
+        val expected = Success(
+            body,
+            code
+        )
+        val actual = parseToAppNetworkResult<String> { NetworkResponseData(code, body) }
+
+        actual shouldBe expected
     }
 
     "success case 2" {
         val body = "Abc"
+        val code = 200
 
-        val modifiedBody = mapOf("data" to body)
-        execute(
-            { body },
-            { result -> mapOf("data" to result) }
-        ) shouldBe Success(modifiedBody)
+        val expected = Success(mapOf("data" to body), code)
+        val actual = parseToAppNetworkResult<String> {
+            NetworkResponseData(
+                code,
+                body
+            )
+        }.map { result -> mapOf("data" to result) }
+
+        actual shouldBe expected
+    }
+
+    "Unsuccessful case" {
+        val errorMsg = "Bad Request"
+        val body = """
+            {
+              "error": "Bad Request"
+            }
+        """.trimIndent()
+        val code = 400
+
+        val expected = Unsuccessful<String>(
+            error = AppServerError(errorMsg),
+            message = errorMsg,
+            code = code
+        )
+        val actual = parseToAppNetworkResult<String> { NetworkResponseData(code, body) }
+
+        actual shouldBe expected
     }
 
     "error case" {
         val exception = SocketException()
-        val expectedError = NetworkException<String>(
+
+        val expected = NetworkException<String>(
             message = ApiMessages.ERR_TIMEOUT,
             exception = exception
         )
-        execute<String, Map<String, String>>(
-            { throw exception },
-            { result -> mapOf("data" to result) }
-        ) shouldBe expectedError
+        val actual = parseToAppNetworkResult<String> { throw exception }
+
+        actual shouldBe expected
     }
 })
