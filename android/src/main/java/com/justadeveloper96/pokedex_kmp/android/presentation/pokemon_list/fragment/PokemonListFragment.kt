@@ -10,7 +10,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreen
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
@@ -53,7 +52,7 @@ class PokemonListFragment : Fragment(), IEventView<IPokemonListViewModel.UIEvent
 
     private fun subscribeEvents() {
         VMEventConnector(this, viewModel.eventHolder) { viewModel.onEventConsumed() }.observe(
-            lifecycleScope
+            viewLifecycleOwner
         )
     }
 

@@ -24,11 +24,13 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.flow
 
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.justadeveloper96.pokedex_kmp.helpers.view.IEventView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.supervisorScope
 
 class VMEventConnector<E>(
     private val view: IEventView<E>,
@@ -36,19 +38,19 @@ class VMEventConnector<E>(
     private val onEventConsumed: () -> Unit
 ) {
 
-    fun observe(flowScope: LifecycleCoroutineScope) {
-        flowScope.launch {
-            observeEvent()
+    fun observe(lifecycleOwner: LifecycleOwner) {
+        lifecycleOwner.lifecycleScope.launch {
+            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                observeEvent()
+            }
         }
     }
 
     private suspend inline fun observeEvent() {
-        supervisorScope {
-            eventFlow.collect { value ->
-                value?.let {
-                    view.onEvent(it)
-                    onEventConsumed()
-                }
+        eventFlow.collect { value ->
+            value?.let {
+                view.onEvent(it)
+                onEventConsumed()
             }
         }
     }

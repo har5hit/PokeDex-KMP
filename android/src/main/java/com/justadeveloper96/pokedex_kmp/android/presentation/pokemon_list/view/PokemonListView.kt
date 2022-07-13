@@ -31,11 +31,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -70,15 +76,28 @@ fun PokemonListItemView(model: PokemonUiModel) {
 
 @Composable
 fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
-    LazyColumn {
-        itemsIndexed(model) { index, item ->
-            if (index == (model.size - 1)) {
-                onEndReached()
-            }
+    val scrollState = rememberLazyListState()
+    LazyColumn(
+        state = scrollState
+    ) {
+        itemsIndexed(model) { _, item ->
             PokemonListItemView(item)
         }
     }
+    val endOfListReached by remember {
+        derivedStateOf {
+            scrollState.isScrolledToEnd()
+        }
+    }
+
+    // act when end of list reached
+    LaunchedEffect(endOfListReached) {
+        onEndReached()
+    }
 }
+
+fun LazyListState.isScrolledToEnd() =
+    layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 @Preview
 @Composable

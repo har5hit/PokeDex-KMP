@@ -89,9 +89,9 @@ class PokemonListViewModel(
     }
 
     private fun fetch() {
-        vmScope.launch(appCoroutineDispatchers.io) {
-            if (moreAvailable.value && !loading.value) {
-                loading.value = true
+        if (moreAvailable.value && !loading.value) {
+            loading.value = true
+            vmScope.launch(appCoroutineDispatchers.io) {
                 fetchNewItems()
             }
         }
