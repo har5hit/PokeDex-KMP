@@ -38,7 +38,7 @@ kapt {
 android {
     compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
     defaultConfig {
-        applicationId = "com.justadeveloper96.pokedex_kmp.android"
+        applicationId = "${ProjectProperties.group}.android"
         minSdk = AndroidDependencies.SdkVersion.minSdk
         targetSdk = AndroidDependencies.SdkVersion.targetSdk
         versionCode = 1

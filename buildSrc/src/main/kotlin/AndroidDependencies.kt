@@ -93,7 +93,7 @@ object AndroidDependencies {
 
     object Google {
         object Services {
-            const val plugin = "com.google.gms:google-services:4.3.8"
+            const val plugin = "com.google.gms:google-services:4.3.13"
         }
     }
 

@@ -25,7 +25,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version Dependencies.Serialization.version
+    kotlin("plugin.serialization")
 }
 
 version = ProjectProperties.version

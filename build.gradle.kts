@@ -33,7 +33,7 @@ buildscript {
         classpath(AndroidDependencies.Gradle.plugin)
         classpath(AndroidDependencies.Dagger.Hilt.plugin)
         classpath(Dependencies.SqlDelight.plugin)
-        classpath("com.google.gms:google-services:4.3.13")
+        classpath(AndroidDependencies.Google.Services.plugin)
         classpath(AndroidDependencies.Firebase.Crashlytics.plugin)
     }
 }
@@ -43,9 +43,8 @@ tasks.register("clean", Delete::class) {
 }
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
-    id("com.android.application") version "7.1.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
+    id("org.jlleitschuh.gradle.ktlint") version Dependencies.Ktlint.pluginVersion
+    kotlin("plugin.serialization") version Dependencies.Serialization.version apply false
 }
 
 allprojects {

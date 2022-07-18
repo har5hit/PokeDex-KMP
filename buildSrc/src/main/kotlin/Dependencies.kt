@@ -35,7 +35,7 @@ object Config {
 
 object Dependencies {
     object Kotlin {
-        private const val version = "1.6.21"
+        const val version = "1.6.21"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
@@ -117,6 +117,7 @@ object Dependencies {
 
     object Ktlint {
         const val version = "0.45.2"
+        const val pluginVersion = "10.0.0"
     }
 
     object Serialization {

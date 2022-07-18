@@ -25,7 +25,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version Dependencies.Serialization.version
+    kotlin("plugin.serialization")
     id("com.squareup.sqldelight")
 }
 
@@ -113,7 +113,7 @@ android {
 }
 sqldelight {
     database("PokemonDatabase") {
-        packageName = "com.justadeveloper96.pokedex_kmp.feature_pokemon_list"
+        packageName = "${ProjectProperties.group}.feature_pokemon_list"
         verifyMigrations = true
         schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
     }
