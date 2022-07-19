@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
     ViewModel(dispatchers), IFlowViewModel<T, E> {
@@ -56,7 +57,9 @@ abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
     }
 
     protected fun pushEvent(event: E?) {
-        _eventHolder.value = event
+        vmScope.launch(dispatchers.mainImmediate) {
+            _eventHolder.value = event
+        }
     }
 
     override fun onEventConsumed() {

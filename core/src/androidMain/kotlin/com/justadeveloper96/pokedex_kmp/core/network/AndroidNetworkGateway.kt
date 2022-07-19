@@ -40,32 +40,35 @@ class AndroidNetworkGateway(
     private val networkInterceptor: List<Interceptor>
 ) : INetworkGateway {
 
-    override val client: HttpClient
-        get() = HttpClient(OkHttp) {
-            engine {
-                config {
-                    callTimeout(30, TimeUnit.SECONDS)
-                    connectTimeout(30, TimeUnit.SECONDS)
-                    readTimeout(30, TimeUnit.SECONDS)
-                    writeTimeout(30, TimeUnit.SECONDS)
-                }
-
-                interceptors.forEach { addInterceptor(it) }
-                networkInterceptor.forEach { addNetworkInterceptor(it) }
+    override val client = HttpClient(OkHttp) {
+        engine {
+            config {
+                callTimeout(30, TimeUnit.SECONDS)
+                connectTimeout(30, TimeUnit.SECONDS)
+                readTimeout(30, TimeUnit.SECONDS)
+                writeTimeout(30, TimeUnit.SECONDS)
             }
 
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(
-                    Json {
-                        prettyPrint = true
-                        isLenient = true
-                        ignoreUnknownKeys = true
-                    }
-                )
+            interceptors.forEach {
+                addInterceptor(it)
             }
-
-            install(Logging) {
-                level = if (debug) LogLevel.NONE else LogLevel.NONE
+            networkInterceptor.forEach {
+                addNetworkInterceptor(it)
             }
         }
+
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(
+                Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            )
+        }
+
+        install(Logging) {
+            level = if (debug) LogLevel.NONE else LogLevel.NONE
+        }
+    }
 }
