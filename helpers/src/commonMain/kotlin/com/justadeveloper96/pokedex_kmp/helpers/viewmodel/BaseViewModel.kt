@@ -46,11 +46,7 @@ abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
         get() = _eventHolder.asStateFlow()
 
     override val stateHolder: StateFlow<T>
-        get() = _stateHolder
-
-    init {
-        setState(initialState)
-    }
+        get() = _stateHolder.asStateFlow()
 
     protected fun setState(state: T) {
         _stateHolder.value = state

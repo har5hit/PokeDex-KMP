@@ -44,8 +44,10 @@ class PokemonListViewModel(
     ),
     IPokemonListViewModel {
 
-    override val TAG: String = "PokemonListViewModel"
-    override val initialState = IPokemonListViewModel.UIState(true, listOf(), false)
+    override val TAG
+        get() = "PokemonListViewModel"
+    override val initialState
+        get() = IPokemonListViewModel.UIState(true, listOf(), false)
 
     private val limit = 10
 

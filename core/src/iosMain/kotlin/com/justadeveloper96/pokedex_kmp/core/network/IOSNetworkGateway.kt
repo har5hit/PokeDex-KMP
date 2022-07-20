@@ -33,20 +33,21 @@ import io.ktor.client.features.logging.Logging
 import kotlinx.serialization.json.Json
 
 class IOSNetworkGateway(private val debug: Boolean) : INetworkGateway {
-    override val client = HttpClient(Ios) {
-        engine {
+    override val client
+        get() = HttpClient(Ios) {
+            engine {
+            }
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                    }
+                )
+            }
+            install(Logging) {
+                level = if (debug) LogLevel.ALL else LogLevel.NONE
+            }
         }
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                }
-            )
-        }
-        install(Logging) {
-            level = if (debug) LogLevel.ALL else LogLevel.NONE
-        }
-    }
 }
