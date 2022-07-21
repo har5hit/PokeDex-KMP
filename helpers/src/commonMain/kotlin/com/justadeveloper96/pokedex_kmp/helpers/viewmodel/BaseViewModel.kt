@@ -31,12 +31,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<T, E>(dispatchers: AppCoroutineDispatchers) :
+abstract class BaseViewModel<T, E>(initialState: T, dispatchers: AppCoroutineDispatchers) :
     ViewModel(dispatchers), IFlowViewModel<T, E> {
 
     abstract val TAG: String
-
-    abstract val initialState: T
 
     private val _stateHolder: MutableStateFlow<T> = MutableStateFlow(initialState)
 

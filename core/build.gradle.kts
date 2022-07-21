@@ -90,11 +90,11 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(AndroidDependencies.SdkVersion.compileSdk)
+    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(AndroidDependencies.SdkVersion.minSdk)
-        targetSdkVersion(AndroidDependencies.SdkVersion.targetSdk)
+        minSdk = AndroidDependencies.SdkVersion.minSdk
+        targetSdk = AndroidDependencies.SdkVersion.targetSdk
         consumerProguardFiles("proguard-consumer-rules.pro")
     }
     buildTypes {

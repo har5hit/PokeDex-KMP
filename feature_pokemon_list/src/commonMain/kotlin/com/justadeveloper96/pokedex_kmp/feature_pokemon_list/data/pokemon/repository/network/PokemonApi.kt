@@ -25,7 +25,7 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network
 
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.AppNetworkResult
-import com.justadeveloper96.pokedex_kmp.core.network.INetworkGateway
+import com.justadeveloper96.pokedex_kmp.core.network.NetworkGateway
 import com.justadeveloper96.pokedex_kmp.core.network.NetworkResponseData
 import com.justadeveloper96.pokedex_kmp.core.network.parseToAppNetworkResult
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
@@ -34,7 +34,7 @@ import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 
-class PokemonApi(private val gateway: INetworkGateway) : IPokemonApi {
+class PokemonApi(private val gateway: NetworkGateway) : IPokemonApi {
 
     private val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
 

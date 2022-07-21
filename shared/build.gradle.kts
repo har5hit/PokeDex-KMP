@@ -42,6 +42,7 @@ kotlin {
         it.binaries.framework {
             linkerOpts.add("-lsqlite3")
             isStatic = true
+            baseName = "shared"
         }
     }
 
@@ -106,11 +107,11 @@ configurations.all {
 }
 
 android {
-    compileSdkVersion(AndroidDependencies.SdkVersion.compileSdk)
+    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(AndroidDependencies.SdkVersion.minSdk)
-        targetSdkVersion(AndroidDependencies.SdkVersion.targetSdk)
+        minSdk = AndroidDependencies.SdkVersion.minSdk
+        targetSdk = AndroidDependencies.SdkVersion.targetSdk
         consumerProguardFiles("proguard-proguard-consumer-rules.pro")
     }
     buildTypes {

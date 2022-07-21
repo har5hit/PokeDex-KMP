@@ -38,9 +38,8 @@ class AndroidNetworkGateway(
     private val debug: Boolean,
     private val interceptors: List<Interceptor>,
     private val networkInterceptor: List<Interceptor>
-) : INetworkGateway {
-
-    override val client = HttpClient(OkHttp) {
+) : NetworkGateway(
+    HttpClient(OkHttp) {
         engine {
             config {
                 callTimeout(30, TimeUnit.SECONDS)
@@ -71,4 +70,4 @@ class AndroidNetworkGateway(
             level = if (debug) LogLevel.NONE else LogLevel.NONE
         }
     }
-}
+)
