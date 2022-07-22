@@ -34,8 +34,8 @@ import kotlinx.serialization.json.Json
 
 class IOSNetworkGateway(
     debug: Boolean
-) : NetworkGateway(
-    HttpClient(Ios) {
+) : INetworkGateway {
+    override val client: HttpClient = HttpClient(Ios) {
         engine {
         }
         install(JsonFeature) {
@@ -51,4 +51,4 @@ class IOSNetworkGateway(
             level = if (debug) LogLevel.ALL else LogLevel.NONE
         }
     }
-)
+}

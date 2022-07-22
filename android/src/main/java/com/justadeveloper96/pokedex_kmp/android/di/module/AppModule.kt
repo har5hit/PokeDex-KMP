@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.justadeveloper96.pokedex_kmp.core.network.AndroidNetworkGateway
-import com.justadeveloper96.pokedex_kmp.core.network.NetworkGateway
+import com.justadeveloper96.pokedex_kmp.core.network.INetworkGateway
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.PokemonDatabaseProvider
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
@@ -52,7 +52,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkGateway(@ApplicationContext context: Context): NetworkGateway {
+    fun provideNetworkGateway(@ApplicationContext context: Context): INetworkGateway {
         return AndroidNetworkGateway(
             debug = BuildConfig.DEBUG,
             interceptors = listOf(),
@@ -68,7 +68,7 @@ object AppModule {
 
     @Reusable
     @Provides
-    fun providePokemonApi(networkGateway: NetworkGateway): IPokemonApi {
+    fun providePokemonApi(networkGateway: INetworkGateway): IPokemonApi {
         return PokemonApi(networkGateway)
     }
 
