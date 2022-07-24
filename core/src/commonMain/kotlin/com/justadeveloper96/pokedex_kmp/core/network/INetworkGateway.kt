@@ -26,6 +26,6 @@ package com.justadeveloper96.pokedex_kmp.core.network
 
 import io.ktor.client.HttpClient
 
-interface INetworkGateway{
+interface INetworkGateway {
     val client: HttpClient
 }
