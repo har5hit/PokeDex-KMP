@@ -40,7 +40,7 @@ object Dependencies {
     }
 
     object Kotest {
-        private const val version = "5.4.0"
+        const val version = "5.4.1"
 
         object Common {
             const val property = "io.kotest:kotest-property:$version"

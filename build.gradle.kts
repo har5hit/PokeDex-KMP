@@ -45,7 +45,7 @@ tasks.register("clean", Delete::class) {
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version Dependencies.Ktlint.pluginVersion
     kotlin("plugin.serialization") version Dependencies.Serialization.version apply false
-    id("io.kotest.multiplatform") version "5.4.1"
+    id("io.kotest.multiplatform") version Dependencies.Kotest.version apply false
 }
 
 allprojects {
