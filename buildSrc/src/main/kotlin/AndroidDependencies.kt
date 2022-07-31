@@ -25,18 +25,18 @@
 object AndroidDependencies {
 
     object WorkManager {
-        private const val version = "2.6.0"
+        private const val version = "2.7.1"
         const val runtime = "androidx.work:work-runtime:$version"
         const val coroutine = "androidx.work:work-runtime-ktx:$version"
     }
 
     object Dagger {
-        private const val version = "2.41"
+        private const val version = "2.43"
         const val core = "com.google.dagger:dagger:$version"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
 
         object Hilt {
-            private const val version = "2.42"
+            private const val version = "2.43"
 
             const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
             const val core = "com.google.dagger:hilt-android:$version"
@@ -50,7 +50,7 @@ object AndroidDependencies {
     }
 
     object AdapterDelegate {
-        private const val version = "4.3.0"
+        private const val version = "4.3.2"
         const val core = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$version"
         const val layoutcontainer =
             "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$version"
@@ -65,19 +65,19 @@ object AndroidDependencies {
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
 
-        const val core = "androidx.core:core-ktx:1.5.0"
-        const val fragment = "androidx.fragment:fragment-ktx:1.3.5"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-        const val appCompat = "androidx.appcompat:appcompat:1.3.0"
+        const val core = "androidx.core:core-ktx:1.8.0"
+        const val fragment = "androidx.fragment:fragment-ktx:1.5.0"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+        const val appCompat = "androidx.appcompat:appcompat:1.4.2"
     }
 
     object Material {
-        private const val version = "1.3.0"
+        private const val version = "1.6.1"
         const val core = "com.google.android.material:material:$version"
     }
 
     object Firebase {
-        const val bom = "com.google.firebase:firebase-bom:30.2.0"
+        const val bom = "com.google.firebase:firebase-bom:30.3.1"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         object Crashlytics {
             const val plugin = "com.google.firebase:firebase-crashlytics-gradle:2.9.1"
@@ -98,11 +98,11 @@ object AndroidDependencies {
     }
 
     object Gradle {
-        const val plugin = "com.android.tools.build:gradle:7.0.4"
+        const val plugin = "com.android.tools.build:gradle:7.2.1"
     }
 
     object Glide {
-        private const val version = "4.12.0"
+        private const val version = "4.13.2"
 
         const val core = "com.github.bumptech.glide:glide:$version"
         const val compiler = "com.github.bumptech.glide:compiler:$version"
@@ -112,18 +112,19 @@ object AndroidDependencies {
         const val minSdk = 23
         const val targetSdk = 32
         const val compileSdk = "android-32"
+        const val compileSdkInt = 32
     }
 
     val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     object Compose {
-        private const val version = "1.1.1"
+        private const val version = "1.2.0"
+        const val kotlinCompilerVersion = "1.3.0-rc01"
         const val compose = "androidx.activity:activity-compose:1.4.0"
         const val material = "androidx.compose.material:material:$version"
         const val animation = "androidx.compose.animation:animation:$version"
         const val tooling = "androidx.compose.ui:ui-tooling:$version"
         const val uiTesting = "androidx.compose.ui:ui-test-junit4:$version"
-        const val kotlinCompilerVersion = "1.2.0-rc02"
 
     }
 
@@ -131,5 +132,5 @@ object AndroidDependencies {
         const val compose = "io.coil-kt:coil-compose:2.1.0"
     }
 
-    const val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.24.12-rc"
+    const val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.26.0-alpha"
 }

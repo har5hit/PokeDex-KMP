@@ -35,16 +35,17 @@ object Config {
 
 object Dependencies {
     object Kotlin {
-        const val version = "1.6.21"
+        const val version = "1.7.10"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Kotest {
-        private const val version = "5.3.0"
+        private const val version = "5.4.0"
 
         object Common {
             const val property = "io.kotest:kotest-property:$version"
             const val assertions = "io.kotest:kotest-assertions-core:$version"
+            const val engine = "io.kotest:kotest-framework-engine:$version"
         }
 
         object Android {
@@ -53,7 +54,7 @@ object Dependencies {
     }
 
     object Mockk {
-        private const val version = "1.12.3"
+        private const val version = "1.12.5"
 
         object Common {
             const val core = "io.mockk:mockk-common:$version"
@@ -65,7 +66,7 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.6.1"
+        private const val version = "1.6.3"
         const val versionNativeMT = "${version}-native-mt"
 
         object Common {
@@ -121,7 +122,7 @@ object Dependencies {
     }
 
     object Serialization {
-        const val version = "1.6.21"
+        const val version = "1.7.10"
     }
 
     object Kermit {

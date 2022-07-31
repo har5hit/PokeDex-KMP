@@ -50,6 +50,9 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(project(":core"))
+                implementation(Dependencies.Kotest.Common.engine)
+                implementation(Dependencies.Kotest.Common.property)
+                implementation(Dependencies.Kotest.Common.assertions)
             }
         }
         val androidMain by getting {
@@ -61,8 +64,6 @@ kotlin {
         val androidTest by getting {
             dependencies {
                 implementation(project(":core"))
-                implementation(Dependencies.Kotest.Common.property)
-                implementation(Dependencies.Kotest.Common.assertions)
                 implementation(Dependencies.Kotest.Android.runner)
                 implementation(Dependencies.Mockk.Android.core)
                 implementation(Dependencies.Coroutines.Android.test)

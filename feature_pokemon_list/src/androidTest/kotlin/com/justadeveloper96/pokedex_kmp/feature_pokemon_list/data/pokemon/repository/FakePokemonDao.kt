@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
+package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository
 
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao
 import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModel

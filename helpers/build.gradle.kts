@@ -52,6 +52,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(Dependencies.Kotest.Common.engine)
                 implementation(Dependencies.Kotest.Common.property)
                 implementation(Dependencies.Kotest.Common.assertions)
                 implementation(Dependencies.Mockk.Common.core)
@@ -73,8 +74,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
-                implementation(Dependencies.Kotest.Common.property)
-                implementation(Dependencies.Kotest.Common.assertions)
                 implementation(Dependencies.Kotest.Android.runner)
                 implementation(Dependencies.Mockk.Android.core)
                 implementation(Dependencies.Coroutines.Android.test)

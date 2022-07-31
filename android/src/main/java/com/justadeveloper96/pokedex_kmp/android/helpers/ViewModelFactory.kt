@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
+package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

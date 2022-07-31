@@ -1,6 +1,5 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository
 
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.FakePokemonDao
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Loading
 import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao

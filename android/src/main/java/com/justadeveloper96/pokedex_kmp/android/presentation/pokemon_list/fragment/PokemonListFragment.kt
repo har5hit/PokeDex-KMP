@@ -11,11 +11,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreen
+import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.view.getViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.helpers.flow.VMEventConnector
 import com.justadeveloper96.pokedex_kmp.helpers.view.IEventView
-import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.getViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Provider
