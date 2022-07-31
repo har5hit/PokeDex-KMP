@@ -6,7 +6,7 @@
 A Demo Application for demonstrating code reuse in Both Android and iOS apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
 * 100% [Kotlin](https://kotlinlang.org/) for Android and KMP module.
 * 100% [Swift](https://www.swift.org/) for iOS.
-* Kotlin: 1.6.21
+* Kotlin: 1.7.10
 * Test Driven Development
 * MVVM design pattern
 * Multi Module KMP Application Setup
