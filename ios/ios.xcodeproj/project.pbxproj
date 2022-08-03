@@ -15,9 +15,9 @@
 		BC8CC8E3287D7DE5002C9488 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */; };
 		BC8CC8EC287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = BC8CC8EB287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		BC8CC8EE287D941E002C9488 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = BC8CC8ED287D941E002C9488 /* FirebaseCrashlytics */; };
-		BCB13D72282168620015E6D5 /* PokemonListViewModelWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB13D71282168620015E6D5 /* PokemonListViewModelWrapper.swift */; };
 		BCB13D7528216AB80015E6D5 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB13D7428216AB80015E6D5 /* AppModule.swift */; };
 		BCB13D7728216B750015E6D5 /* PokemonDatabaseProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB13D7628216B750015E6D5 /* PokemonDatabaseProviderFactory.swift */; };
+		BCBAC5E4289AE241003661BB /* KMPViewModelWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBAC5E3289AE240003661BB /* KMPViewModelWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,9 +42,9 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC267C522823DC4600217C06 /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
 		BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BCB13D71282168620015E6D5 /* PokemonListViewModelWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModelWrapper.swift; sourceTree = "<group>"; };
 		BCB13D7428216AB80015E6D5 /* AppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
 		BCB13D7628216B750015E6D5 /* PokemonDatabaseProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDatabaseProviderFactory.swift; sourceTree = "<group>"; };
+		BCBAC5E3289AE240003661BB /* KMPViewModelWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPViewModelWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +88,7 @@
 		7555FF7D242A565900829871 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				BCBAC5EE289AF2E9003661BB /* helpers */,
 				BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */,
 				BC267C4E2823DC0300217C06 /* presentation */,
 				BCB13D7328216AA80015E6D5 /* di */,
@@ -118,7 +119,6 @@
 		BC267C4F2823DC0D00217C06 /* pokemon_list */ = {
 			isa = PBXGroup;
 			children = (
-				BC267C512823DC1D00217C06 /* viewmodel */,
 				BC267C502823DC1A00217C06 /* view */,
 			);
 			path = pokemon_list;
@@ -135,7 +135,7 @@
 		BC267C512823DC1D00217C06 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				BCB13D71282168620015E6D5 /* PokemonListViewModelWrapper.swift */,
+				BCBAC5E3289AE240003661BB /* KMPViewModelWrapper.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -147,6 +147,14 @@
 				BCB13D7628216B750015E6D5 /* PokemonDatabaseProviderFactory.swift */,
 			);
 			path = di;
+			sourceTree = "<group>";
+		};
+		BCBAC5EE289AF2E9003661BB /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BC267C512823DC1D00217C06 /* viewmodel */,
+			);
+			path = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,11 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB13D72282168620015E6D5 /* PokemonListViewModelWrapper.swift in Sources */,
 				BCB13D7528216AB80015E6D5 /* AppModule.swift in Sources */,
 				BCB13D7728216B750015E6D5 /* PokemonDatabaseProviderFactory.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				BC267C532823DC4600217C06 /* PokemonListView.swift in Sources */,
+				BCBAC5E4289AE241003661BB /* KMPViewModelWrapper.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

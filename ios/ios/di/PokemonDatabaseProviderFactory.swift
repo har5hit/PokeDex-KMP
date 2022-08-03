@@ -9,7 +9,7 @@
 import Foundation
 import shared
 
-class PokemonDatabaseProviderFactory : IDatabaseDriverFactory {
+class PokemonDatabaseProviderFactory: IDatabaseDriverFactory {
     func createDriver() -> SqlDriver {
         return NativeSqliteDriver.init(schema: PokemonDatabaseCompanion.init().Schema, name: "pokemon.db", maxReaderConnections: 4)
     }

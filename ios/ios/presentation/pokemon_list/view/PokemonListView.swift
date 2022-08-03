@@ -10,17 +10,16 @@ import SwiftUI
 import shared
 import SwiftUI
 
-
 struct PokemonListView: View {
-    
+
     @ObservedObject var state: IPokemonListViewModelUIState
-    
-    var callBack: (IPokemonListViewModelAction)->Void
-    
+
+    var callBack: (IPokemonListViewModelAction) -> Void
+
     var body: some View {
-        if(state.loading && state.list.isEmpty){
+        if state.loading && state.list.isEmpty {
             ProgressView()
-        }else {
+        } else {
             List {
                 ForEach(state.list) { pokemonUiModel in
                     PokemonListCell(state: pokemonUiModel)
@@ -40,61 +39,59 @@ struct PokemonListView: View {
 
 struct PokemonListView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonListView(state: IPokemonListViewModelUIState(loading: true, list: [PokemonUiModel(name: "Balbasur", url: "https://pokeapi.co/api/v2/pokemon/1/"),PokemonUiModel(name: "Balbasur 2", url: "https://pokeapi.co/api/v2/pokemon/2/")],canLoadMore: true),callBack: { action in
+        PokemonListView(state: IPokemonListViewModelUIState(loading: true, list: [PokemonUiModel(name: "Balbasur", url: "https://pokeapi.co/api/v2/pokemon/1/"), PokemonUiModel(name: "Balbasur 2", url: "https://pokeapi.co/api/v2/pokemon/2/")], canLoadMore: true), callBack: { action in
             print(action)
         })
     }
 }
 
-
 struct PokemonListCell: View {
-    
+
     @SwiftUI.State var state: PokemonUiModel
-    
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color(hexStringToUIColor(hex: state.color))
-            
-            HStack(spacing:12){
+
+            HStack(spacing: 12) {
                 Text(state.name)
-                
-                AsyncImage(url: URL(string: state.image)){ image in
+
+                AsyncImage(url: URL(string: state.image)) { image in
                     image.resizable()
                 } placeholder: {
                     ProgressView()
                 }
                 .aspectRatio(contentMode: ContentMode.fit)
                 .frame(width: 200, height: 200)
-                
+
             }
         }
-        
+
     }
 }
 
-extension PokemonUiModel: Identifiable{
-    
+extension PokemonUiModel: Identifiable {
+
 }
 
-extension IPokemonListViewModelUIState:ObservableObject{
-    
+extension IPokemonListViewModelUIState: ObservableObject {
+
 }
 
-func hexStringToUIColor (hex:String) -> UIColor {
-    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-    
-    if (cString.hasPrefix("#")) {
+func hexStringToUIColor (hex: String) -> UIColor {
+    var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+    if cString.hasPrefix("#") {
         cString.remove(at: cString.startIndex)
     }
-    
-    if ((cString.count) != 6) {
+
+    if (cString.count) != 6 {
         return UIColor.gray
     }
-    
-    var rgbValue:UInt64 = 0
+
+    var rgbValue: UInt64 = 0
     Scanner(string: cString).scanHexInt64(&rgbValue)
-    
+
     return UIColor(
         red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
         green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,

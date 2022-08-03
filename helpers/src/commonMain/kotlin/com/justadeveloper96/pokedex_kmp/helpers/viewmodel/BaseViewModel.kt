@@ -25,28 +25,27 @@
 package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<T, E>(initialState: T, dispatchers: AppCoroutineDispatchers) :
-    ViewModel(dispatchers), IFlowViewModel<T, E> {
+abstract class BaseViewModel<S, E, A>(initialState: S, dispatchers: AppCoroutineDispatchers) :
+    ViewModel(dispatchers), IFlowViewModel<S, E, A> {
 
     abstract val TAG: String
 
-    private val _stateHolder: MutableStateFlow<T> = MutableStateFlow(initialState)
+    private val _stateHolder: MutableStateFlow<S> = MutableStateFlow(initialState)
 
     private val _eventHolder: MutableStateFlow<E?> = MutableStateFlow(null)
 
-    override val eventHolder: Flow<E?>
+    override val eventHolder: StateFlow<E?>
         get() = _eventHolder.asStateFlow()
 
-    override val stateHolder: StateFlow<T>
+    override val stateHolder: StateFlow<S>
         get() = _stateHolder.asStateFlow()
 
-    protected fun setState(state: T) {
+    protected fun setState(state: S) {
         _stateHolder.value = state
     }
 
