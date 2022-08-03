@@ -31,7 +31,6 @@ import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel
-import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.IFlowViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch

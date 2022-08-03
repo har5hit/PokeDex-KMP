@@ -29,7 +29,6 @@ import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.IFlowViewModel
 interface IPokemonListViewModel :
     IFlowViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action> {
 
-
     data class UIState(
         val loading: Boolean = false,
         val list: List<PokemonUiModel>,
