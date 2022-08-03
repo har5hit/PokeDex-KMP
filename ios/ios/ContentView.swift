@@ -3,7 +3,10 @@ import shared
 
 struct ContentView: View {
 
-    @StateObject var viewModel = KMPViewModelWrapper<IPokemonListViewModelUIState, IPokemonListViewModelUIEvent, IPokemonListViewModelAction>(viewmodel: AppModule.viewmodel(), events: { event in
+    @StateObject var viewModel = KMPViewModelWrapper
+    <IPokemonListViewModelUIState,
+     IPokemonListViewModelUIEvent,
+     IPokemonListViewModelAction>(viewmodel: AppModule.viewmodel(), events: { event in
         // handle one off events
         debugPrint(event)
     })
