@@ -13,13 +13,9 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            if viewModel.state==nil {
-                ProgressView()
-            } else {
             PokemonListView(state: viewModel.state!, callBack: {action in
                 viewModel.add(action: action)
             }).navigationTitle("PokeDex")
-            }
         }
     }
 }

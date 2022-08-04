@@ -30,7 +30,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<S, E, A>(initialState: S, dispatchers: AppCoroutineDispatchers) :
+abstract class BaseViewModel<S, E, A>(
+    final override val initialState: S,
+    dispatchers: AppCoroutineDispatchers
+) :
     ViewModel(dispatchers), IFlowViewModel<S, E, A> {
 
     abstract val TAG: String

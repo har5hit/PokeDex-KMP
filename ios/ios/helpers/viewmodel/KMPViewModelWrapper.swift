@@ -11,11 +11,11 @@ import shared
 class KMPViewModelWrapper<S: AnyObject, E: AnyObject, A: AnyObject>: ObservableObject {
 
     let viewmodel: IFlowViewModel
-    @Published var state: S?
+    @Published var state: S!
 
     init(viewmodel: IFlowViewModel, events: @escaping ((E?) -> Void)) {
         self.viewmodel = viewmodel
-
+        self.state = viewmodel.initialState as! S
         CommonFlow<S>(origin: viewmodel.stateHolder).watch { newState in
             self.state = newState!
         }
