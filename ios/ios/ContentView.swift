@@ -13,7 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            PokemonListView(state: viewModel.state!, callBack: {action in
+            PokemonListView(state: viewModel.state, callBack: {action in
                 viewModel.add(action: action)
             }).navigationTitle("PokeDex")
         }
