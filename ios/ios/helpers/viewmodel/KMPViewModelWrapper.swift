@@ -15,7 +15,7 @@ class KMPViewModelWrapper<S: AnyObject, E: AnyObject, A: AnyObject>: ObservableO
 
     init(viewmodel: IFlowViewModel, events: @escaping ((E?) -> Void)) {
         self.viewmodel = viewmodel
-        self.state = viewmodel.initialState as! S
+        self.state = viewmodel.initialState as? S
         CommonFlow<S>(origin: viewmodel.stateHolder).watch { newState in
             self.state = newState!
         }
