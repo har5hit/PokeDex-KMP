@@ -25,7 +25,6 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
     // id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -66,11 +65,6 @@ dependencies {
     implementation(AndroidDependencies.AndroidX.appCompat)
     implementation(AndroidDependencies.Material.core)
 
-    implementation(AndroidDependencies.Dagger.core)
-    kapt(AndroidDependencies.Dagger.compiler)
-    implementation(AndroidDependencies.Dagger.Hilt.core)
-    kapt(AndroidDependencies.Dagger.Hilt.compiler)
-
     implementation(AndroidDependencies.swipeRefresh)
 
     implementation(AndroidDependencies.Glide.core)
@@ -94,4 +88,5 @@ dependencies {
     implementation(platform(AndroidDependencies.Firebase.bom))
     implementation(AndroidDependencies.Firebase.analytics)
     implementation(AndroidDependencies.Firebase.Crashlytics.crashlytics)
+    implementation(Dependencies.Koin.Android.android)
 }

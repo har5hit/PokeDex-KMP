@@ -130,4 +130,14 @@ object Dependencies {
         const val kermit = "co.touchlab:kermit:$version"
         const val crashlytics = "co.touchlab:kermit-crashlytics:$version"
     }
+
+    object Koin {
+        const val version = "3.2.0"
+        const val core = "io.insert-koin:koin-core:${version}"
+        const val test = "io.insert-koin:koin-test:${version}"
+
+        object Android {
+            const val android = "io.insert-koin:koin-android:${version}"
+        }
+    }
 }

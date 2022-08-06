@@ -10,9 +10,9 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Test Driven Development
 * MVVM design pattern
 * Multi Module KMP Application Setup
-* Dependency Injection using [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Android
 * Unit Testing via [Kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
-* Multithreading using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+* Multiplatform Dependency Injection using [Koin](https://insert-koin.io/)
+* Multiplatform Concurrency using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 * Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight)
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
 * [Ktlint](https://ktlint.github.io/) for lint.

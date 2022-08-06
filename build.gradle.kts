@@ -31,15 +31,10 @@ buildscript {
     dependencies {
         classpath(Dependencies.Kotlin.plugin)
         classpath(AndroidDependencies.Gradle.plugin)
-        classpath(AndroidDependencies.Dagger.Hilt.plugin)
         classpath(Dependencies.SqlDelight.plugin)
         classpath(AndroidDependencies.Google.Services.plugin)
         classpath(AndroidDependencies.Firebase.Crashlytics.plugin)
     }
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
 }
 
 plugins {
@@ -65,11 +60,6 @@ subprojects {
         verbose.set(true)
         filter {
             exclude { it.file.path.contains("build/") }
-        }
-    }
-    afterEvaluate {
-        tasks.named("check").configure {
-            dependsOn(tasks.getByName("ktlintCheck"))
         }
     }
 }

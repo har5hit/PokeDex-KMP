@@ -98,7 +98,8 @@ object AndroidDependencies {
     }
 
     object Gradle {
-        const val plugin = "com.android.tools.build:gradle:7.2.1"
+        const val version = "7.2.1"
+        const val plugin = "com.android.tools.build:gradle:$version"
     }
 
     object Glide {

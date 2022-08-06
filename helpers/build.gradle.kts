@@ -46,6 +46,7 @@ kotlin {
                 api(Dependencies.Ktor.Common.serialization)
                 api(Dependencies.SqlDelight.Common.runtime)
                 api(Dependencies.SqlDelight.Common.coroutinesExtension)
+                api(Dependencies.Koin.core)
             }
         }
         val commonTest by getting {

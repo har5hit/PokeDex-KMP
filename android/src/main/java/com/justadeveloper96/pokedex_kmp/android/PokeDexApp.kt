@@ -17,7 +17,11 @@
 package com.justadeveloper96.pokedex_kmp.android
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.justadeveloper96.pokedex_kmp.android.di.InitKoin
 
-@HiltAndroidApp
-class PokeDexApp : Application()
+class PokeDexApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        InitKoin()(this)
+    }
+}

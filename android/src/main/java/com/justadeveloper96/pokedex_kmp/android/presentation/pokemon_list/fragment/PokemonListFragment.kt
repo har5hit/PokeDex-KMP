@@ -16,17 +16,14 @@ import com.justadeveloper96.pokedex_kmp.android.helpers.viewmodel.getViewModel
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreen
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import javax.inject.Provider
+import org.koin.android.ext.android.get
 
-@AndroidEntryPoint
 class PokemonListFragment : Fragment(), IEventView<IPokemonListViewModel.UIEvent> {
 
-    @Inject
-    lateinit var viewModelProvider: Provider<PokemonListViewModel>
     private val viewModel by lazy {
-        getViewModel { viewModelProvider.get() }
+        getViewModel {
+            get<PokemonListViewModel>()
+        }
     }
 
     override fun onCreateView(
@@ -64,5 +61,6 @@ class PokemonListFragment : Fragment(), IEventView<IPokemonListViewModel.UIEvent
             }
         }
     }
+
     private val TAG = "PokemonListFragment"
 }

@@ -50,7 +50,7 @@ data class PokemonUiModel(
 
 fun Pokemon.toPokemonUiModel(): PokemonUiModel {
     return PokemonUiModel(
-        name.capitalize(),
+        name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
         url
     )
 }
