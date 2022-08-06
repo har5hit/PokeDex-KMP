@@ -22,12 +22,9 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.logging
+package com.justadeveloper96.pokedex_kmp.android.helpers.local
 
-import android.util.Log
+import android.content.res.AssetManager
 
-class AndroidLogger : ILogger {
-    override fun log(tag: String, log: Any) {
-        Log.d(tag, log.toString())
-    }
-}
+fun AssetManager.readAssetsFile(fileName: String): String =
+    open(fileName).bufferedReader().use { it.readText() }

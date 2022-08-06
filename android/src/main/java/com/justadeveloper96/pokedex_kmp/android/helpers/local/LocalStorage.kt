@@ -22,8 +22,39 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.view
+package com.justadeveloper96.pokedex_kmp.android.helpers.local
 
-interface IView<T, E> : IEventView<E> {
-    fun render(state: T)
+import android.content.Context
+import com.justadeveloper96.pokedex_kmp.helpers.local.ILocalStorage
+
+class LocalStorage(val context: Context) : ILocalStorage {
+    private val prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE)
+
+    override fun getString(key: String): String? {
+        return prefs.getString(key, null)
+    }
+
+    override fun putString(key: String, value: String?) {
+        prefs.edit().putString(key, value).apply()
+    }
+
+    override fun putInt(key: String, value: Int?) {
+        if (value == null) {
+            prefs.edit().remove(key).apply()
+        } else {
+            prefs.edit().putInt(key, value).apply()
+        }
+    }
+
+    override fun getInt(key: String): Int? {
+        return if (prefs.contains(key)) {
+            prefs.getInt(key, -1)
+        } else {
+            null
+        }
+    }
+
+    override fun clear() {
+        prefs.edit().clear().apply()
+    }
 }

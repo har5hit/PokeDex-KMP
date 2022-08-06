@@ -22,9 +22,27 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.local
+package com.justadeveloper96.pokedex_kmp.helpers.coroutine
 
-import android.content.res.AssetManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-fun AssetManager.readAssetsFile(fileName: String): String =
-    open(fileName).bufferedReader().use { it.readText() }
+fun <T> Flow<T>.asCallback(): FlowAsCallback<T> = FlowAsCallback(this)
+class FlowAsCallback<T>(private val origin: Flow<T>) : Flow<T> by origin {
+    fun watch(block: (T) -> Unit): Closeable {
+        val job = Job()
+
+        onEach {
+            block(it)
+        }.launchIn(CoroutineScope(CoroutineDependency.dispatchers.mainImmediate + job))
+
+        return object : Closeable {
+            override fun close() {
+                job.cancel()
+            }
+        }
+    }
+}

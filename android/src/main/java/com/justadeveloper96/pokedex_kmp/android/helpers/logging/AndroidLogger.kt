@@ -22,8 +22,13 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.random
+package com.justadeveloper96.pokedex_kmp.android.helpers.logging
 
-import java.util.UUID
+import android.util.Log
+import com.justadeveloper96.pokedex_kmp.helpers.logging.ILogger
 
-actual fun randomUUID(): String = UUID.randomUUID().toString()
+class AndroidLogger : ILogger {
+    override fun log(tag: String, log: Any) {
+        Log.d(tag, log.toString())
+    }
+}

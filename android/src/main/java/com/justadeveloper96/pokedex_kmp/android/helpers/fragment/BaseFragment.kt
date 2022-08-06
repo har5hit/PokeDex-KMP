@@ -22,40 +22,34 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.view
+package com.justadeveloper96.pokedex_kmp.android.helpers.fragment
 
-import android.content.Context
-import android.util.AttributeSet
-import android.util.Log
+import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.FrameLayout
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
-abstract class BaseFrameLayout<B : ViewDataBinding>(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
+    private var _binding: T? = null
 
-    lateinit var binding: B
+    protected val binding get() = _binding!!
 
-    init {
-        if (!isInEditMode) {
-            setupView()
-        }
+    abstract val layout: Int
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = DataBindingUtil.inflate(inflater, layout, container, false)
+        return _binding?.root
     }
 
-    private fun setupView() {
-        val inflater = LayoutInflater.from(context)
-        binding = DataBindingUtil.inflate(inflater, getLayoutId(), this, true)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-
-    open val TAG = "BaseFrameLayout"
-
-    protected fun log(s: String) {
-        Log.d(TAG, s)
-    }
-
-    abstract fun getLayoutId(): Int
 }

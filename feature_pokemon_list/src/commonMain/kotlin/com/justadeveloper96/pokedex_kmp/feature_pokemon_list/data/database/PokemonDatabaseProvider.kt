@@ -25,7 +25,7 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database
 
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
-import com.justadeveloper96.pokedex_kmp.helpers.database.dao.IDatabaseDriverFactory
+import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
 
 class PokemonDatabaseProvider(private val databaseDriver: IDatabaseDriverFactory) {
     fun instance(): PokemonDatabase {

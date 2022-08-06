@@ -26,7 +26,7 @@ package com.justadeveloper96.pokedex_kmp.android.di.module
 
 import android.content.Context
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
-import com.justadeveloper96.pokedex_kmp.helpers.database.dao.IDatabaseDriverFactory
+import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 

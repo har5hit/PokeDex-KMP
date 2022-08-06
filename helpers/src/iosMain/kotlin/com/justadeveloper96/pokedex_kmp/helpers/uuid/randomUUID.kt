@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.random
+package com.justadeveloper96.pokedex_kmp.helpers.uuid
 
-expect fun randomUUID(): String
+import platform.Foundation.NSUUID
+
+actual fun randomUUID(): String = NSUUID().UUIDString()

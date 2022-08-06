@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.data.list
+package com.justadeveloper96.pokedex_kmp.helpers.list
 
 fun <T> MutableList<T>.swap(i: Int, j: Int) {
     val t = this[i]

@@ -22,8 +22,40 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.random
+package com.justadeveloper96.pokedex_kmp.android.helpers.view
 
-import platform.Foundation.NSUUID
+import android.content.Context
+import android.util.AttributeSet
+import android.util.Log
+import android.view.LayoutInflater
+import android.widget.FrameLayout
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
-actual fun randomUUID(): String = NSUUID().UUIDString()
+abstract class BaseFrameLayout<B : ViewDataBinding>(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
+
+    lateinit var binding: B
+
+    init {
+        if (!isInEditMode) {
+            setupView()
+        }
+    }
+
+    private fun setupView() {
+        val inflater = LayoutInflater.from(context)
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), this, true)
+    }
+
+    open val TAG = "BaseFrameLayout"
+
+    protected fun log(s: String) {
+        Log.d(TAG, s)
+    }
+
+    abstract fun getLayoutId(): Int
+}

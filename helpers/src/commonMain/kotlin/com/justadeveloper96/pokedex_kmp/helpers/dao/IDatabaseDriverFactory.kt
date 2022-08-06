@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.helpers.database.dao
+package com.justadeveloper96.pokedex_kmp.helpers.dao
 
 import com.squareup.sqldelight.db.SqlDriver
 

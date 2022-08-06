@@ -16,10 +16,10 @@ class KMPViewModelWrapper<S: AnyObject, E: AnyObject, A: AnyObject>: ObservableO
     init(viewmodel: IFlowViewModel, events: @escaping ((E?) -> Void)) {
         self.viewmodel = viewmodel
         self.state = viewmodel.initialState as? S
-        CommonFlow<S>(origin: viewmodel.stateHolder).watch { newState in
+        FlowAsCallback<S>(origin: viewmodel.stateHolder).watch { newState in
             self.state = newState!
         }
-        CommonFlow<E>(origin: viewmodel.eventHolder).watch(block: events)
+        FlowAsCallback<E>(origin: viewmodel.eventHolder).watch(block: events)
     }
 
     func add(action: A) {
