@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import iosUmbrellaModule
 
 class PokemonDatabaseProviderFactory: IDatabaseDriverFactory {
     func createDriver() -> SqlDriver {

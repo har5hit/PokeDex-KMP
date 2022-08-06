@@ -11,7 +11,7 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * MVVM design pattern
 * Multi Module KMP Application Setup
 * Dependency Injection using [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Android
-* Unit Testing via [kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
+* Unit Testing via [Kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
 * Multithreading using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 * Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight)
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
@@ -59,7 +59,7 @@ Android             |  iOS
 * helpers - Generic helper methods for mobile apps
 * core - Application specific common code which are shared by mostly all feature modules
 * feature_* - Feature module
-* shared - Umbrella module for ios. This module loads all sub gradle modules and creates a single framework file for adding to ios project.
+* iosUmbrellaModule - Umbrella module for ios. This module loads all sub gradle modules and creates a single framework file for adding to ios project. Also iOS specific helper code which needs kotlin access should be put here. Treat it as extension of iOS module with Kotlin support. 
 * android - Android host app
 * ios - iOS host app
 
@@ -82,6 +82,10 @@ Each individual feature folder structure
     * /adapter
     * /view
 
+# Plugins
+Install following plugins from `Preferences -> Plugins`
+- Kotlin Multiplatform Mobile.
+- Kotest
 
 # Deployment as library
 

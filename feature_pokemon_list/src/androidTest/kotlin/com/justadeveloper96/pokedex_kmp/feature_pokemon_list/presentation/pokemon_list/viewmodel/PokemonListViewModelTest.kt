@@ -1,8 +1,8 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel
 
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.AppNetworkResult
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Loading
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
+import com.justadeveloper96.pokedex_kmp.core.network.model.AppNetworkResult
+import com.justadeveloper96.pokedex_kmp.core.network.model.Loading
+import com.justadeveloper96.pokedex_kmp.core.network.model.Success
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
@@ -12,10 +12,12 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PokemonListViewModelTest : StringSpec({
 
     val repository: IPokemonRepository = mockk()

@@ -24,17 +24,21 @@
 
 package com.justadeveloper96.pokedex_kmp.core.network
 
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.ApiMessages
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.NetworkException
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
-import com.justadeveloper96.pokedex_kmp.core.data.network.model.AppServerError
+import com.justadeveloper96.pokedex_kmp.core.network.model.ApiMessages
+import com.justadeveloper96.pokedex_kmp.core.network.model.AppServerError
+import com.justadeveloper96.pokedex_kmp.core.network.model.NetworkException
+import com.justadeveloper96.pokedex_kmp.core.network.model.Success
+import com.justadeveloper96.pokedex_kmp.core.network.model.Unsuccessful
+import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMapper
+import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkResponseData
+import com.justadeveloper96.pokedex_kmp.core.network.parse.parseToAppNetworkResult
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.net.SocketException
 
 class NetworkResponseParsingTest : StringSpec({
 
+    val networkExceptionMapper = NetworkExceptionMapper()
     "success case" {
         val body = "Abc"
         val code = 200
@@ -43,7 +47,12 @@ class NetworkResponseParsingTest : StringSpec({
             body,
             code
         )
-        val actual = parseToAppNetworkResult<String> { NetworkResponseData(code, body) }
+        val actual = parseToAppNetworkResult<String>(networkExceptionMapper) {
+            NetworkResponseData(
+                code,
+                body
+            )
+        }
 
         actual shouldBe expected
     }
@@ -53,7 +62,7 @@ class NetworkResponseParsingTest : StringSpec({
         val code = 200
 
         val expected = Success(mapOf("data" to body), code)
-        val actual = parseToAppNetworkResult<String> {
+        val actual = parseToAppNetworkResult<String>(networkExceptionMapper) {
             NetworkResponseData(
                 code,
                 body
@@ -77,7 +86,12 @@ class NetworkResponseParsingTest : StringSpec({
             message = errorMsg,
             code = code
         )
-        val actual = parseToAppNetworkResult<String> { NetworkResponseData(code, body) }
+        val actual = parseToAppNetworkResult<String>(networkExceptionMapper) {
+            NetworkResponseData(
+                code,
+                body
+            )
+        }
 
         actual shouldBe expected
     }
@@ -89,7 +103,7 @@ class NetworkResponseParsingTest : StringSpec({
             message = ApiMessages.ERR_TIMEOUT,
             exception = exception
         )
-        val actual = parseToAppNetworkResult<String> { throw exception }
+        val actual = parseToAppNetworkResult<String>(networkExceptionMapper) { throw exception }
 
         actual shouldBe expected
     }

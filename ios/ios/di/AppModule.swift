@@ -7,14 +7,16 @@
 //
 
 import Foundation
-import shared
+import iosUmbrellaModule
 
 class AppModule {
     static var dispatchers = { CoroutineDependency.init().dispatchers }()
 
-    static var networkGateway = { IOSNetworkGateway(debug: false)}()
+    static var networkClientProvider = { IOSNetworkClientProvider(debug: false)}()
 
-    static var pokemonApi = { PokemonApi(gateway: networkGateway)}()
+    static var networkExceptionMapper = { NetworkExceptionMapper() }()
+
+    static var pokemonApi = { PokemonApi(networkClientProvider: networkClientProvider, networkExceptionMapping: networkExceptionMapper)}()
 
     static var database =  { PokemonDatabaseProvider(databaseDriver: PokemonDatabaseProviderFactory()).instance()}()
 

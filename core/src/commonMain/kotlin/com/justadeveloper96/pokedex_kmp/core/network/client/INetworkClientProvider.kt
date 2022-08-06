@@ -22,17 +22,10 @@
  * SOFTWARE.
  */
 
-pluginManagement {
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
+package com.justadeveloper96.pokedex_kmp.core.network.client
 
-rootProject.name = "PokeDex-KMP"
-include(":android")
-include(":iosUmbrellaModule")
-include(":helpers")
-include(":core")
-include(":feature_pokemon_list")
+import io.ktor.client.HttpClient
+
+interface INetworkClientProvider {
+    val client: HttpClient
+}

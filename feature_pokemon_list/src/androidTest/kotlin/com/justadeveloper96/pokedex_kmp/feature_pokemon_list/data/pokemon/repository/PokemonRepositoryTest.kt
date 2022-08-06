@@ -1,7 +1,7 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository
 
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Loading
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
+import com.justadeveloper96.pokedex_kmp.core.network.model.Loading
+import com.justadeveloper96.pokedex_kmp.core.network.model.Success
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.mapper.toDomainModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.IPokemonApi

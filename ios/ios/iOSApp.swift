@@ -1,6 +1,6 @@
 import SwiftUI
 import FirebaseCore
-import shared
+import iosUmbrellaModule
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,

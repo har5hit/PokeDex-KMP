@@ -19,8 +19,10 @@ package com.justadeveloper96.pokedex_kmp.android.di.module
 import android.content.Context
 import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.justadeveloper96.pokedex_kmp.core.network.AndroidNetworkGateway
-import com.justadeveloper96.pokedex_kmp.core.network.INetworkGateway
+import com.justadeveloper96.pokedex_kmp.core.network.client.AndroidNetworkClientProvider
+import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider
+import com.justadeveloper96.pokedex_kmp.core.network.parse.INetworkExceptionMapper
+import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMapper
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.PokemonDatabaseProvider
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
@@ -52,8 +54,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkGateway(@ApplicationContext context: Context): INetworkGateway {
-        return AndroidNetworkGateway(
+    fun provideNetworkClientProvider(@ApplicationContext context: Context): INetworkClientProvider {
+        return AndroidNetworkClientProvider(
             debug = BuildConfig.DEBUG,
             interceptors = listOf(),
             networkInterceptor = if (BuildConfig.DEBUG) listOf(ChuckerInterceptor(context)) else listOf()
@@ -68,8 +70,17 @@ object AppModule {
 
     @Reusable
     @Provides
-    fun providePokemonApi(networkGateway: INetworkGateway): IPokemonApi {
-        return PokemonApi(networkGateway)
+    fun provideNetworkExceptionMapper(): INetworkExceptionMapper {
+        return NetworkExceptionMapper()
+    }
+
+    @Reusable
+    @Provides
+    fun providePokemonApi(
+        networkClientProvider: INetworkClientProvider,
+        networkExceptionMapper: INetworkExceptionMapper
+    ): IPokemonApi {
+        return PokemonApi(networkClientProvider, networkExceptionMapper)
     }
 
     @Reusable

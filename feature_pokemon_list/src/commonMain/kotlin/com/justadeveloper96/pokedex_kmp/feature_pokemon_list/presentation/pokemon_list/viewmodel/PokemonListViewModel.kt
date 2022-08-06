@@ -24,10 +24,10 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel
 
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Loading
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.NetworkException
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Success
-import com.justadeveloper96.pokedex_kmp.core.data.network.mapper.Unsuccessful
+import com.justadeveloper96.pokedex_kmp.core.network.model.Loading
+import com.justadeveloper96.pokedex_kmp.core.network.model.NetworkException
+import com.justadeveloper96.pokedex_kmp.core.network.model.Success
+import com.justadeveloper96.pokedex_kmp.core.network.model.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel

@@ -22,17 +22,33 @@
  * SOFTWARE.
  */
 
-pluginManagement {
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
+package com.justadeveloper96.pokedex_kmp.core.network.client
+
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.ios.Ios
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logging
+import kotlinx.serialization.json.Json
+
+class IOSNetworkClientProvider(
+    debug: Boolean
+) : INetworkClientProvider {
+    override val client: HttpClient = HttpClient(Ios) {
+        engine {
+        }
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(
+                Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            )
+        }
+        install(Logging) {
+            level = if (debug) LogLevel.ALL else LogLevel.NONE
+        }
     }
 }
-
-rootProject.name = "PokeDex-KMP"
-include(":android")
-include(":iosUmbrellaModule")
-include(":helpers")
-include(":core")
-include(":feature_pokemon_list")

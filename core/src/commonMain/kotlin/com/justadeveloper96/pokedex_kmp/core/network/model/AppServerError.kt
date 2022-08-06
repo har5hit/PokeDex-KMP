@@ -22,17 +22,9 @@
  * SOFTWARE.
  */
 
-pluginManagement {
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
+package com.justadeveloper96.pokedex_kmp.core.network.model
 
-rootProject.name = "PokeDex-KMP"
-include(":android")
-include(":iosUmbrellaModule")
-include(":helpers")
-include(":core")
-include(":feature_pokemon_list")
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class AppServerError(val error: String)

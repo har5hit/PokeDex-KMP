@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import shared
+import iosUmbrellaModule
 class KMPViewModelWrapper<S: AnyObject, E: AnyObject, A: AnyObject>: ObservableObject {
 
     let viewmodel: IFlowViewModel

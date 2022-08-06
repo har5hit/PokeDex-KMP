@@ -22,17 +22,8 @@
  * SOFTWARE.
  */
 
-pluginManagement {
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
+package com.justadeveloper96.pokedex_kmp.core.network.parse
 
-rootProject.name = "PokeDex-KMP"
-include(":android")
-include(":iosUmbrellaModule")
-include(":helpers")
-include(":core")
-include(":feature_pokemon_list")
+interface INetworkExceptionMapper {
+    fun provideMessage(e: Exception): String
+}

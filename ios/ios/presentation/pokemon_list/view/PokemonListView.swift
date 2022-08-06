@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import shared
+import iosUmbrellaModule
 import SwiftUI
 
 struct PokemonListView: View {
