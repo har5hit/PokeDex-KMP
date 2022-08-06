@@ -24,15 +24,12 @@
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
-    kotlin("plugin.serialization")
 }
 
 version = ProjectProperties.version
 group = ProjectProperties.group
 
 kotlin {
-    android()
 
     listOf(
         iosX64(),
@@ -60,19 +57,9 @@ kotlin {
             dependencies {
                 api(project(":feature_pokemon_list"))
                 api(kotlin("stdlib-common"))
-                api(Dependencies.Kermit.kermit)
-                api(Dependencies.Kermit.crashlytics)
             }
         }
         val commonTest by getting {
-            dependencies {
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-            }
-        }
-        val androidTest by getting {
             dependencies {
             }
         }
@@ -82,6 +69,8 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
+                api(Dependencies.Kermit.kermit)
+                api(Dependencies.Kermit.crashlytics)
             }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
@@ -103,23 +92,5 @@ kotlin {
 configurations.all {
     resolutionStrategy {
         force(Dependencies.Coroutines.Common.core)
-    }
-}
-
-android {
-    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = AndroidDependencies.SdkVersion.minSdk
-        targetSdk = AndroidDependencies.SdkVersion.targetSdk
-        consumerProguardFiles("proguard-proguard-consumer-rules.pro")
-    }
-    buildTypes {
-        getByName("debug") {
-            isTestCoverageEnabled = Config.Test.coverageEnabled
-        }
-    }
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 }
