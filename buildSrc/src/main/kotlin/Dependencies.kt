@@ -95,10 +95,14 @@ object Dependencies {
         object iOS {
             const val client = "io.ktor:ktor-client-ios:$version"
         }
+
+        object Js {
+            const val client = "io.ktor:ktor-client-js:$version"
+        }
     }
 
     object SqlDelight {
-        private const val version = "1.5.3"
+        const val version = "1.5.3"
 
         const val plugin = "com.squareup.sqldelight:gradle-plugin:$version"
 
@@ -113,6 +117,9 @@ object Dependencies {
 
         object iOS {
             const val driver = "com.squareup.sqldelight:native-driver:$version"
+        }
+        object Js {
+            const val driver = "com.squareup.sqldelight:sqljs-driver:$version"
         }
     }
 

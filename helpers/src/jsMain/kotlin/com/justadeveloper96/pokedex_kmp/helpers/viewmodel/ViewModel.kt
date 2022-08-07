@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,19 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.core.network.model
+package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 
-object ApiMessages {
+import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 
-    const val ERR_DEFAULT_MSG = "Something went wrong! Please try again later."
-    const val ERR_NO_INTERNET = "No Internet Connection!"
-    const val ERR_TIMEOUT = "Connection Timeout"
+actual open class ViewModel actual constructor(actual val dispatchers: AppCoroutineDispatchers) {
+
+    protected actual val vmScope: CoroutineScope
+        get() = CoroutineScope(SupervisorJob() + dispatchers.mainImmediate)
+
+    protected actual open fun onCleared() {
+        vmScope.cancel()
+    }
 }

@@ -3,8 +3,8 @@
 [![Android CI](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml)
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
-A Demo Application for demonstrating code reuse in Both Android and iOS apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
-* 100% [Kotlin](https://kotlinlang.org/) for Android and KMP module.
+A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
+* 100% [Kotlin](https://kotlinlang.org/) for Common Kotlin Code, Android and JavaScript modules.
 * 100% [Swift](https://www.swift.org/) for iOS.
 * Kotlin: 1.7.10
 * Test Driven Development
@@ -16,16 +16,17 @@ A Demo Application for demonstrating code reuse in Both Android and iOS apps usi
 * Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight)
 * Multiplatform Network Client using [Ktor](https://ktor.io/)
 * [Ktlint](https://ktlint.github.io/) for lint.
-* KMP Modules Deployment as libraries for external `Android` and `iOS` apps.
-* Jetpack Compose.
-* SwiftUI.
+* Jetpack Compose for Android.
+* SwiftUI for iOS.
+* [KVision](https://kvision.io/) for Web.
+* KMP Modules Deployment as libraries for external `Android`, `iOS` and `JavaScript` apps.
 * Firebase Crashlytics. Add `google-services.json` for Android and `GoogleService-Info.plist` for iOS.
 * Kermit - Better iOS Crash Report Logging on Kotlin code crashes.
 
 [Blog for more details](https://har5hitn95.medium.com/experience-using-kmp-in-production-apps-for-a-year-2474406d99d4)
 
 # Why KMP?
-All advantages and freedom of native development + code re-usability in other platforms
+All advantages and freedom of native development + code re-usability in other platforms.
 
 # Source Line of Code Stats:
 
@@ -46,9 +47,9 @@ All advantages and freedom of native development + code re-usability in other pl
 Around **~80%** code written for a feature can be reused for other platform using KMP.
 
 # Screenshots
-Android             |  iOS
-:-------------------------:|:-------------------------:
-![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_android.png?raw=true)  |  ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_ios.png?raw=true)
+Android             |  iOS |  Web
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_android.png?raw=true)  |  ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_ios.png?raw=true) | ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_web.png?raw=true)
 
 
 # Architecture
@@ -62,6 +63,7 @@ Android             |  iOS
 * iosUmbrellaModule - Umbrella module for ios. This module loads all sub gradle modules and creates a single framework file for adding to ios project. Also iOS specific helper code which needs kotlin access should be put here. Treat it as extension of iOS module with Kotlin support. 
 * android - Android host app
 * ios - iOS host app
+* web-kvision - Web host app
 
 
 # Application Structure
@@ -87,15 +89,24 @@ Install following plugins from `Preferences -> Plugins`
 - Kotlin Multiplatform Mobile.
 - Kotest
 
+# Run
+## Android
+Run using `Android` Configuration or using gradle task `installDebug`
+## iOS
+- Open `ios` folder in Mac Finder and double-click `ios.xcodeproj` and run from Xcode.
+## Web
+- Run gradle task `web-kvision:browserRun`
+
 # Deployment as library
 
-* The KMP libraries can be directly accessed by the embedded `Android` and `iOS` module in this project.
-* If these KMP libraries is to be used as independent libraries in external `Android` / `iOS` apps, it can be published to maven repository.
-    * `publishToMavenLocal` task will build and upload the KMP modules as libraries in local maven server which can be used to work in external android/ios apps in same machine.
+* The KMP libraries can be directly accessed by the embedded `Android`, `iOS` and `JavaScript` module in this project.
+* If these KMP libraries is to be used as independent libraries in external apps, it can be published to maven repository.
+    * `publishToMavenLocal` task will build and upload the KMP modules as libraries in local maven server which can be used to work in external `Android`, `iOS` and `JavaScript` apps in same machine.
     * `publish` task will build and upload the KMP modules as libraries in remote maven server which can be accessed from any machine. Remote maven configuration to be added in `plugins/publish.gradle`.
-* For `Android`, the process is simple as adding gradle dependencies in the Android app to load these hosted libraries.
+* For `Android`, the process is simple as adding gradle dependencies in the app to load these hosted libraries.
 * For `iOS`, reference can be taken from this project or [follow this guide](https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html#make-your-cross-platform-application-work-on-ios).
 Pro tip: Keep KMP files inside a folder and not at root level to keep it encapsulated from native `iOS` project files and modify the configuration to support this.
+* For `JavaScript`, if using Kotlin Application like [KVision](https://kvision.io/) , the process is simple as adding gradle dependencies in the app to load these hosted libraries. 
 
 # TODO
 ## iOS

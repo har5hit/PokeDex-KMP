@@ -24,7 +24,7 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository
 
-import com.justadeveloper96.pokedex_kmp.core.network.model.AppNetworkResult
+import com.justadeveloper96.pokedex_kmp.core.network.parse.AppNetworkResult
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex_kmp.helpers.pagination.PaginatedList
 import kotlinx.coroutines.flow.Flow
