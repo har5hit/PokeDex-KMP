@@ -9,8 +9,6 @@ plugins {
 version = ProjectProperties.version
 group = ProjectProperties.group
 
-// Versions
-
 val webDir = file("src/main/web")
 
 kotlin {
@@ -45,19 +43,18 @@ kotlin {
     }
     sourceSets["main"].dependencies {
         implementation(project(":feature_pokemon_list"))
-        implementation("io.kvision:kvision:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-state:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-state-flow:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-toast:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-onsenui:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-onsenui:${KVisionDependencies.version}")
-        implementation("io.kvision:kvision-fontawesome:${KVisionDependencies.version}")
-        implementation(npm("sql.js", "1.6.2"))
-        implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+        implementation(KVisionDependencies.core)
+        implementation(KVisionDependencies.state)
+        implementation(KVisionDependencies.stateFlow)
+        implementation(KVisionDependencies.toast)
+        implementation(KVisionDependencies.onsenui)
+        implementation(KVisionDependencies.fontawesome)
+        implementation(npm("sql.js", KVisionDependencies.sqlVersion))
+        implementation(devNpm("copy-webpack-plugin", KVisionDependencies.copyWebpackPluginVersion))
     }
     sourceSets["test"].dependencies {
         implementation(kotlin("test-js"))
-        implementation("io.kvision:kvision-testutils:${KVisionDependencies.version}")
+        implementation(KVisionDependencies.testutils)
     }
     sourceSets["main"].resources.srcDir(webDir)
 }

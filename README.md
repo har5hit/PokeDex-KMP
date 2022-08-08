@@ -19,6 +19,7 @@ A Demo Application for demonstrating code reuse in Android, iOS and JavaScript a
 * Jetpack Compose for Android.
 * SwiftUI for iOS.
 * [KVision](https://kvision.io/) for Web.
+* CI-CD using Github Actions.
 * KMP Modules Deployment as libraries for external `Android`, `iOS` and `JavaScript` apps.
 * Firebase Crashlytics. Add `google-services.json` for Android and `GoogleService-Info.plist` for iOS.
 * Kermit - Better iOS Crash Report Logging on Kotlin code crashes.
