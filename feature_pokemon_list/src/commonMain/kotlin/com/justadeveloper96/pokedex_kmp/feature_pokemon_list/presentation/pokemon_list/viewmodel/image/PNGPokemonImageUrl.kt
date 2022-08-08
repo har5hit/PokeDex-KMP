@@ -22,21 +22,17 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.adapter
+package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image
 
-import android.graphics.Color
-import com.bumptech.glide.Glide
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.justadeveloper96.pokedex_kmp.android.databinding.ItemPokemonBinding
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
+object PNGPokemonImageUrl : IPokemonImageUrl {
+    private const val IMAGE_HOST_URL =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 
-fun pokemonListItemDelegate() =
-    adapterDelegateViewBinding<PokemonUiModel, PokemonUiModel, ItemPokemonBinding>(
-        { layoutInflater, root -> ItemPokemonBinding.inflate(layoutInflater, root, false) }
-    ) {
-        bind {
-            binding.data = item
-            Glide.with(binding.root.context).load(item.imagePng).into(binding.image)
-            binding.flBg.setBackgroundColor(Color.parseColor(item.color))
+    override operator fun invoke(id: String): String {
+        return try {
+            "$IMAGE_HOST_URL/$id.png"
+        } catch (e: Exception) {
+            ""
         }
     }
+}

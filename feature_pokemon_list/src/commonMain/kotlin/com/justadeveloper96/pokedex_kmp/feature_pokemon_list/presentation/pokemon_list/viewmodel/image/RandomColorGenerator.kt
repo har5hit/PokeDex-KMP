@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,19 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel
+package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image
 
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image.PNGPokemonImageUrl
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image.RandomColorGenerator
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image.SVGPokemonImageUrl
+import kotlin.math.floor
+import kotlin.random.Random
 
-data class PokemonUiModel(
-    val name: String,
-    val url: String
-) {
-    val id by lazy { url.split("/").dropLast(1).last() }
+object RandomColorGenerator {
+    private const val LETTERS = "0123456789ABCDEF"
 
-    val color by lazy { RandomColorGenerator() }
-
-    val imagePng by lazy { PNGPokemonImageUrl(id) }
-
-    val imageSvg by lazy { SVGPokemonImageUrl(id) }
-}
-
-fun Pokemon.toPokemonUiModel(): PokemonUiModel {
-    return PokemonUiModel(
-        name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
-        url
-    )
+    operator fun invoke(): String {
+        var color = "#"
+        for (i in 0..5) {
+            color += LETTERS[floor(Random.nextDouble() * 16).toInt()]
+        }
+        return color
+    }
 }

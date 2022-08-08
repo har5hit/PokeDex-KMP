@@ -65,7 +65,7 @@ fun PokemonListItemView(model: PokemonUiModel) {
                     .width(120.dp)
                     .height(120.dp)
             AsyncImage(
-                model = model.image,
+                model = model.imagePng,
                 contentDescription = null,
                 modifier = imageModifier
             )

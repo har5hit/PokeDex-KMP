@@ -5,6 +5,7 @@
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
 A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
+<br/>
 Specifications:
 * 100% [Kotlin](https://kotlinlang.org/) for Common Kotlin Code, Android and JavaScript modules.
 * 100% [Swift](https://www.swift.org/) for iOS.
@@ -91,6 +92,17 @@ Each individual feature folder structure
 Install following plugins from `Preferences -> Plugins`
 - Kotlin Multiplatform Mobile.
 - Kotest
+
+# Web Performance
+Lighthouse Performance: **82**
+<br/>
+![Performance](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/web_performance_lighthouse.png?raw=true)
+<br/>
+Steps taken to improve performance from **50** to **82** on Web:
+- Remove [SQL.js](https://sql.js.org/) Dependency (> 1 MB) for SQL based [PokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/feature_pokemon_list/src/commonMain/kotlin/com/justadeveloper96/pokedex_kmp/feature_pokemon_list/data/pokemon/repository/local/PokemonDao.kt) with [WebPokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/kvision/data/pokemon/repository/local/WebPokemonDao.kt), In-Memory Dao implementation, for Web.
+- Overriding it in [DI](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/kvision/di/module/FeaturePokemonListModuleOverride.kt).
+- Setup [Brotli Compression in Webpack](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/webpack.config.d/compress.js)
+- Use SVG Pokemon images.
 
 # Run
 ## Android
