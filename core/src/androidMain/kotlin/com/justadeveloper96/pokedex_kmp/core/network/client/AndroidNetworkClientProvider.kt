@@ -24,18 +24,19 @@
 
 package com.justadeveloper96.pokedex_kmp.core.network.client
 
+import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.features.logging.LogLevel
 import io.ktor.client.features.logging.Logging
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
 class AndroidNetworkClientProvider(
     debug: Boolean,
+    jsonParser: IJsonParser,
     interceptors: List<Interceptor>,
     networkInterceptor: List<Interceptor>
 ) : INetworkClientProvider {
@@ -58,11 +59,7 @@ class AndroidNetworkClientProvider(
 
         install(JsonFeature) {
             serializer = KotlinxSerializer(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                }
+                jsonParser.parser
             )
         }
 

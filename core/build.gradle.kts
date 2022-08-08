@@ -36,7 +36,9 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-
+    js(IR) {
+        browser()
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -85,6 +87,11 @@ kotlin {
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
+        }
+        val jsMain by getting {
+            dependencies {
+                api(project(":helpers"))
+            }
         }
     }
 }

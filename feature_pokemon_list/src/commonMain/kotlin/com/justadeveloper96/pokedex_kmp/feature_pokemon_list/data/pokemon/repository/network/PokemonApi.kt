@@ -25,7 +25,8 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network
 
 import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider
-import com.justadeveloper96.pokedex_kmp.core.network.model.AppNetworkResult
+import com.justadeveloper96.pokedex_kmp.core.network.parse.AppNetworkResult
+import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import com.justadeveloper96.pokedex_kmp.core.network.parse.INetworkExceptionMapper
 import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkResponseData
 import com.justadeveloper96.pokedex_kmp.core.network.parse.parseToAppNetworkResult
@@ -37,13 +38,14 @@ import io.ktor.client.statement.readText
 
 class PokemonApi(
     private val networkClientProvider: INetworkClientProvider,
-    private val networkExceptionMapping: INetworkExceptionMapper
+    private val networkExceptionMapping: INetworkExceptionMapper,
+    private val jsonParser: IJsonParser
 ) : IPokemonApi {
 
     private val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
 
     override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel> {
-        return parseToAppNetworkResult(networkExceptionMapping) {
+        return parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
             val result = networkClientProvider.client.get<HttpResponse>(ENDPOINT) {
                 parameter("offset", offset)
                 parameter("limit", limit)

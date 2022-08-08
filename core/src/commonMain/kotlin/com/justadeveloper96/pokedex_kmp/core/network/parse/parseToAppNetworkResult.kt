@@ -24,24 +24,11 @@
 
 package com.justadeveloper96.pokedex_kmp.core.network.parse
 
-import com.justadeveloper96.pokedex_kmp.core.network.model.AppNetworkResult
 import com.justadeveloper96.pokedex_kmp.core.network.model.AppServerError
-import com.justadeveloper96.pokedex_kmp.core.network.model.NetworkException
-import com.justadeveloper96.pokedex_kmp.core.network.model.Success
-import com.justadeveloper96.pokedex_kmp.core.network.model.Unsuccessful
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlin.native.concurrent.SharedImmutable
-
-data class NetworkResponseData(val code: Int, val body: String?)
-
-@SharedImmutable
-val parser = Json {
-    ignoreUnknownKeys = true
-    isLenient = true
-}
 
 inline fun <reified T> parseToAppNetworkResult(
+    jsonParser: IJsonParser,
     networkExceptionMapping: INetworkExceptionMapper,
     serviceCall: () -> NetworkResponseData
 ): AppNetworkResult<T> {
@@ -49,10 +36,10 @@ inline fun <reified T> parseToAppNetworkResult(
         val data = serviceCall()
         try {
             if (data.code in 200..299) {
-                val body = parser.decodeFromString<T>(data.body!!)
+                val body = jsonParser.parser.decodeFromString<T>(data.body!!)
                 Success(data = body, code = data.code)
             } else {
-                val error = parser.decodeFromString<AppServerError>(data.body!!)
+                val error = jsonParser.parser.decodeFromString<AppServerError>(data.body!!)
                 Unsuccessful(
                     error = error,
                     code = data.code,

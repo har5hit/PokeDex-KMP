@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.core.network.model
+package com.justadeveloper96.pokedex_kmp.core.network.parse
 
+import com.justadeveloper96.pokedex_kmp.core.network.model.AppServerError
 import com.justadeveloper96.pokedex_kmp.helpers.network.NetworkResult
 import com.justadeveloper96.pokedex_kmp.helpers.network.State
 

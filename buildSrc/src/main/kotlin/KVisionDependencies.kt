@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.core.network.model
+object KVisionDependencies {
 
-object ApiMessages {
+    val version = "5.13.1"
 
-    const val ERR_DEFAULT_MSG = "Something went wrong! Please try again later."
-    const val ERR_NO_INTERNET = "No Internet Connection!"
-    const val ERR_TIMEOUT = "Connection Timeout"
+    val core = "io.kvision:kvision:$version"
+    val state = "io.kvision:kvision-state:$version"
+    val stateFlow = "io.kvision:kvision-state-flow:$version"
+    val toast = "io.kvision:kvision-toast:$version"
+    val onsenui = "io.kvision:kvision-onsenui:$version"
+    val fontawesome = "io.kvision:kvision-fontawesome:$version"
+    val testutils = "io.kvision:kvision-testutils:$version"
+    val sqlVersion = "1.6.2"
+    val copyWebpackPluginVersion = "9.1.0"
 }
