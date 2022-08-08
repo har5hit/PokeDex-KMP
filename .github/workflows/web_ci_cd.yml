@@ -35,6 +35,7 @@ jobs:
         run: ./gradlew testDebugUnitTest
   # CD
   deploy:
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
