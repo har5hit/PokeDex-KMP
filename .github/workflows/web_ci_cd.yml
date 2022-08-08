@@ -1,5 +1,5 @@
 # Test and deploy KVision Website
-name: Web CI-CD to deploy KVision Website
+name: Web CI-CD
 
 on:
   push:
