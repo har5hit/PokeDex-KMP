@@ -4,26 +4,27 @@
 [![Web CI-CD](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml)
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
-A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:
+A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
+Specifications:
 * 100% [Kotlin](https://kotlinlang.org/) for Common Kotlin Code, Android and JavaScript modules.
 * 100% [Swift](https://www.swift.org/) for iOS.
-* Kotlin: 1.7.10
-* Test Driven Development
-* MVVM design pattern
-* Multi Module KMP Application Setup
-* Unit Testing via [Kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
-* Multiplatform Dependency Injection using [Koin](https://insert-koin.io/)
+* Kotlin: [1.7.10](https://kotlinlang.org/docs/releases.html).
+* Test Driven Development (TDD).
+* MVVM design pattern.
+* Multi Module KMP Application Setup.
+* Unit Testing via [Kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/).
+* Multiplatform Dependency Injection using [Koin](https://insert-koin.io/).
 * Multiplatform Concurrency using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
-* Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight)
-* Multiplatform Network Client using [Ktor](https://ktor.io/)
+* Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight).
+* Multiplatform Network Client using [Ktor](https://ktor.io/).
 * [Ktlint](https://ktlint.github.io/) for lint.
-* Jetpack Compose for Android.
-* SwiftUI for iOS.
-* [KVision](https://kvision.io/) for Web.
-* CI-CD using Github Actions.
+* [Jetpack Compose](https://developer.android.com/jetpack/compose) for Android.
+* [SwiftUI](https://developer.apple.com/xcode/swiftui/) for iOS.
+* [KVision](https://kvision.io/) for Web. [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/).
+* CI-CD using [Github Actions](https://github.com/features/actions).
+* [Kermit](https://github.com/touchlab/Kermit) - Better iOS Crash Report Logging on Kotlin code crashes.
 * KMP Modules Deployment as libraries for external `Android`, `iOS` and `JavaScript` apps.
 * Firebase Crashlytics. Add `google-services.json` for Android and `GoogleService-Info.plist` for iOS.
-* Kermit - Better iOS Crash Report Logging on Kotlin code crashes.
 
 [Blog for more details](https://har5hitn95.medium.com/experience-using-kmp-in-production-apps-for-a-year-2474406d99d4)
 
@@ -97,7 +98,8 @@ Run using `Android` Configuration or using gradle task `installDebug`
 ## iOS
 - Open `ios` folder in Mac Finder and double-click `ios.xcodeproj` and run from Xcode.
 ## Web
-- Run gradle task `web-kvision:browserRun`
+- Check [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/)
+- Run on local machine: gradle task `web-kvision:run -t`
 
 # Deployment as library
 

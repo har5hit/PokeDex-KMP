@@ -25,6 +25,7 @@
 package com.justadeveloper96.pokedex_kmp.web.kvision
 
 import com.justadeveloper96.pokedex_kmp.web.kvision.di.InitKoin
+import com.justadeveloper96.pokedex_kmp.web.kvision.presentation.pokemon_list.view.loaderListScreen
 import com.justadeveloper96.pokedex_kmp.web.kvision.presentation.pokemon_list.view.pokemonListScreen
 import io.kvision.Application
 import io.kvision.CoreModule
@@ -50,6 +51,7 @@ class App : Application() {
 
     override fun start() {
         root("kvapp") {
+            loaderListScreen()
             InitKoin().invoke().then { di ->
 //                if (!OnsenUi.isAndroid(true) && !OnsenUi.isIOS(true)) {
 //                    document.body?.classList?.add("mobile-emulate")
