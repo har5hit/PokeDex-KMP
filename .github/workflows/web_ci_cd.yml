@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Test and deploy KVision Website
 name: Web CI-CD to deploy KVision Website
 
 on:

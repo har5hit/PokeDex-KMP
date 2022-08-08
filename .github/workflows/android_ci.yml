@@ -1,3 +1,4 @@
+# Run Lint and Test cases
 name: Android CI
 
 on:
