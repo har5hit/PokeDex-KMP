@@ -25,28 +25,27 @@
 package com.justadeveloper96.pokedex_kmp.web.kvision.di
 
 import com.justadeveloper96.pokedex_kmp.core.di.coreModule
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.di.featurePokemonListModule
 import com.justadeveloper96.pokedex_kmp.helpers.di.helperModule
+import com.justadeveloper96.pokedex_kmp.web.kvision.di.module.featurePokemonListModuleOverride
 import com.justadeveloper96.pokedex_kmp.web.kvision.di.module.platformModule
-import com.squareup.sqldelight.drivers.sqljs.initSqlDriver
 import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import kotlin.js.Promise
 
 class InitKoin {
     operator fun invoke(): Promise<Koin> {
-        return initSqlDriver(PokemonDatabase.Schema).then { sqlDriver ->
-            startKoin {
-                modules(
-                    listOf(
-                        platformModule(true, sqlDriver),
-                        featurePokemonListModule,
-                        coreModule,
-                        helperModule
-                    )
+        val koin = startKoin {
+            modules(
+                listOf(
+                    platformModule(true),
+                    featurePokemonListModule,
+                    featurePokemonListModuleOverride,
+                    coreModule,
+                    helperModule
                 )
-            }.koin
-        }
+            )
+        }.koin
+        return Promise.resolve(koin)
     }
 }

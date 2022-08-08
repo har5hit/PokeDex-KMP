@@ -22,13 +22,29 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.web.kvision.database
+package com.justadeveloper96.pokedex_kmp.web.kvision.data.pokemon.repository.local
 
-import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
-import com.squareup.sqldelight.db.SqlDriver
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao
+import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
-class PokemonDatabaseProviderFactory(private val sqlDriver: SqlDriver) : IDatabaseDriverFactory {
-    override fun createDriver(): SqlDriver {
-        return sqlDriver
+class WebPokemonDao : IPokemonDao {
+    private val dataHolder by lazy { MutableStateFlow<MutableList<PokemonDaoModel>>(mutableListOf()) }
+
+    override fun insert(list: List<PokemonDaoModel>) {
+        dataHolder.value.addAll(list)
+    }
+
+    override fun insert(item: PokemonDaoModel) {
+        dataHolder.value.add(item)
+    }
+
+    override fun getAll(): Flow<List<PokemonDaoModel>> {
+        return dataHolder
+    }
+
+    override fun deleteAll() {
+        dataHolder.value.clear()
     }
 }

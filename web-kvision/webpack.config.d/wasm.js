@@ -1,3 +1,4 @@
+/*
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 config.plugins.push(
     new CopyWebpackPlugin({
@@ -6,3 +7,4 @@ config.plugins.push(
         ]
     })
 );
+*/

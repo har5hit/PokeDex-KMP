@@ -24,21 +24,10 @@
 
 package com.justadeveloper96.pokedex_kmp.web.kvision.di.module
 
-import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider
-import com.justadeveloper96.pokedex_kmp.core.network.client.JsNetworkClientProvider
-import com.justadeveloper96.pokedex_kmp.core.network.parse.INetworkExceptionMapper
-import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMapper
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao
+import com.justadeveloper96.pokedex_kmp.web.kvision.data.pokemon.repository.local.WebPokemonDao
 import org.koin.dsl.module
 
-fun platformModule(debug: Boolean) = module {
-    single<INetworkClientProvider> {
-        JsNetworkClientProvider(
-            debug = debug,
-            get()
-        )
-    }
-
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
-    }
+val featurePokemonListModuleOverride = module {
+    single<IPokemonDao> { WebPokemonDao() }
 }
