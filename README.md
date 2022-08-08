@@ -1,6 +1,7 @@
 # PokeDex KMP
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://opensource.org/licenses/MIT)
 [![Android CI](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/android_ci.yml)
+[![Web CI-CD](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml)
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
 A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP). Some extra specs:

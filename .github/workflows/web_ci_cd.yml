@@ -20,7 +20,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  # CI
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Check Kotlin lint
+        run: ./gradlew ktlintCheck
+      - name: Run tests
+        run: ./gradlew testDebugUnitTest
+  # CD
   deploy:
     environment:
       name: github-pages
@@ -29,17 +42,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v1
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Check Kotlin lint
-        run: ./gradlew ktlintCheck
-      - name: Run tests
-        run: ./gradlew testDebugUnitTest
       - name: Build Website
         run: ./gradlew zip
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
