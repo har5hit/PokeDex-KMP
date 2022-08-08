@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 plugins {
     kotlin("plugin.serialization")
     kotlin("js")
-    id("io.kvision") version KVisionDependencies.version
+    id("io.kvision") version KVisionDependencies.kVisionVersion
 }
 
 version = ProjectProperties.version
@@ -51,6 +51,13 @@ kotlin {
         implementation(KVisionDependencies.fontawesome)
         implementation(npm("sql.js", KVisionDependencies.sqlVersion))
         implementation(devNpm("copy-webpack-plugin", KVisionDependencies.copyWebpackPluginVersion))
+        implementation(
+            devNpm(
+                "compression-webpack-plugin",
+                KVisionDependencies.compressionWebpackPluginVersion
+            )
+        )
+        implementation(devNpm("zlib", KVisionDependencies.zlibVersion))
     }
     sourceSets["test"].dependencies {
         implementation(kotlin("test-js"))
