@@ -57,3 +57,19 @@ fun <S, E, A> viewModelEventWrapper(
     }
     Log.d(TAG, "viewModelEventWrapper end $event")
 }
+
+@Composable
+fun <S, E, A> viewModelContainerWrapper(
+    viewModel: IFlowViewModel<S, E, A>,
+    viewBlock: @Composable (S) -> Unit,
+    eventBlock: @Composable (E) -> Unit
+) {
+    Log.d(TAG, "viewModelContainerWrapper start")
+    viewModelViewWrapper(viewModel) {
+        viewBlock(it)
+    }
+    viewModelEventWrapper(viewModel) {
+        eventBlock(it)
+    }
+    Log.d(TAG, "viewModelContainerWrapper end")
+}
