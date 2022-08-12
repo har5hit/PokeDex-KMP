@@ -22,21 +22,29 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.adapter
+package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen
 
-import android.graphics.Color
-import com.bumptech.glide.Glide
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.justadeveloper96.pokedex_kmp.android.databinding.ItemPokemonBinding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
 
-fun pokemonListItemDelegate() =
-    adapterDelegateViewBinding<PokemonUiModel, PokemonUiModel, ItemPokemonBinding>(
-        { layoutInflater, root -> ItemPokemonBinding.inflate(layoutInflater, root, false) }
-    ) {
-        bind {
-            binding.data = item
-            Glide.with(binding.root.context).load(item.image).into(binding.image)
-            binding.flBg.setBackgroundColor(Color.parseColor(item.color))
-        }
-    }
+@Preview
+@Composable
+private fun PreviewConversation() {
+    val uiState = IPokemonListViewModel.UIState(
+        loading = true,
+        list = listOf(
+            PokemonUiModel(
+                name = "Bulbasaur",
+                url = "https://pokeapi.co/api/v2/pokemon/1/"
+            ),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/")
+        ),
+        canLoadMore = true
+    )
+    PokemonListScreen(uiState) { println("On Action $it") }
+}

@@ -25,12 +25,25 @@
 package com.justadeveloper96.pokedex_kmp.android
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import com.justadeveloper96.pokedex_kmp.android.helpers.viewmodel.getViewModel
+import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreenContainer
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
+import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel by lazy {
+        getViewModel {
+            get<PokemonListViewModel>()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        return setContent {
+            PokemonListScreenContainer(viewModel)
+        }
     }
 }
