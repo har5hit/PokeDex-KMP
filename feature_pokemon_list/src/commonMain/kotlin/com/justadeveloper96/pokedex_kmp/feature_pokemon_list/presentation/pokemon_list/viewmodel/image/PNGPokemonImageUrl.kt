@@ -22,23 +22,17 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.web.kvision.di.module
+package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image
 
-import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider
-import com.justadeveloper96.pokedex_kmp.core.network.client.JsNetworkClientProvider
-import com.justadeveloper96.pokedex_kmp.core.network.parse.INetworkExceptionMapper
-import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMapper
-import org.koin.dsl.module
+object PNGPokemonImageUrl : IPokemonImageUrl {
+    private const val IMAGE_HOST_URL =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 
-fun platformModule(debug: Boolean) = module {
-    single<INetworkClientProvider> {
-        JsNetworkClientProvider(
-            debug = debug,
-            get()
-        )
-    }
-
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+    override operator fun invoke(id: String): String {
+        return try {
+            "$IMAGE_HOST_URL/$id.png"
+        } catch (e: Exception) {
+            ""
+        }
     }
 }

@@ -62,7 +62,7 @@ fun Root.pokemonListScreen(di: Koin) {
                                 row {
                                     label(className = "item-label", content = it.name)
                                     div {
-                                        image(it.image) {
+                                        image(it.imageSvg) {
                                             width = 100.px
                                             height = 100.px
                                         }

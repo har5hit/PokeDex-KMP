@@ -24,15 +24,17 @@
 
 object KVisionDependencies {
 
-    val version = "5.13.1"
+    const val kVisionVersion = "5.13.1"
+    const val core = "io.kvision:kvision:$kVisionVersion"
+    const val state = "io.kvision:kvision-state:$kVisionVersion"
+    const val stateFlow = "io.kvision:kvision-state-flow:$kVisionVersion"
+    const val toast = "io.kvision:kvision-toast:$kVisionVersion"
+    const val onsenui = "io.kvision:kvision-onsenui:$kVisionVersion"
+    const val fontawesome = "io.kvision:kvision-fontawesome:$kVisionVersion"
+    const val testutils = "io.kvision:kvision-testutils:$kVisionVersion"
 
-    val core = "io.kvision:kvision:$version"
-    val state = "io.kvision:kvision-state:$version"
-    val stateFlow = "io.kvision:kvision-state-flow:$version"
-    val toast = "io.kvision:kvision-toast:$version"
-    val onsenui = "io.kvision:kvision-onsenui:$version"
-    val fontawesome = "io.kvision:kvision-fontawesome:$version"
-    val testutils = "io.kvision:kvision-testutils:$version"
-    val sqlVersion = "1.6.2"
-    val copyWebpackPluginVersion = "9.1.0"
+    const val sqlVersion = "1.6.2"
+    const val copyWebpackPluginVersion = "9.1.0"
+    const val compressionWebpackPluginVersion = "10.0.0"
+    const val zlibVersion = "1.0.5"
 }

@@ -56,7 +56,7 @@ struct PokemonListCell: View {
             HStack(spacing: 12) {
                 Text(state.name)
 
-                AsyncImage(url: URL(string: state.image)) { image in
+                AsyncImage(url: URL(string: state.imagePng)) { image in
                     image.resizable()
                 } placeholder: {
                     ProgressView()
