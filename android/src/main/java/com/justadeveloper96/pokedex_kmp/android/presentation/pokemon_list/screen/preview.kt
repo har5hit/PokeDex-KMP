@@ -22,17 +22,29 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.fragment
+package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
 
-fun RecyclerView.onEndReached(callback: () -> Unit) {
-    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (!recyclerView.canScrollVertically(1)) {
-                callback()
-            }
-        }
-    })
+@Preview
+@Composable
+private fun PreviewConversation() {
+    val uiState = IPokemonListViewModel.UIState(
+        loading = true,
+        list = listOf(
+            PokemonUiModel(
+                name = "Bulbasaur",
+                url = "https://pokeapi.co/api/v2/pokemon/1/"
+            ),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
+            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/")
+        ),
+        canLoadMore = true
+    )
+    PokemonListScreen(uiState) { println("On Action $it") }
 }

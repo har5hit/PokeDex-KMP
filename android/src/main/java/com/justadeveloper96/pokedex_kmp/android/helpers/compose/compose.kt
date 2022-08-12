@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,34 +22,38 @@
  * SOFTWARE.
  */
 
-package com.justadeveloper96.pokedex_kmp.android.helpers.fragment
+package com.justadeveloper96.pokedex_kmp.android.helpers.compose
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.IFlowViewModel
+import kotlinx.coroutines.flow.filter
 
-abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
-    private var _binding: T? = null
+private const val TAG = "Compose"
 
-    protected val binding get() = _binding!!
+@Composable
+fun <S, E, A> viewModelViewWrapper(
+    viewModel: IFlowViewModel<S, E, A>,
+    block: @Composable (S) -> Unit
+) {
+    Log.d(TAG, "viewModelViewWrapper start")
+    val state by viewModel.stateHolder.collectAsState()
+    block(state)
+    Log.d(TAG, "viewModelViewWrapper end $state")
+}
 
-    abstract val layout: Int
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = DataBindingUtil.inflate(inflater, layout, container, false)
-        return _binding?.root
+@Composable
+fun <S, E, A> viewModelEventWrapper(
+    viewModel: IFlowViewModel<S, E, A>,
+    block: @Composable (E) -> Unit
+) {
+    Log.d(TAG, "viewModelEventWrapper start")
+    val event by viewModel.eventHolder.filter { it != null }.collectAsState(null)
+    event?.let {
+        block(it)
+        viewModel.onEventConsumed()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    Log.d(TAG, "viewModelEventWrapper end $event")
 }

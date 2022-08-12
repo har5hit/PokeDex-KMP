@@ -24,13 +24,35 @@
 
 package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.justadeveloper96.pokedex_kmp.android.helpers.compose.viewModelEventWrapper
+import com.justadeveloper96.pokedex_kmp.android.helpers.compose.viewModelViewWrapper
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.view.PokemonListView
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
+
+@Composable
+fun PokemonListScreenContainer(
+    viewModel: IPokemonListViewModel
+) {
+    viewModelViewWrapper(viewModel) {
+        PokemonListScreen(it) {
+            viewModel.add(it)
+        }
+    }
+    viewModelEventWrapper(viewModel) {
+        val context = LocalContext.current
+        when (it) {
+            is IPokemonListViewModel.UIEvent.Message -> {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+}
 
 @Composable
 fun PokemonListScreen(
@@ -49,24 +71,4 @@ fun PokemonListScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewConversation() {
-    val uiState = IPokemonListViewModel.UIState(
-        loading = true,
-        list = listOf(
-            PokemonUiModel(
-                name = "Bulbasaur",
-                url = "https://pokeapi.co/api/v2/pokemon/1/"
-            ),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/")
-        ),
-        canLoadMore = true
-    )
-    PokemonListScreen(uiState) { println("On Action $it") }
 }

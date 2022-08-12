@@ -80,7 +80,7 @@ fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
     LazyColumn(
         state = scrollState
     ) {
-        itemsIndexed(model) { _, item ->
+        itemsIndexed(model, key = { _, item -> item.url }) { _, item ->
             PokemonListItemView(item)
         }
     }
