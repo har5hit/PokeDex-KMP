@@ -42,11 +42,9 @@ abstract class BaseViewModel<S, E, A>(
 
     private val _eventHolder: MutableStateFlow<E?> = MutableStateFlow(null)
 
-    override val eventHolder: StateFlow<E?>
-        get() = _eventHolder.asStateFlow()
+    override val eventHolder: StateFlow<E?> = _eventHolder.asStateFlow()
 
-    override val stateHolder: StateFlow<S>
-        get() = _stateHolder.asStateFlow()
+    override val stateHolder: StateFlow<S> = _stateHolder.asStateFlow()
 
     protected fun setState(state: S) {
         _stateHolder.value = state

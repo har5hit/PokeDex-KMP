@@ -31,8 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 actual open class ViewModel actual constructor(actual val dispatchers: AppCoroutineDispatchers) :
     androidx.lifecycle.ViewModel() {
 
-    protected actual val vmScope: CoroutineScope
-        get() = viewModelScope
+    protected actual val vmScope: CoroutineScope = viewModelScope
 
     actual override fun onCleared() {
         super.onCleared()
