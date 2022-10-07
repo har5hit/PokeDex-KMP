@@ -9,7 +9,7 @@ A Demo Application for demonstrating code reuse in Android, iOS and JavaScript a
 Specifications:
 * 100% [Kotlin](https://kotlinlang.org/) for Common Kotlin Code, Android and JavaScript modules.
 * 100% [Swift](https://www.swift.org/) for iOS.
-* Kotlin: [1.7.10](https://kotlinlang.org/docs/releases.html).
+* Kotlin: [1.7.20](https://kotlinlang.org/docs/releases.html).
 * Test Driven Development (TDD).
 * MVVM design pattern.
 * Multi Module KMP Application Setup.

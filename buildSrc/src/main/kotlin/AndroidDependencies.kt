@@ -31,12 +31,12 @@ object AndroidDependencies {
     }
 
     object Dagger {
-        private const val version = "2.43"
+        private const val version = "2.44"
         const val core = "com.google.dagger:dagger:$version"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
 
         object Hilt {
-            private const val version = "2.43"
+            private const val version = "2.44"
 
             const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
             const val core = "com.google.dagger:hilt-android:$version"
@@ -77,10 +77,10 @@ object AndroidDependencies {
     }
 
     object Firebase {
-        const val bom = "com.google.firebase:firebase-bom:30.3.1"
+        const val bom = "com.google.firebase:firebase-bom:30.5.0"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         object Crashlytics {
-            const val plugin = "com.google.firebase:firebase-crashlytics-gradle:2.9.1"
+            const val plugin = "com.google.firebase:firebase-crashlytics-gradle:2.9.2"
             const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
         }
     }
@@ -93,17 +93,17 @@ object AndroidDependencies {
 
     object Google {
         object Services {
-            const val plugin = "com.google.gms:google-services:4.3.13"
+            const val plugin = "com.google.gms:google-services:4.3.14"
         }
     }
 
     object Gradle {
-        const val version = "7.2.1"
+        const val version = "7.3.0"
         const val plugin = "com.android.tools.build:gradle:$version"
     }
 
     object Glide {
-        private const val version = "4.13.2"
+        private const val version = "4.14.1"
 
         const val core = "com.github.bumptech.glide:glide:$version"
         const val compiler = "com.github.bumptech.glide:compiler:$version"
@@ -111,17 +111,17 @@ object AndroidDependencies {
 
     object SdkVersion {
         const val minSdk = 23
-        const val targetSdk = 32
-        const val compileSdk = "android-32"
-        const val compileSdkInt = 32
+        const val targetSdk = 33
+        const val compileSdk = "android-33"
+        const val compileSdkInt = 33
     }
 
     val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     object Compose {
-        private const val version = "1.2.0"
-        const val kotlinCompilerVersion = "1.3.0-rc01"
-        const val compose = "androidx.activity:activity-compose:1.4.0"
+        private const val version = "1.2.1"
+        const val kotlinCompilerVersion = "1.3.2"
+        const val compose = "androidx.activity:activity-compose:1.6.0"
         const val material = "androidx.compose.material:material:$version"
         const val animation = "androidx.compose.animation:animation:$version"
         const val tooling = "androidx.compose.ui:ui-tooling:$version"
@@ -130,8 +130,8 @@ object AndroidDependencies {
     }
 
     object Coil {
-        const val compose = "io.coil-kt:coil-compose:2.1.0"
+        const val compose = "io.coil-kt:coil-compose:2.2.2"
     }
 
-    const val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.26.0-alpha"
+    const val swipeRefreshCompose = "com.google.accompanist:accompanist-swiperefresh:0.26.5-rc"
 }

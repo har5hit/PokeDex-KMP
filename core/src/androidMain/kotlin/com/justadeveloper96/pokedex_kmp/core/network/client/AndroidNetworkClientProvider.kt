@@ -27,10 +27,10 @@ package com.justadeveloper96.pokedex_kmp.core.network.client
 import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logging
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
 import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
@@ -57,14 +57,14 @@ class AndroidNetworkClientProvider(
             }
         }
 
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(
+        install(ContentNegotiation) {
+            json(
                 jsonParser.parser
             )
         }
 
         install(Logging) {
-            level = if (debug) LogLevel.NONE else LogLevel.NONE
+            level = if (debug) LogLevel.ALL else LogLevel.NONE
         }
     }
 }

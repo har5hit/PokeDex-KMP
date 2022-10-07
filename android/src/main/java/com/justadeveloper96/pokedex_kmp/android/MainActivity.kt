@@ -29,6 +29,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.justadeveloper96.pokedex_kmp.android.helpers.viewmodel.getViewModel
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreenContainer
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
 import org.koin.android.ext.android.get
 
@@ -42,8 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        return setContent {
+        setContent {
             PokemonListScreenContainer(viewModel)
         }
+        viewModel.add(IPokemonListViewModel.Action.Fetch)
     }
 }

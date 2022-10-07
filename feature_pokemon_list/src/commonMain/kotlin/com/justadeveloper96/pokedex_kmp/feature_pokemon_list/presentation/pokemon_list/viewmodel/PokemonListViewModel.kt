@@ -31,8 +31,6 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
@@ -49,31 +47,37 @@ class PokemonListViewModel(
 
     private val limit = 10
 
-    private val offset = MutableStateFlow(0)
-    private val loading = MutableStateFlow(false)
-    private val moreAvailable = MutableStateFlow(true)
-    private val list = MutableStateFlow(listOf<PokemonUiModel>())
+    private var offset = 0
+    private var loading = false
+    private var moreAvailable = true
+    private var list = listOf<PokemonUiModel>()
 
     override fun add(action: IPokemonListViewModel.Action) {
         when (action) {
             IPokemonListViewModel.Action.Fetch -> {
                 fetch()
             }
+
             IPokemonListViewModel.Action.Refresh -> {
-                clearFlags()
-                fetch()
+                refresh()
             }
         }
     }
 
+    private fun refresh() {
+        clearFlags()
+        fetch()
+    }
+
     private fun clearFlags() {
-        offset.value = 0
-        moreAvailable.value = true
+        offset = 0
+        moreAvailable = true
     }
 
     private fun fetch() {
-        if (moreAvailable.value && !loading.value) {
-            loading.value = true
+        if (moreAvailable && !loading) {
+            loading = true
+            invalidateState()
             vmScope.launch(appCoroutineDispatchers.io) {
                 fetchNewItems()
             }
@@ -81,37 +85,36 @@ class PokemonListViewModel(
     }
 
     private suspend fun fetchNewItems() {
-        repository.get(offset.value, limit).collect {
+        repository.get(offset, limit).collect {
             when (it) {
                 is Loading -> {
-                    loading.value = true
-                    list.value = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf()
+                    loading = true
+                    list = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf()
                 }
+
                 is Success -> {
-                    loading.value = false
-                    offset.value = it.data.data.size
-                    list.value = it.data.data.map { it.toPokemonUiModel() }
-                    moreAvailable.value = it.data.moreAvailable
+                    loading = false
+                    offset = it.data.data.size
+                    list = it.data.data.map { it.toPokemonUiModel() }
+                    moreAvailable = it.data.moreAvailable
                 }
+
                 is Unsuccessful, is NetworkException -> {
-                    loading.value = false
+                    loading = false
                     pushEvent(IPokemonListViewModel.UIEvent.Message(it.message))
                 }
             }
+            invalidateState()
         }
     }
 
-    init {
-        vmScope.launch(dispatchers.mainImmediate) {
-            combine(loading, moreAvailable, list) { loading, moreAvailable, list ->
-                IPokemonListViewModel.UIState(
-                    loading = loading,
-                    list = list,
-                    canLoadMore = moreAvailable
-                )
-            }.collect {
-                setState(it)
-            }
-        }
+    private fun invalidateState() {
+        setState(
+            IPokemonListViewModel.UIState(
+                loading = loading,
+                list = list,
+                canLoadMore = moreAvailable
+            )
+        )
     }
 }

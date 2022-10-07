@@ -46,6 +46,7 @@ kotlin {
                 api(Dependencies.Coroutines.Common.core)
                 api(Dependencies.Ktor.Common.core)
                 api(Dependencies.Ktor.Common.logging)
+                api(Dependencies.Ktor.Common.contentNegotiation)
                 api(Dependencies.Ktor.Common.serialization)
                 api(Dependencies.SqlDelight.Common.runtime)
                 api(Dependencies.SqlDelight.Common.coroutinesExtension)

@@ -166,7 +166,7 @@
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				7555FFB4242A642300829871 /* Embed Frameworks */,
-				BC8CC8E4287D8D9A002C9488 /* ShellScript */,
+				BC8CC8E4287D8D9A002C9488 /* Crashlytics Script */,
 			);
 			buildRules = (
 			);
@@ -248,7 +248,7 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :iosUmbrellaModule:embedAndSignAppleFrameworkForXcode\n";
 		};
-		BC8CC8E4287D8D9A002C9488 /* ShellScript */ = {
+		BC8CC8E4287D8D9A002C9488 /* Crashlytics Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,6 +259,7 @@
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\n",
 			);
+			name = "Crashlytics Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (

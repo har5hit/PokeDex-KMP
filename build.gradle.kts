@@ -39,7 +39,7 @@ buildscript {
 
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version Dependencies.Ktlint.pluginVersion
-    kotlin("plugin.serialization") version Dependencies.Serialization.version apply false
+    kotlin("plugin.serialization") version Dependencies.Kotlin.version apply false
     id("io.kotest.multiplatform") version Dependencies.Kotest.version apply false
 }
 

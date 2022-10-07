@@ -19,6 +19,9 @@ struct PokemonListView: View {
     var body: some View {
         if state.loading && state.list.isEmpty {
             ProgressView()
+                .onAppear {
+                    callBack(IPokemonListViewModelAction.Fetch())
+                }
         } else {
             List {
                 ForEach(state.list) { pokemonUiModel in

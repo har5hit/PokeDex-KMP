@@ -35,12 +35,12 @@ object Config {
 
 object Dependencies {
     object Kotlin {
-        const val version = "1.7.10"
+        const val version = "1.7.20"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Kotest {
-        const val version = "5.4.1"
+        public const val version = "5.5.0"
 
         object Common {
             const val property = "io.kotest:kotest-property:$version"
@@ -66,11 +66,10 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.6.3"
-        const val versionNativeMT = "${version}-native-mt"
+        private const val version = "1.6.4"
 
         object Common {
-            const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versionNativeMT}"
+            const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version}"
         }
 
         object Android {
@@ -79,12 +78,13 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "1.6.8"
+        private const val version = "2.1.2"
 
         object Common {
             const val core = "io.ktor:ktor-client-core:$version"
-            const val serialization = "io.ktor:ktor-client-serialization:$version"
+            const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$version"
             const val logging = "io.ktor:ktor-client-logging:$version"
+            const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
         }
 
         object Android {
@@ -102,7 +102,7 @@ object Dependencies {
     }
 
     object SqlDelight {
-        const val version = "1.5.3"
+        private const val version = "1.5.4"
 
         const val plugin = "com.squareup.sqldelight:gradle-plugin:$version"
 
@@ -125,11 +125,7 @@ object Dependencies {
 
     object Ktlint {
         const val version = "0.45.2"
-        const val pluginVersion = "10.0.0"
-    }
-
-    object Serialization {
-        const val version = "1.7.10"
+        const val pluginVersion = "11.0.0"
     }
 
     object Kermit {
