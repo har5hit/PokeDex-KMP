@@ -22,17 +22,27 @@
  * SOFTWARE.
  */
 
+import java.io.File
+
 object Utils {
 
     private fun getLocalGitBranchName(): String {
-        var branch = ""
-        val process = Runtime.getRuntime().exec("git rev-parse --abbrev-ref HEAD")
-        process.inputStream.reader().forEachLine {
-            branch = it
+        val headFile = File(".git/HEAD")
+        if (!headFile.exists()) return "master"
+
+        val headValue = headFile.readText().trim()
+        val refPrefix = "ref: refs/heads/"
+        return when {
+            headValue.startsWith(refPrefix) -> {
+                headValue.removePrefix(refPrefix)
+            }
+            headValue.isNotBlank() -> {
+                headValue.take(7)
+            }
+            else -> {
+                "master"
+            }
         }
-        process.waitFor()
-        println(branch)
-        return branch
     }
 
     fun getReleaseVersion(version: String): String {

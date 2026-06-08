@@ -22,44 +22,43 @@
  * SOFTWARE.
  */
 
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(Dependencies.Kotlin.plugin)
-        classpath(AndroidDependencies.Gradle.plugin)
-        classpath(Dependencies.SqlDelight.plugin)
-        classpath(AndroidDependencies.Google.Services.plugin)
-        classpath(AndroidDependencies.Firebase.Crashlytics.plugin)
-    }
-}
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version Dependencies.Ktlint.pluginVersion
-    kotlin("plugin.serialization") version Dependencies.Serialization.version apply false
-    id("io.kotest.multiplatform") version Dependencies.Kotest.version apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.multiplatform.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.sqldelight) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
 }
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
-    apply(plugin = "io.kotest.multiplatform")
 
     ktlint {
-        version.set(Dependencies.Ktlint.version)
+        version.set("1.7.1")
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {
             exclude { it.file.path.contains("build/") }
+        }
+    }
+}
+
+
+allprojects {
+    plugins.withType<NodeJsPlugin> {
+        extensions.configure<NodeJsEnvSpec> {
+            version = "26.3.0"
+            download = false
         }
     }
 }

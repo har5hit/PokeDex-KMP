@@ -24,7 +24,7 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.dao
 
-import com.squareup.sqldelight.db.SqlDriver
+import app.cash.sqldelight.db.SqlDriver
 
 interface IDatabaseDriverFactory {
     fun createDriver(): SqlDriver

@@ -48,12 +48,11 @@ sealed class AppNetworkResult<T>(
             is Success -> {
                 Success(transform(data), code, message)
             }
-            is Loading -> {
-                Loading(data?.let { transform(it) })
-            }
+
             is Unsuccessful -> {
                 Unsuccessful(data?.let { transform(it) }, code, error, message)
             }
+
             is NetworkException -> {
                 NetworkException(data?.let { transform(it) }, exception, message)
             }
@@ -65,12 +64,11 @@ sealed class AppNetworkResult<T>(
             is Success -> {
                 Success(data, code, message)
             }
-            is Loading -> {
-                Loading(data)
-            }
+
             is Unsuccessful -> {
                 Unsuccessful(data, code, error, message)
             }
+
             is NetworkException -> {
                 NetworkException(data, exception, message)
             }
@@ -103,6 +101,3 @@ data class NetworkException<T>(
     override val exception: Exception,
     override val message: String
 ) : AppNetworkResult<T>(data, exception = exception, message = message, state = State.ERROR)
-
-data class Loading<T>(override val data: T? = null) :
-    AppNetworkResult<T>(data, state = State.LOADING)

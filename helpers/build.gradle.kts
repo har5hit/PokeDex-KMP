@@ -23,131 +23,91 @@
  */
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    kotlin("plugin.serialization")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
+
 }
 
 version = ProjectProperties.version
 group = ProjectProperties.group
 
 kotlin {
-    android()
-    iosX64()
+    android {
+        namespace = "com.justadeveloper96.pokedex_kmp.helpers"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        withHostTest {}
+    }
     iosArm64()
     iosSimulatorArm64()
-    js(IR) {
+    js {
         browser()
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(Dependencies.Coroutines.Common.core)
-                api(Dependencies.Ktor.Common.core)
-                api(Dependencies.Ktor.Common.logging)
-                api(Dependencies.Ktor.Common.serialization)
-                api(Dependencies.SqlDelight.Common.runtime)
-                api(Dependencies.SqlDelight.Common.coroutinesExtension)
-                api(Dependencies.Koin.core)
+                implementation(libs.cmp.compose.runtime)
+                api(libs.kotlinx.coroutines.core)
+                api(libs.ktor.client.core)
+                api(libs.ktor.client.content.negotiation)
+                api(libs.ktor.client.logging)
+                api(libs.ktor.serialization.kotlinx.json)
+                api(libs.sqldelight.runtime)
+                api(libs.sqldelight.coroutines.extensions)
+                api(libs.koin.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(Dependencies.Kotest.Common.engine)
-                implementation(Dependencies.Kotest.Common.property)
-                implementation(Dependencies.Kotest.Common.assertions)
-                implementation(Dependencies.Mockk.Common.core)
-                implementation(Dependencies.Coroutines.Common.core)
+                implementation(libs.kotest.framework.engine)
+                implementation(libs.kotest.property)
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.mockk.common)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
         val androidMain by getting {
             dependencies {
-                api(AndroidDependencies.AndroidX.Lifecycle.runtime)
-                api(AndroidDependencies.AndroidX.Lifecycle.viewmodel)
-                api(AndroidDependencies.Material.core)
-                api(Dependencies.Ktor.Android.client)
-                api(Dependencies.Ktor.Android.okhttp)
-                api(Dependencies.SqlDelight.Android.driver)
-                api(AndroidDependencies.AndroidX.core)
+                api(libs.androidx.lifecycle.runtime.ktx)
+                api(libs.androidx.lifecycle.viewmodel.ktx)
+                api(libs.material)
+                api(libs.ktor.client.android)
+                api(libs.ktor.client.okhttp)
+                api(libs.sqldelight.android.driver)
+                api(libs.androidx.core.ktx)
+                implementation(libs.androidx.compose.runtime)
+                implementation(libs.androidx.compose.foundation)
+                implementation(libs.androidx.compose.material)
+
             }
         }
-        val androidTest by getting {
+        val androidHostTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-                implementation(Dependencies.Kotest.Android.runner)
-                implementation(Dependencies.Mockk.Android.core)
-                implementation(Dependencies.Coroutines.Android.test)
+                implementation(libs.junit)
+                implementation(libs.kotest.runner.junit5)
+                implementation(libs.mockk.android)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+
         val iosMain by creating {
             dependencies {
-                api(Dependencies.Ktor.iOS.client)
-                api(Dependencies.SqlDelight.iOS.driver)
+                api(libs.ktor.client.darwin)
+                api(libs.sqldelight.native.driver)
             }
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
 
         val jsMain by getting {
             dependencies {
-                api(Dependencies.Ktor.Js.client)
-                api(Dependencies.SqlDelight.Js.driver)
+                api(libs.ktor.client.js)
             }
         }
-    }
-}
-
-android {
-    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = AndroidDependencies.SdkVersion.minSdk
-        targetSdk = AndroidDependencies.SdkVersion.targetSdk
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = Config.Jvm.target
-        }
-    }
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
-    buildFeatures {
-        dataBinding = true
-    }
-    buildTypes {
-        getByName("debug") {
-            isTestCoverageEnabled = Config.Test.coverageEnabled
-        }
-    }
-
-    packagingOptions {
-        exclude("**/attach_hotspot_windows.dll")
-        exclude("META-INF/**.md")
-        exclude("META-INF/AL2.0")
-        exclude("META-INF/LGPL2.1")
-        exclude("META-INF/licenses/**")
     }
 }
 apply(from = "$rootDir/plugins/publish.gradle")

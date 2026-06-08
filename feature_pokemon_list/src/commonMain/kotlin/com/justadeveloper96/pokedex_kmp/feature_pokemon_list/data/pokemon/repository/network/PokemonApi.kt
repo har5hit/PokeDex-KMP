@@ -33,8 +33,7 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.parseToAppNetworkResu
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.readText
+import io.ktor.client.statement.bodyAsText
 
 class PokemonApi(
     private val networkClientProvider: INetworkClientProvider,
@@ -46,11 +45,11 @@ class PokemonApi(
 
     override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel> {
         return parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
-            val result = networkClientProvider.client.get<HttpResponse>(ENDPOINT) {
+            val result = networkClientProvider.client.get(ENDPOINT) {
                 parameter("offset", offset)
                 parameter("limit", limit)
             }
-            NetworkResponseData(result.status.value, result.readText())
+            NetworkResponseData(result.status.value, result.bodyAsText())
         }
     }
 }

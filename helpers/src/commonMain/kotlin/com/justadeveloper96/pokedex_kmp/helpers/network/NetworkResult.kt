@@ -33,4 +33,4 @@ open class NetworkResult<T, E>(
     open val state: State
 )
 
-enum class State { SUCCESS, UNSUCCESSFUL, ERROR, LOADING }
+enum class State { SUCCESS, UNSUCCESSFUL, ERROR }

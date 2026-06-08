@@ -27,8 +27,8 @@ package com.justadeveloper96.pokedex_kmp.android.database
 import android.content.Context
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
 import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
-import com.squareup.sqldelight.android.AndroidSqliteDriver
-import com.squareup.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import app.cash.sqldelight.db.SqlDriver
 
 class PokemonDatabaseProviderFactory(private val context: Context) : IDatabaseDriverFactory {
     override fun createDriver(): SqlDriver {

@@ -24,9 +24,9 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.mapper
 
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonResponseModel
-import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModel
 
 fun PokemonDaoModel.toDomainModel(): Pokemon {
     return Pokemon(

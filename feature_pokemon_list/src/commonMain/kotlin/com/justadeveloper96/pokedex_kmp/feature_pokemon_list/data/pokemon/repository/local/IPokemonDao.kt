@@ -24,16 +24,16 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local
 
-import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModel
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModel
 import kotlinx.coroutines.flow.Flow
 
 interface IPokemonDao {
 
-    fun insert(list: List<PokemonDaoModel>)
+    suspend fun insert(list: List<PokemonDaoModel>)
 
-    fun insert(item: PokemonDaoModel)
+    suspend fun insert(item: PokemonDaoModel)
 
-    fun getAll(): Flow<List<PokemonDaoModel>>
+    suspend fun getAll(): List<PokemonDaoModel>
 
-    fun deleteAll()
+    suspend fun deleteAll()
 }

@@ -23,20 +23,24 @@
  */
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    kotlin("plugin.serialization")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 version = ProjectProperties.version
 group = ProjectProperties.group
 
 kotlin {
-    android()
-    iosX64()
+    android {
+        namespace = "com.justadeveloper96.pokedex_kmp.core"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        withHostTest {}
+    }
     iosArm64()
     iosSimulatorArm64()
-    js(IR) {
+    js {
         browser()
     }
     sourceSets {
@@ -48,9 +52,9 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(project(":helpers"))
-                implementation(Dependencies.Kotest.Common.engine)
-                implementation(Dependencies.Kotest.Common.property)
-                implementation(Dependencies.Kotest.Common.assertions)
+                implementation(libs.kotest.framework.engine)
+                implementation(libs.kotest.property)
+                implementation(libs.kotest.assertions.core)
             }
         }
         val androidMain by getting {
@@ -58,59 +62,25 @@ kotlin {
                 api(project(":helpers"))
             }
         }
-        val androidTest by getting {
+        val androidHostTest by getting {
             dependencies {
                 implementation(project(":helpers"))
-                implementation(Dependencies.Kotest.Android.runner)
-                implementation(Dependencies.Mockk.Android.core)
-                implementation(Dependencies.Coroutines.Android.test)
+                implementation(libs.kotest.runner.junit5)
+                implementation(libs.mockk.android)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
                 api(project(":helpers"))
             }
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
         val jsMain by getting {
             dependencies {
                 api(project(":helpers"))
             }
         }
-    }
-}
-
-android {
-    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = AndroidDependencies.SdkVersion.minSdk
-        targetSdk = AndroidDependencies.SdkVersion.targetSdk
-        consumerProguardFiles("proguard-consumer-rules.pro")
-    }
-    buildTypes {
-        getByName("debug") {
-            isTestCoverageEnabled = Config.Test.coverageEnabled
-        }
-    }
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 }
 apply(from = "$rootDir/plugins/publish.gradle")

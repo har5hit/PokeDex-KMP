@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,11 +12,9 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		BC267C532823DC4600217C06 /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC267C522823DC4600217C06 /* PokemonListView.swift */; };
-		BC8CC8E3287D7DE5002C9488 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */; };
-		BC8CC8EC287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = BC8CC8EB287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		BC8CC8EE287D941E002C9488 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = BC8CC8ED287D941E002C9488 /* FirebaseCrashlytics */; };
 		BCB13D7528216AB80015E6D5 /* DIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB13D7428216AB80015E6D5 /* DIModule.swift */; };
 		BCBAC5E4289AE241003661BB /* KMPViewModelWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBAC5E3289AE240003661BB /* KMPViewModelWrapper.swift */; };
+		E19B8E7E2D00000100000001 /* SharedComposePokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8E7D2D00000100000001 /* SharedComposePokemonListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,9 +38,9 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC267C522823DC4600217C06 /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
-		BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BCB13D7428216AB80015E6D5 /* DIModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIModule.swift; sourceTree = "<group>"; };
 		BCBAC5E3289AE240003661BB /* KMPViewModelWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPViewModelWrapper.swift; sourceTree = "<group>"; };
+		E19B8E7D2D00000100000001 /* SharedComposePokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComposePokemonListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC8CC8EC287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				BC8CC8EE287D941E002C9488 /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				BCBAC5EE289AF2E9003661BB /* helpers */,
-				BC8CC8E2287D7DE4002C9488 /* GoogleService-Info.plist */,
 				BC267C4E2823DC0300217C06 /* presentation */,
 				BCB13D7328216AA80015E6D5 /* di */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -126,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				BC267C522823DC4600217C06 /* PokemonListView.swift */,
+				E19B8E7D2D00000100000001 /* SharedComposePokemonListView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -166,7 +162,6 @@
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				7555FFB4242A642300829871 /* Embed Frameworks */,
-				BC8CC8E4287D8D9A002C9488 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -174,8 +169,6 @@
 			);
 			name = ios;
 			packageProductDependencies = (
-				BC8CC8EB287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport */,
-				BC8CC8ED287D941E002C9488 /* FirebaseCrashlytics */,
 			);
 			productName = ios;
 			productReference = 7555FF7B242A565900829871 /* ios.app */;
@@ -206,7 +199,6 @@
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
-				BC8CC8EA287D941E002C9488 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -224,7 +216,6 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
-				BC8CC8E3287D7DE5002C9488 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,26 +237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :iosUmbrellaModule:embedAndSignAppleFrameworkForXcode\n";
-		};
-		BC8CC8E4287D8D9A002C9488 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\n",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :iosUmbrellaModule:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -278,6 +250,7 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				BC267C532823DC4600217C06 /* PokemonListView.swift in Sources */,
 				BCBAC5E4289AE241003661BB /* KMPViewModelWrapper.swift in Sources */,
+				E19B8E7E2D00000100000001 /* SharedComposePokemonListView.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,10 +380,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ios/Preview Content\"";
+				DEVELOPMENT_TEAM = DJDTZT828Z;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../iosUmbrellaModule/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -436,7 +410,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../iosUmbrellaModule/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,30 +449,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BC8CC8EA287D941E002C9488 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BC8CC8EB287D941E002C9488 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BC8CC8EA287D941E002C9488 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		BC8CC8ED287D941E002C9488 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BC8CC8EA287D941E002C9488 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

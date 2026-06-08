@@ -24,31 +24,32 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local
 
-import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModel
-import com.justadeveloper96.pokedexkmp.featurepokemonlist.PokemonDaoModelQueries
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModel
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModelQueries
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 class PokemonDao(private val queries: PokemonDaoModelQueries) : IPokemonDao {
 
-    override fun insert(list: List<PokemonDaoModel>) {
+    override suspend fun insert(list: List<PokemonDaoModel>) {
         queries.transaction {
             list.forEach {
-                insert(it)
+                queries.insert(it)
             }
         }
     }
 
-    override fun insert(item: PokemonDaoModel) {
+    override suspend fun insert(item: PokemonDaoModel) {
         queries.insert(item)
     }
 
-    override fun getAll(): Flow<List<PokemonDaoModel>> {
-        return queries.getAll().asFlow().mapToList()
+    override suspend fun getAll(): List<PokemonDaoModel> {
+        return queries.getAll().executeAsList()
     }
 
-    override fun deleteAll() {
+    override suspend fun deleteAll() {
         queries.deleteAll()
     }
 }

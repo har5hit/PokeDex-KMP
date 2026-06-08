@@ -4,12 +4,13 @@
 [![Web CI-CD](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml)
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
-A Demo Application for demonstrating code reuse in Android, iOS and JavaScript apps using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
+A demo application demonstrating shared business logic and reusable Compose Multiplatform UI across Android, iOS, and Web using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
 <br/>
 Specifications:
-* 100% [Kotlin](https://kotlinlang.org/) for Common Kotlin Code, Android and JavaScript modules.
+* 100% [Kotlin](https://kotlinlang.org/) for common Kotlin code, Android, and Web modules.
 * 100% [Swift](https://www.swift.org/) for iOS.
-* Kotlin: [1.7.10](https://kotlinlang.org/docs/releases.html).
+* Kotlin: [2.4.0](https://kotlinlang.org/docs/releases.html).
+* Gradle: 9.5.1.
 * Test Driven Development (TDD).
 * MVVM design pattern.
 * Multi Module KMP Application Setup.
@@ -19,9 +20,9 @@ Specifications:
 * Multiplatform Database using [SQLDelight](https://github.com/cashapp/sqldelight).
 * Multiplatform Network Client using [Ktor](https://ktor.io/).
 * [Ktlint](https://ktlint.github.io/) for lint.
-* [Jetpack Compose](https://developer.android.com/jetpack/compose) for Android.
+* [Jetpack Compose](https://developer.android.com/jetpack/compose) and native Android views for Android.
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/) for iOS.
-* [KVision](https://kvision.io/) for Web. [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/).
+* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) for reusable shared UI and Web. [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/).
 * CI-CD using [Github Actions](https://github.com/features/actions).
 * [Kermit](https://github.com/touchlab/Kermit) - Better iOS Crash Report Logging on Kotlin code crashes.
 * KMP Modules Deployment as libraries for external `Android`, `iOS` and `JavaScript` apps.
@@ -61,13 +62,26 @@ Android             |  iOS |  Web
 ![Overview](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/architecture.svg?raw=true)
 
 # Module Structure
-* helpers - Generic helper methods for mobile apps
-* core - Application specific common code which are shared by mostly all feature modules
-* feature_* - Feature module
-* iosUmbrellaModule - Umbrella module for ios. This module loads all sub gradle modules and creates a single framework file for adding to ios project. Also iOS specific helper code which needs kotlin access should be put here. Treat it as extension of iOS module with Kotlin support. 
-* android - Android host app
-* ios - iOS host app
-* web-kvision - Web host app
+* helpers - Cross-platform utilities and reusable primitives.
+* core - Shared app-level infrastructure and common services used by feature modules.
+* feature_* - Feature modules containing shared data and presentation logic.
+* feature_*_compose - Reusable Compose Multiplatform UI modules.
+* iosUmbrellaModule - Umbrella module for iOS. This module aggregates and exports KMP modules as a single framework for the iOS app.
+* android - Android host app.
+* ios - iOS host app.
+* web-compose - Compose Multiplatform web host app.
+* feature_pokemon_list_compose - Shared Compose Multiplatform UI for Android, iOS, and Web reuse.
+
+# UI Strategy
+* Web uses Compose Multiplatform only.
+* Android exposes two Pokémon list experiences through bottom navigation:
+  * Native Android UI.
+  * Shared Compose Multiplatform UI reuse.
+* iOS exposes two Pokémon list experiences through tabs:
+  * Native SwiftUI UI.
+  * Shared Compose Multiplatform UI reuse.
+* Shared CMP screens are platform-route agnostic. For example, `PokemonListScreenCmp(state, onAction)` renders UI while routing remains owned by each host platform.
+* CMP composables use the `Cmp` suffix, such as `PokemonListScreenCmp` and `PokemonListItemViewCmp`, while native host views keep plain names.
 
 
 # Application Structure
@@ -93,25 +107,43 @@ Install following plugins from `Preferences -> Plugins`
 - Kotlin Multiplatform Mobile.
 - Kotest
 
+# Tooling
+* Prefer JDK 21 for Gradle/Kotlin builds. Running Gradle with JDK 26 can trigger Kotlin JVM target fallback warnings because Kotlin does not yet target JVM 26.
+* Web development expects Node to be available on `PATH`. If Homebrew links multiple Node versions, make sure the desired Node binary appears first, for example `/opt/homebrew/bin`.
+* Dependency versions are managed through the Gradle version catalog in `gradle/libs.versions.toml`.
+* Compose dependencies are split by platform in the catalog:
+  * Android Compose uses `androidx-compose-*`.
+  * Compose Multiplatform uses `cmp-compose-*`.
+
 # Web Performance
 Lighthouse Performance: **82**
 <br/>
 ![Performance](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/web_performance_lighthouse.png?raw=true)
 <br/>
 Steps taken to improve performance from **50** to **82** on Web:
-- Remove [SQL.js](https://sql.js.org/) Dependency (> 1 MB) for SQL based [PokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/feature_pokemon_list/src/commonMain/kotlin/com/justadeveloper96/pokedex_kmp/feature_pokemon_list/data/pokemon/repository/local/PokemonDao.kt) with [WebPokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/kvision/data/pokemon/repository/local/WebPokemonDao.kt), In-Memory Dao implementation, for Web.
-- Overriding it in [DI](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/kvision/di/module/FeaturePokemonListModuleOverride.kt).
-- Setup [Brotli Compression in Webpack](https://github.com/har5hit/PokeDex-KMP/blob/master/web-kvision/webpack.config.d/compress.js)
+- Remove [SQL.js](https://sql.js.org/) Dependency (> 1 MB) for SQL based [PokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/feature_pokemon_list/src/commonMain/kotlin/com/justadeveloper96/pokedex_kmp/feature_pokemon_list/data/pokemon/repository/local/PokemonDao.kt) with a Web-specific in-memory DAO implementation.
+- Override platform-specific dependencies in [DI](https://github.com/har5hit/PokeDex-KMP/blob/master/web-compose/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/compose/di/module/FeaturePokemonListModuleOverride.kt).
+- Setup Brotli Compression in Webpack for the web host build
 - Use SVG Pokemon images.
 
 # Run
 ## Android
-Run using `Android` Configuration or using gradle task `installDebug`
+Run using the `Android` configuration or:
+```shell
+./gradlew :android:installDebug
+```
+
 ## iOS
 - Open `ios` folder in Mac Finder and double-click `ios.xcodeproj` and run from Xcode.
+- The iOS app embeds the shared framework from `iosUmbrellaModule`.
+- The CMP tab requires the Compose iOS `Info.plist` setup, including `CADisableMinimumFrameDurationOnPhone`.
+
 ## Web
 - Check [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/)
-- Run on local machine: gradle task `web-kvision:run -t`
+- Run on local machine:
+```shell
+PATH="/opt/homebrew/bin:$PATH" ./gradlew :web-compose:jsBrowserDevelopmentRun --continuous
+```
 
 # Deployment as library
 
@@ -122,7 +154,7 @@ Run using `Android` Configuration or using gradle task `installDebug`
 * For `Android`, the process is simple as adding gradle dependencies in the app to load these hosted libraries.
 * For `iOS`, reference can be taken from this project or [follow this guide](https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html#make-your-cross-platform-application-work-on-ios).
 Pro tip: Keep KMP files inside a folder and not at root level to keep it encapsulated from native `iOS` project files and modify the configuration to support this.
-* For `JavaScript`, if using Kotlin Application like [KVision](https://kvision.io/) , the process is simple as adding gradle dependencies in the app to load these hosted libraries. 
+* For `JavaScript`, the `web-compose` host consumes the shared KMP modules and reusable Compose Multiplatform UI directly.
 
 # TODO
 ## iOS

@@ -26,23 +26,21 @@ package com.justadeveloper96.pokedex_kmp.core.network.client
 
 import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.ios.Ios
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logging
+import io.ktor.client.engine.darwin.Darwin
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
 
 class IOSNetworkClientProvider(
     debug: Boolean,
     jsonParser: IJsonParser
 ) : INetworkClientProvider {
-    override val client: HttpClient = HttpClient(Ios) {
+    override val client: HttpClient = HttpClient(Darwin) {
         engine {
         }
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(
-                jsonParser.parser
-            )
+        install(ContentNegotiation) {
+            json(jsonParser.parser)
         }
         install(Logging) {
             level = if (debug) LogLevel.ALL else LogLevel.NONE

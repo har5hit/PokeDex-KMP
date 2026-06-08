@@ -23,76 +23,68 @@
  */
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    kotlin("plugin.serialization")
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 version = ProjectProperties.version
 group = ProjectProperties.group
 
 kotlin {
-    android()
-    iosX64()
+    android {
+        namespace = "com.justadeveloper96.pokedex_kmp.feature_pokemon_list"
+        compileSdk = libs.versions.android.compile.sdk.get().toInt()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        withHostTest {
+
+        }
+    }
     iosArm64()
     iosSimulatorArm64()
-    js(IR) {
+    js {
         browser()
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(project(":core"))
-                api(Dependencies.SqlDelight.Common.runtime)
-                api(Dependencies.SqlDelight.Common.coroutinesExtension)
+                api(libs.sqldelight.runtime)
+                api(libs.sqldelight.coroutines.extensions)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(project(":core"))
-                implementation(Dependencies.Kotest.Common.engine)
-                implementation(Dependencies.Kotest.Common.property)
-                implementation(Dependencies.Kotest.Common.assertions)
+                implementation(libs.kotest.framework.engine)
+                implementation(libs.kotest.property)
+                implementation(libs.kotest.assertions.core)
             }
         }
         val androidMain by getting {
             dependencies {
                 api(project(":core"))
-                api(Dependencies.SqlDelight.Android.driver)
+                api(libs.sqldelight.android.driver)
             }
         }
-        val androidTest by getting {
+        val androidHostTest by getting {
             dependencies {
                 implementation(project(":core"))
-                implementation(Dependencies.Kotest.Android.runner)
-                implementation(Dependencies.Mockk.Android.core)
-                implementation(Dependencies.Coroutines.Android.test)
+                implementation(libs.kotest.runner.junit5)
+                implementation(libs.mockk.android)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
                 api(project(":core"))
-                api(Dependencies.SqlDelight.iOS.driver)
+                api(libs.sqldelight.native.driver)
             }
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
-        }
+
         val jsMain by getting {
             dependencies {
                 api(project(":core"))
@@ -100,29 +92,15 @@ kotlin {
         }
     }
 }
-
-android {
-    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = AndroidDependencies.SdkVersion.minSdk
-        targetSdk = AndroidDependencies.SdkVersion.targetSdk
-        consumerProguardFiles("proguard-consumer-rules.pro")
-    }
-    buildTypes {
-        getByName("debug") {
-            isTestCoverageEnabled = Config.Test.coverageEnabled
-        }
-    }
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
-}
 sqldelight {
-    database("PokemonDatabase") {
-        packageName = "${ProjectProperties.group}.feature_pokemon_list"
-        verifyMigrations = true
-        schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
+    linkSqlite = true
+
+    databases {
+        create("PokemonDatabase") {
+            packageName.set("${ProjectProperties.group}.feature_pokemon_list")
+            verifyMigrations.set(true)
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+        }
     }
 }
 apply(from = "$rootDir/plugins/publish.gradle")

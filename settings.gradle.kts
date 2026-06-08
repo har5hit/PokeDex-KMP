@@ -30,10 +30,19 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "PokeDex-KMP"
 include(":android")
 include(":iosUmbrellaModule")
 include(":helpers")
 include(":core")
 include(":feature_pokemon_list")
-include(":web-kvision")
+include(":feature_pokemon_list_compose")
+include(":web-compose")

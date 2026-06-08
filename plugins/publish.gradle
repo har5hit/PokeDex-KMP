@@ -24,11 +24,14 @@
 
 apply plugin: 'maven-publish'
 
-kotlin {
-    android {
-        publishLibraryVariants("release", "debug")
+if (plugins.hasPlugin("com.android.library")) {
+    kotlin {
+        android {
+            publishLibraryVariants("release", "debug")
+        }
     }
 }
+
 publishing {
     repositories {
         // Add remote maven configuration here for library deployments

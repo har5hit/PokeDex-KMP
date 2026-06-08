@@ -45,14 +45,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
+import coil3.compose.AsyncImage
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
 
 @Composable
-fun PokemonListItemView(model: PokemonUiModel) {
+private fun PokemonListItemView(model: PokemonUiModel) {
     val cardModifier = Modifier.padding(12.dp).height(150.dp)
     Card(modifier = cardModifier) {
         val boxModifier =
@@ -69,7 +67,7 @@ fun PokemonListItemView(model: PokemonUiModel) {
                 contentDescription = null,
                 modifier = imageModifier
             )
-            Text(text = model.name, style = Typography().body1, color = Color.White)
+            Text(text = model.name, color = Color.White)
         }
     }
 }
@@ -90,7 +88,6 @@ fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
         }
     }
 
-    // act when end of list reached
     LaunchedEffect(endOfListReached) {
         onEndReached()
     }
@@ -98,23 +95,3 @@ fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
 
 fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
-
-@Preview
-@Composable
-fun PreviewConversation() {
-    val uiState = IPokemonListViewModel.UIState(
-        loading = true,
-        list = listOf(
-            PokemonUiModel(
-                name = "Bulbasaur",
-                url = "https://pokeapi.co/api/v2/pokemon/1/"
-            ),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/")
-        ),
-        canLoadMore = true
-    )
-    PokemonListItemView(uiState.list[0])
-}

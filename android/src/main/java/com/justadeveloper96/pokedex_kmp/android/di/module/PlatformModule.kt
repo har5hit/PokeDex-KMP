@@ -24,8 +24,8 @@
 
 package com.justadeveloper96.pokedex_kmp.android.di.module
 
-import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.justadeveloper96.pokedex_kmp.android.BuildConfig
 import com.justadeveloper96.pokedex_kmp.android.database.PokemonDatabaseProviderFactory
 import com.justadeveloper96.pokedex_kmp.core.network.client.AndroidNetworkClientProvider
 import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider

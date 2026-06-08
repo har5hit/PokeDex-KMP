@@ -25,14 +25,7 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image
 
 object PNGPokemonImageUrl : IPokemonImageUrl {
-    private const val IMAGE_HOST_URL =
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
-
     override operator fun invoke(id: String): String {
-        return try {
-            "$IMAGE_HOST_URL/$id.png"
-        } catch (e: Exception) {
-            ""
-        }
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
     }
 }

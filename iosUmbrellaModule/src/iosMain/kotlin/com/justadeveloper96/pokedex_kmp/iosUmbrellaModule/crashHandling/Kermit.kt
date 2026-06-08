@@ -10,15 +10,11 @@
 
 package com.justadeveloper96.pokedex_kmp.android.crashHandling
 
-import co.touchlab.kermit.ExperimentalKermitApi
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Severity
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.crashlytics.setupCrashlyticsExceptionHook
+//import co.touchlab.kermit.ExperimentalKermitApi
 
-@OptIn(ExperimentalKermitApi::class)
+//@OptIn(ExperimentalKermitApi::class)
 fun startKermit() {
     // You may want to us a non-global logger in production, but this will work fine.
-    Logger.addLogWriter(CrashlyticsLogWriter(Severity.Error, Severity.Error, true))
-    setupCrashlyticsExceptionHook(Logger)
+//    Logger.addLogWriter(CrashlyticsLogWriter(Severity.Error, Severity.Error))
+//    setupCrashlyticsExceptionHook(Logger)
 }
