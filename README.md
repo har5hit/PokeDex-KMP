@@ -35,26 +35,43 @@ All advantages and freedom of native development + code re-usability in other pl
 
 # Source Line of Code Stats:
 
-## Common Module (KMP)
+Generated using `scc` code lines, excluding build outputs.
+
+## Shared Modules (KMP)
 | Module              | sloc count |
 |----------------------|-----|
-| helpers              | 491 |
-| core                 | 289 |
-| feature_pokemon_list | 428 |
-| **Total** | **1208** |
+| helpers              | 477 |
+| core                 | 419 |
+| feature_pokemon_list | 554 |
+| feature_pokemon_list_compose | 181 |
+| **Total** | **1631** |
 
-## Host apps (Containing views and di code)
+
+## Host Apps (Containing views and di code)
 | App              | sloc count | exclusive code % | common code % |
 |----------------------|-----|-----|-----|
-| android              | 210 | 17.38% | **82.62%**|
-| ios                 | 130 | 10.76% | **89.24%**|
+| android              | 396 | 19.52% | **80.48%**|
+| ios                  | 285 | 14.89% | **85.11%**|
+| web-compose          | 205 | 11.16% | **88.84%**|
 
 Around **~80%** code written for a feature can be reused for other platform using KMP.
 
 # Screenshots
-Android             |  iOS |  Web
-:-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_android.png?raw=true)  |  ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_ios.png?raw=true) | ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_web.png?raw=true)
+
+## Android
+Native UI             |  Shared CMP UI
+:-------------------------:|:-------------------------:
+![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_android_compose.png?raw=true)  |  ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_android_cmp.png?raw=true)
+
+## iOS
+Native UI             |  Shared CMP UI
+:-------------------------:|:-------------------------:
+![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_ios_swiftui.png?raw=true)  |  ![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_ios_cmp.png?raw=true)
+
+## Web
+Compose Multiplatform UI
+:-------------------------:
+![](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/screenshot_web.png?raw=true)
 
 
 # Architecture
@@ -115,17 +132,6 @@ Install following plugins from `Preferences -> Plugins`
   * Android Compose uses `androidx-compose-*`.
   * Compose Multiplatform uses `cmp-compose-*`.
 
-# Web Performance
-Lighthouse Performance: **82**
-<br/>
-![Performance](https://github.com/har5hit/PokeDex-KMP/blob/master/assets/web_performance_lighthouse.png?raw=true)
-<br/>
-Steps taken to improve performance from **50** to **82** on Web:
-- Remove [SQL.js](https://sql.js.org/) Dependency (> 1 MB) for SQL based [PokemonDao](https://github.com/har5hit/PokeDex-KMP/blob/master/feature_pokemon_list/src/commonMain/kotlin/com/justadeveloper96/pokedex_kmp/feature_pokemon_list/data/pokemon/repository/local/PokemonDao.kt) with a Web-specific in-memory DAO implementation.
-- Override platform-specific dependencies in [DI](https://github.com/har5hit/PokeDex-KMP/blob/master/web-compose/src/main/kotlin/com/justadeveloper96/pokedex_kmp/web/compose/di/module/FeaturePokemonListModuleOverride.kt).
-- Setup Brotli Compression in Webpack for the web host build
-- Use SVG Pokemon images.
-
 # Run
 ## Android
 Run using the `Android` configuration or:
@@ -156,16 +162,6 @@ PATH="/opt/homebrew/bin:$PATH" ./gradlew :web-compose:jsBrowserDevelopmentRun --
 Pro tip: Keep KMP files inside a folder and not at root level to keep it encapsulated from native `iOS` project files and modify the configuration to support this.
 * For `JavaScript`, the `web-compose` host consumes the shared KMP modules and reusable Compose Multiplatform UI directly.
 
-# TODO
-## iOS
-- [ ] Test cases
-- [ ] UI Event handling
-- [ ] Dependency injection framework
-- [ ] CI
-
-## Common
-- [ ] Code Generation templates
-
 # Resources
 
 ## Pokemon Data
@@ -182,7 +178,7 @@ easily accessible through a modern RESTful API.
 
 # License
 ```xml
-Copyright 2022 Harshith Shetty (justadeveloper96@gmail.com)
+Copyright 2022 Harshith Shetty (hshetty.biz@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
