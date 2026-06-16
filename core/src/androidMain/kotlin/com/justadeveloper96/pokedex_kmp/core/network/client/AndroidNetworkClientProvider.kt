@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,10 @@ package com.justadeveloper96.pokedex_kmp.core.network.client
 import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logging
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
 import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
@@ -38,33 +38,32 @@ class AndroidNetworkClientProvider(
     debug: Boolean,
     jsonParser: IJsonParser,
     interceptors: List<Interceptor>,
-    networkInterceptor: List<Interceptor>
+    networkInterceptor: List<Interceptor>,
 ) : INetworkClientProvider {
-    override val client: HttpClient = HttpClient(OkHttp) {
-        engine {
-            config {
-                callTimeout(30, TimeUnit.SECONDS)
-                connectTimeout(30, TimeUnit.SECONDS)
-                readTimeout(30, TimeUnit.SECONDS)
-                writeTimeout(30, TimeUnit.SECONDS)
+    override val client: HttpClient =
+        HttpClient(OkHttp) {
+            engine {
+                config {
+                    callTimeout(30, TimeUnit.SECONDS)
+                    connectTimeout(30, TimeUnit.SECONDS)
+                    readTimeout(30, TimeUnit.SECONDS)
+                    writeTimeout(30, TimeUnit.SECONDS)
+                }
+
+                interceptors.forEach {
+                    addInterceptor(it)
+                }
+                networkInterceptor.forEach {
+                    addNetworkInterceptor(it)
+                }
             }
 
-            interceptors.forEach {
-                addInterceptor(it)
+            install(ContentNegotiation) {
+                json(jsonParser.parser)
             }
-            networkInterceptor.forEach {
-                addNetworkInterceptor(it)
+
+            install(Logging) {
+                level = if (debug) LogLevel.NONE else LogLevel.NONE
             }
         }
-
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(
-                jsonParser.parser
-            )
-        }
-
-        install(Logging) {
-            level = if (debug) LogLevel.NONE else LogLevel.NONE
-        }
-    }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,11 +35,12 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemo
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.CoroutineDependency
 import org.koin.dsl.module
 
-val featurePokemonListModule = module {
+val featurePokemonListModule =
+    module {
 
-    single { CoroutineDependency.dispatchers }
-    single<IPokemonApi> { PokemonApi(get(), get(), get()) }
-    single<IPokemonDao> { PokemonDao(get<PokemonDatabase>().pokemonDaoModelQueries) }
-    single<IPokemonRepository> { PokemonRepository(get(), get()) }
-    factory { PokemonListViewModel(get(), get()) }
-}
+        single { CoroutineDependency.dispatchers }
+        single<IPokemonApi> { PokemonApi(get(), get(), get()) }
+        single<IPokemonDao> { PokemonDao(get<PokemonDatabase>().pokemonDaoModelQueries) }
+        single<IPokemonRepository> { PokemonRepository(get(), get()) }
+        factory { PokemonListViewModel(get(), get()) }
+    }

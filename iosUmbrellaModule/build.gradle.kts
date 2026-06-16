@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,20 @@
  */
 
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 version = ProjectProperties.version
 group = ProjectProperties.group
 
 kotlin {
-
     listOf(
-        iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             linkerOpts.add("-lsqlite3")
-            isStatic = true
+//            isStatic = true
             baseName = "iosUmbrellaModule"
         }
     }
@@ -46,6 +44,7 @@ kotlin {
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
         binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.Framework> {
             export(project(":feature_pokemon_list"))
+            export(project(":feature_pokemon_list_compose"))
             export(project(":core"))
             export(project(":helpers"))
             transitiveExport = true
@@ -56,41 +55,24 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":feature_pokemon_list"))
+                api(project(":feature_pokemon_list_compose"))
                 api(kotlin("stdlib-common"))
             }
         }
-        val commonTest by getting {
-            dependencies {
-            }
-        }
-
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
-                api(Dependencies.Kermit.kermit)
-                api(Dependencies.Kermit.crashlytics)
+//                api(libs.kermit)
+//                api(libs.kermit.crashlytics)
             }
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
 
 configurations.all {
     resolutionStrategy {
-        force(Dependencies.Coroutines.Common.core)
+        force(
+            libs.kotlinx.coroutines.core
+                .get(),
+        )
     }
 }

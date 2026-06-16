@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,44 +22,86 @@
  * SOFTWARE.
  */
 
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(Dependencies.Kotlin.plugin)
-        classpath(AndroidDependencies.Gradle.plugin)
-        classpath(Dependencies.SqlDelight.plugin)
-        classpath(AndroidDependencies.Google.Services.plugin)
-        classpath(AndroidDependencies.Firebase.Crashlytics.plugin)
-    }
-}
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
+import org.gradle.api.tasks.testing.TestListener
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
+import org.gradle.api.tasks.testing.Test
+import org.gradle.api.tasks.testing.TestDescriptor
+import org.gradle.api.tasks.testing.TestResult
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version Dependencies.Ktlint.pluginVersion
-    kotlin("plugin.serialization") version Dependencies.Serialization.version apply false
-    id("io.kotest.multiplatform") version Dependencies.Kotest.version apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.multiplatform.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.sqldelight) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
 }
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
-    apply(plugin = "io.kotest.multiplatform")
+
+    val summaryListener =
+        object : TestListener {
+            override fun beforeSuite(suite: TestDescriptor) = Unit
+
+            override fun beforeTest(testDescriptor: TestDescriptor) = Unit
+
+            override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) = Unit
+
+            override fun afterSuite(suite: TestDescriptor, result: TestResult) {
+                if (suite.parent == null) {
+                    println(
+                        "${project.path}:${suite.name} -> " +
+                            "${result.testCount} tests, " +
+                            "${result.successfulTestCount} successful, " +
+                            "${result.failedTestCount} failed, " +
+                            "${result.skippedTestCount} skipped",
+                    )
+                }
+            }
+        }
+
+    fun Test.configureSummaryOutput() {
+        if (extensions.extraProperties.has("summaryOutputConfigured")) {
+            return
+        }
+        extensions.extraProperties["summaryOutputConfigured"] = true
+        addTestListener(summaryListener)
+    }
+
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        configureSummaryOutput()
+    }
+
+    tasks.withType<AndroidUnitTest>().configureEach {
+        useJUnitPlatform()
+        configureSummaryOutput()
+    }
 
     ktlint {
-        version.set(Dependencies.Ktlint.version)
+        version.set("1.7.1")
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {
             exclude { it.file.path.contains("build/") }
+        }
+    }
+}
+
+allprojects {
+    plugins.withType<NodeJsPlugin> {
+        extensions.configure<NodeJsEnvSpec> {
+            version = "26.3.0"
+            download = false
         }
     }
 }

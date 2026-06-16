@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,5 +28,8 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.AppNetworkResult
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
 
 interface IPokemonApi {
-    suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel>
+    suspend fun get(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<PokemonListResponseModel>
 }

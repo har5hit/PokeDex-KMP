@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,10 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.pagination
 
-data class PaginatedList<T>(val data: List<T>, val total: Int) {
+data class PaginatedList<T>(
+    val data: List<T>,
+    val total: Int,
+) {
     val moreAvailable
         get() = data.size < total
 }

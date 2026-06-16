@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemo
 
 data class PokemonUiModel(
     val name: String,
-    val url: String
+    val url: String,
 ) {
     val id by lazy { url.split("/").dropLast(1).last() }
 
@@ -42,9 +42,8 @@ data class PokemonUiModel(
     val imageSvg by lazy { SVGPokemonImageUrl(id) }
 }
 
-fun Pokemon.toPokemonUiModel(): PokemonUiModel {
-    return PokemonUiModel(
+fun Pokemon.toPokemonUiModel(): PokemonUiModel =
+    PokemonUiModel(
         name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
-        url
+        url,
     )
-}

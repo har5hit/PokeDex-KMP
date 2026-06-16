@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,24 +25,24 @@
 package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<S, E, A>(
     final override val initialState: S,
-    dispatchers: AppCoroutineDispatchers
-) :
-    ViewModel(dispatchers), IFlowViewModel<S, E, A> {
-
-    abstract val TAG: String
-
+    dispatchers: AppCoroutineDispatchers,
+) : ViewModel(dispatchers),
+    IFlowViewModel<S, E, A> {
     private val _stateHolder: MutableStateFlow<S> = MutableStateFlow(initialState)
 
-    private val _eventHolder: MutableStateFlow<E?> = MutableStateFlow(null)
+    private val _eventHolder: MutableSharedFlow<E?> = MutableSharedFlow(0)
 
-    override val eventHolder: StateFlow<E?> = _eventHolder.asStateFlow()
+    override val eventHolder: Flow<E?> = _eventHolder.asSharedFlow()
 
     override val stateHolder: StateFlow<S> = _stateHolder.asStateFlow()
 
@@ -52,11 +52,7 @@ abstract class BaseViewModel<S, E, A>(
 
     protected fun pushEvent(event: E?) {
         vmScope.launch(dispatchers.mainImmediate) {
-            _eventHolder.value = event
+            _eventHolder.emit(event)
         }
-    }
-
-    override fun onEventConsumed() {
-        pushEvent(null)
     }
 }

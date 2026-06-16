@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,43 +24,32 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository
 
-import com.justadeveloper96.pokedex_kmp.core.network.parse.Loading
+import com.justadeveloper96.pokedex_kmp.core.network.parse.AppNetworkResult
 import com.justadeveloper96.pokedex_kmp.core.network.parse.Success
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.IPokemonDao
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.mapper.toDaoModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.local.mapper.toDomainModel
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.IPokemonApi
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.mapper.toDomainModel
-import com.justadeveloper96.pokedex_kmp.helpers.pagination.PaginatedList
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 
-class PokemonRepository constructor(
+class PokemonRepository(
     private val pokemonApi: IPokemonApi,
-    private val pokemonDao: IPokemonDao
+    private val pokemonDao: IPokemonDao,
 ) : IPokemonRepository {
+    override suspend fun get(): List<Pokemon> = pokemonDao.getAll().map { it.toDomainModel() }
 
-    private val TAG = "PokemonRepository"
-    override suspend fun get(offset: Int, limit: Int) =
-        combine(
-            pokemonDao.getAll(),
-            fetchPokemonList(offset, limit)
-        ) { a, b ->
-            val data =
-                PaginatedList(a.map { it.toDomainModel() }, maxOf(a.size, b.data?.total ?: 0))
-            b.modify(data)
-        }
-
-    private suspend fun fetchPokemonList(offset: Int, limit: Int) =
-        flow {
-            emit(Loading())
-            val result = pokemonApi.get(offset, limit)
-            if (result is Success) {
-                if (offset == 0) {
-                    pokemonDao.deleteAll()
-                }
-                pokemonDao.insert(result.data.results.map { it.toDaoModel() })
+    override suspend fun fetch(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<Pair<List<Pokemon>, Int>> {
+        val result = pokemonApi.get(offset, limit)
+        if (result is Success) {
+            if (offset == 0) {
+                pokemonDao.deleteAll()
             }
-            emit(result.map { PaginatedList(it.results.map { it.toDomainModel() }, it.count) })
+            pokemonDao.insert(result.data.results.map { it.toDaoModel() })
         }
+        return result.map { Pair(it.results.map { it.toDomainModel() }, it.count) }
+    }
 }

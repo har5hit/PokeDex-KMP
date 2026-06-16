@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,24 +33,27 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.parseToAppNetworkResu
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.readText
+import io.ktor.client.statement.bodyAsText
 
 class PokemonApi(
     private val networkClientProvider: INetworkClientProvider,
     private val networkExceptionMapping: INetworkExceptionMapper,
-    private val jsonParser: IJsonParser
+    private val jsonParser: IJsonParser,
 ) : IPokemonApi {
-
-    private val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
-
-    override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel> {
-        return parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
-            val result = networkClientProvider.client.get<HttpResponse>(ENDPOINT) {
-                parameter("offset", offset)
-                parameter("limit", limit)
-            }
-            NetworkResponseData(result.status.value, result.readText())
-        }
+    companion object {
+        private const val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
     }
+
+    override suspend fun get(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<PokemonListResponseModel> =
+        parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
+            val result =
+                networkClientProvider.client.get(ENDPOINT) {
+                    parameter("offset", offset)
+                    parameter("limit", limit)
+                }
+            NetworkResponseData(result.status.value, result.bodyAsText())
+        }
 }

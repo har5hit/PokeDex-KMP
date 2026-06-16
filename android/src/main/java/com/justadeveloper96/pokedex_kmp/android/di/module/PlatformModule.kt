@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
 
 package com.justadeveloper96.pokedex_kmp.android.di.module
 
-import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.justadeveloper96.pokedex_kmp.android.BuildConfig
 import com.justadeveloper96.pokedex_kmp.android.database.PokemonDatabaseProviderFactory
 import com.justadeveloper96.pokedex_kmp.core.network.client.AndroidNetworkClientProvider
 import com.justadeveloper96.pokedex_kmp.core.network.client.INetworkClientProvider
@@ -34,22 +34,23 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMappe
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.PokemonDatabaseProvider
 import org.koin.dsl.module
 
-val platformModule = module {
+val platformModule =
+    module {
 
-    single<INetworkClientProvider> {
-        AndroidNetworkClientProvider(
-            debug = BuildConfig.DEBUG,
-            jsonParser = get(),
-            interceptors = listOf(),
-            networkInterceptor = if (BuildConfig.DEBUG) listOf(ChuckerInterceptor(get())) else listOf()
-        )
-    }
+        single<INetworkClientProvider> {
+            AndroidNetworkClientProvider(
+                debug = BuildConfig.DEBUG,
+                jsonParser = get(),
+                interceptors = listOf(),
+                networkInterceptor = if (BuildConfig.DEBUG) listOf(ChuckerInterceptor(get())) else listOf(),
+            )
+        }
 
-    single {
-        PokemonDatabaseProvider(PokemonDatabaseProviderFactory(get())).instance()
-    }
+        single {
+            PokemonDatabaseProvider(PokemonDatabaseProviderFactory(get())).instance()
+        }
 
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+        single<INetworkExceptionMapper> {
+            NetworkExceptionMapper()
+        }
     }
-}

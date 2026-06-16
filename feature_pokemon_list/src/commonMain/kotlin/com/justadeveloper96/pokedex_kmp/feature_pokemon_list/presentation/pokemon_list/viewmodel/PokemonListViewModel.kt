@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,94 +24,116 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel
 
-import com.justadeveloper96.pokedex_kmp.core.network.parse.Loading
 import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkException
 import com.justadeveloper96.pokedex_kmp.core.network.parse.Success
 import com.justadeveloper96.pokedex_kmp.core.network.parse.Unsuccessful
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.BaseViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
     private val appCoroutineDispatchers: AppCoroutineDispatchers,
-    private val repository: IPokemonRepository
-) :
-    BaseViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action>(
+    private val repository: IPokemonRepository,
+) : BaseViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action>(
         IPokemonListViewModel.UIState(true, listOf(), false),
-        appCoroutineDispatchers
+        appCoroutineDispatchers,
     ),
     IPokemonListViewModel {
-
-    override val TAG = "PokemonListViewModel"
-
     private val limit = 10
-
-    private val offset = MutableStateFlow(0)
-    private val loading = MutableStateFlow(false)
-    private val moreAvailable = MutableStateFlow(true)
-    private val list = MutableStateFlow(listOf<PokemonUiModel>())
+    private var offset = 0
+    private var loading = false
+    private var moreAvailable = true
+    private var list = listOf<PokemonUiModel>()
 
     override fun add(action: IPokemonListViewModel.Action) {
         when (action) {
             IPokemonListViewModel.Action.Fetch -> {
-                fetch()
+                fetchNextPage()
             }
+
             IPokemonListViewModel.Action.Refresh -> {
-                clearFlags()
-                fetch()
+                refresh()
             }
         }
     }
 
-    private fun clearFlags() {
-        offset.value = 0
-        moreAvailable.value = true
+    private fun fetchNextPage() {
+        if (!moreAvailable || loading) {
+            return
+        }
+        loading = true
+        pushState()
+        vmScope.launch(appCoroutineDispatchers.io) {
+            fetchPage(reset = false)
+        }
     }
 
-    private fun fetch() {
-        if (moreAvailable.value && !loading.value) {
-            loading.value = true
-            vmScope.launch(appCoroutineDispatchers.io) {
-                fetchNewItems()
+    private fun refresh() {
+        if (loading) {
+            return
+        }
+        loading = true
+        offset = 0
+        moreAvailable = true
+        pushState()
+        vmScope.launch(appCoroutineDispatchers.io) {
+            fetchPage(reset = true)
+        }
+    }
+
+    private suspend fun loadInitialData() {
+        list = repository.get().map { it.toPokemonUiModel() }
+        offset += list.size
+        pushState()
+
+        if (list.isEmpty()) {
+            fetchNextPage()
+        }
+    }
+
+    private suspend fun fetchPage(reset: Boolean) {
+        when (val result = repository.fetch(offset, limit)) {
+            is Success -> {
+                val newItems = result.data.first.map { it.toPokemonUiModel() }
+                list =
+                    if (reset || offset == 0) {
+                        newItems
+                    } else {
+                        list + newItems
+                    }
+                offset =
+                    if (reset) {
+                        newItems.size
+                    } else {
+                        offset + newItems.size
+                    }
+                moreAvailable = list.size < result.data.second
+                loading = false
+                pushState()
+            }
+
+            is Unsuccessful, is NetworkException -> {
+                loading = false
+                pushState()
+                pushEvent(IPokemonListViewModel.UIEvent.Message(result.message))
             }
         }
     }
 
-    private suspend fun fetchNewItems() {
-        repository.get(offset.value, limit).collect {
-            when (it) {
-                is Loading -> {
-                    loading.value = true
-                    list.value = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf()
-                }
-                is Success -> {
-                    loading.value = false
-                    offset.value = it.data.data.size
-                    list.value = it.data.data.map { it.toPokemonUiModel() }
-                    moreAvailable.value = it.data.moreAvailable
-                }
-                is Unsuccessful, is NetworkException -> {
-                    loading.value = false
-                    pushEvent(IPokemonListViewModel.UIEvent.Message(it.message))
-                }
-            }
-        }
+    private fun pushState() {
+        setState(
+            IPokemonListViewModel.UIState(
+                loading = loading,
+                list = list,
+                canLoadMore = moreAvailable,
+            ),
+        )
     }
 
     init {
-        vmScope.launch(dispatchers.mainImmediate) {
-            combine(loading, moreAvailable, list) { loading, moreAvailable, list ->
-                IPokemonListViewModel.UIState(
-                    loading = loading,
-                    list = list,
-                    canLoadMore = moreAvailable
-                )
-            }.collect {
-                setState(it)
-            }
+        vmScope.launch(appCoroutineDispatchers.io) {
+            loadInitialData()
         }
     }
 }

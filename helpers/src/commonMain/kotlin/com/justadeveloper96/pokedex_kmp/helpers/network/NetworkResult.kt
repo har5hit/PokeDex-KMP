@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ open class NetworkResult<T, E>(
     open val message: String? = null,
     open val exception: Exception? = null,
     open val error: E? = null,
-    open val state: State
+    open val state: State,
 )
 
-enum class State { SUCCESS, UNSUCCESSFUL, ERROR, LOADING }
+enum class State { SUCCESS, UNSUCCESSFUL, ERROR }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +24,22 @@
 
 package com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen
 
-import android.widget.Toast
+import android.util.Log
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.justadeveloper96.pokedex_kmp.android.helpers.compose.viewModelContainerWrapper
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.view.PokemonListView
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 
-@Composable
-fun PokemonListScreenContainer(
-    viewModel: IPokemonListViewModel
-) {
-    viewModelContainerWrapper(viewModel, viewBlock = {
-        PokemonListScreen(it) {
-            viewModel.add(it)
-        }
-    }, eventBlock = {
-            val context = LocalContext.current
-            when (it) {
-                is IPokemonListViewModel.UIEvent.Message -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
-}
+private const val TAG = "PokemonListScreen"
 
 @Composable
 fun PokemonListScreen(
     state: IPokemonListViewModel.UIState,
-    onAction: (IPokemonListViewModel.Action) -> Unit
+    onAction: (IPokemonListViewModel.Action) -> Unit,
 ) {
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(state.loading),
-        onRefresh = {
-            onAction(IPokemonListViewModel.Action.Refresh)
-        }
-    ) {
+    PullToRefreshBox(isRefreshing = state.loading, onRefresh = {
+        onAction(IPokemonListViewModel.Action.Refresh)
+    }) {
         PokemonListView(state.list) {
             if (state.canLoadMore) {
                 onAction(IPokemonListViewModel.Action.Fetch)

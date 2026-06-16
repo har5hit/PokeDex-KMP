@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
-actual open class ViewModel actual constructor(actual val dispatchers: AppCoroutineDispatchers) {
-
+actual open class ViewModel actual constructor(
+    actual val dispatchers: AppCoroutineDispatchers,
+) {
     protected actual val vmScope: CoroutineScope = CoroutineScope(SupervisorJob() + dispatchers.mainImmediate)
 
     protected actual open fun onCleared() {

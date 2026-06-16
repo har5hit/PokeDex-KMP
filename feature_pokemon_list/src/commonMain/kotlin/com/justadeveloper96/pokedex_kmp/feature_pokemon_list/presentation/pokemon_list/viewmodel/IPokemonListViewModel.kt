@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,19 +28,21 @@ import com.justadeveloper96.pokedex_kmp.helpers.viewmodel.IFlowViewModel
 
 interface IPokemonListViewModel :
     IFlowViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action> {
-
     data class UIState(
         val loading: Boolean = false,
         val list: List<PokemonUiModel>,
-        val canLoadMore: Boolean = false
+        val canLoadMore: Boolean = false,
     )
 
     sealed class UIEvent {
-        data class Message(val message: String?) : UIEvent()
+        data class Message(
+            val message: String?,
+        ) : UIEvent()
     }
 
     sealed class Action {
         object Refresh : Action()
+
         object Fetch : Action()
     }
 }

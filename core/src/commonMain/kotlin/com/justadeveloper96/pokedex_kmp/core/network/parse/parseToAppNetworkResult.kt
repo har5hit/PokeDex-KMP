@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +30,9 @@ import kotlinx.serialization.decodeFromString
 inline fun <reified T> parseToAppNetworkResult(
     jsonParser: IJsonParser,
     networkExceptionMapping: INetworkExceptionMapper,
-    serviceCall: () -> NetworkResponseData
-): AppNetworkResult<T> {
-    return try {
+    serviceCall: () -> NetworkResponseData,
+): AppNetworkResult<T> =
+    try {
         val data = serviceCall()
         try {
             if (data.code in 200..299) {
@@ -43,21 +43,20 @@ inline fun <reified T> parseToAppNetworkResult(
                 Unsuccessful(
                     error = error,
                     code = data.code,
-                    message = error.error
+                    message = error.error,
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Unsuccessful(
                 code = data.code,
-                message = networkExceptionMapping.provideMessage(e)
+                message = networkExceptionMapping.provideMessage(e),
             )
         }
     } catch (e: Exception) {
         e.printStackTrace()
         NetworkException(
             message = networkExceptionMapping.provideMessage(e),
-            exception = e
+            exception = e,
         )
     }
-}

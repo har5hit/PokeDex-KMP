@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,38 @@
  * SOFTWARE.
  */
 
-object Utils {
+import java.io.File
 
+object Utils {
     private fun getLocalGitBranchName(): String {
-        var branch = ""
-        val process = Runtime.getRuntime().exec("git rev-parse --abbrev-ref HEAD")
-        process.inputStream.reader().forEachLine {
-            branch = it
+        val headFile = File(".git/HEAD")
+        if (!headFile.exists()) return "master"
+
+        val headValue = headFile.readText().trim()
+        val refPrefix = "ref: refs/heads/"
+        return when {
+            headValue.startsWith(refPrefix) -> {
+                headValue.removePrefix(refPrefix)
+            }
+
+            headValue.isNotBlank() -> {
+                headValue.take(7)
+            }
+
+            else -> {
+                "master"
+            }
         }
-        process.waitFor()
-        println(branch)
-        return branch
     }
 
-    fun getReleaseVersion(version: String): String {
-        return when (val branch = getLocalGitBranchName()) {
+    fun getReleaseVersion(version: String): String =
+        when (val branch = getLocalGitBranchName()) {
             "master" -> {
                 version
             }
+
             else -> {
                 "$branch-$version"
             }
         }
-    }
 }

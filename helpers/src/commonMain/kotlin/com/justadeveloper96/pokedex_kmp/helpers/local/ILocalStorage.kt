@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,18 @@ package com.justadeveloper96.pokedex_kmp.helpers.local
 
 interface ILocalStorage {
     fun getString(key: String): String?
-    fun putString(key: String, value: String?)
-    fun putInt(key: String, value: Int?)
+
+    fun putString(
+        key: String,
+        value: String?,
+    )
+
+    fun putInt(
+        key: String,
+        value: Int?,
+    )
+
     fun getInt(key: String): Int?
+
     fun clear()
 }

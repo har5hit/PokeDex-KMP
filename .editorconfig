@@ -1,5 +1,4 @@
-[*.kt]
-disabled_rules=experimental:package-name,experimental:argument-list-wrapping
-
-[*.kts]
-disabled_rules=experimental:package-name,experimental:argument-list-wrapping,experimental:multiline-if-else
+[*.{kt,kts}]
+ktlint_standard_package-name = disabled
+ktlint_standard_function-naming = disabled
+ktlint_standard_filename = disabled

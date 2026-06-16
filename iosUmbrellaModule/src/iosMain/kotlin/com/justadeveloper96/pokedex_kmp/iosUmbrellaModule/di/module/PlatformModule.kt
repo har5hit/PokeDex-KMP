@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,19 +32,20 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.Pokem
 import com.justadeveloper96.pokedex_kmp.iosUmbrellaModule.database.PokemonDatabaseProviderFactory
 import org.koin.dsl.module
 
-fun platformModule(debug: Boolean) = module {
-    single<INetworkClientProvider> {
-        IOSNetworkClientProvider(
-            debug = debug,
-            get()
-        )
-    }
+fun platformModule(debug: Boolean) =
+    module {
+        single<INetworkClientProvider> {
+            IOSNetworkClientProvider(
+                debug = debug,
+                get(),
+            )
+        }
 
-    single {
-        PokemonDatabaseProvider(PokemonDatabaseProviderFactory()).instance()
-    }
+        single {
+            PokemonDatabaseProvider(PokemonDatabaseProviderFactory()).instance()
+        }
 
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+        single<INetworkExceptionMapper> {
+            NetworkExceptionMapper()
+        }
     }
-}

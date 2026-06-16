@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,14 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 interface IFlowViewModel<S, E, A> {
     val initialState: S
+
     fun add(action: A)
+
     val stateHolder: StateFlow<S>
-    val eventHolder: StateFlow<E?>
-    fun onEventConsumed()
+    val eventHolder: Flow<E?>
 }

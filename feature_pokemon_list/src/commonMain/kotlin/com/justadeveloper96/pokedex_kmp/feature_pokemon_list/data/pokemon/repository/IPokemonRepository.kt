@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,5 +30,10 @@ import com.justadeveloper96.pokedex_kmp.helpers.pagination.PaginatedList
 import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
-    suspend fun get(offset: Int, limit: Int): Flow<AppNetworkResult<PaginatedList<Pokemon>>>
+    suspend fun get(): List<Pokemon>
+
+    suspend fun fetch(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<Pair<List<Pokemon>, Int>>
 }

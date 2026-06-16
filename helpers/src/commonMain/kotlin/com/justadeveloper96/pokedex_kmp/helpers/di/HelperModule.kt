@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,5 +26,6 @@ package com.justadeveloper96.pokedex_kmp.helpers.di
 
 import org.koin.dsl.module
 
-val helperModule = module {
-}
+val helperModule =
+    module {
+    }

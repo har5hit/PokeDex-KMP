@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,28 +27,30 @@ package com.justadeveloper96.pokedex_kmp.helpers.local
 import platform.Foundation.NSUserDefaults
 import platform.Foundation.setValue
 
-class LocalStorage() : ILocalStorage {
+class LocalStorage : ILocalStorage {
+    override fun getString(key: String): String? = NSUserDefaults.standardUserDefaults.stringForKey(key)
 
-    override fun getString(key: String): String? {
-        return NSUserDefaults.standardUserDefaults.stringForKey(key)
-    }
-
-    override fun putString(key: String, value: String?) {
+    override fun putString(
+        key: String,
+        value: String?,
+    ) {
         NSUserDefaults.standardUserDefaults.setValue(value = value, forKey = key)
     }
 
-    override fun putInt(key: String, value: Int?) {
+    override fun putInt(
+        key: String,
+        value: Int?,
+    ) {
         NSUserDefaults.standardUserDefaults.setValue(value = value, forKey = key)
     }
 
-    override fun getInt(key: String): Int? {
-        return try {
+    override fun getInt(key: String): Int? =
+        try {
             NSUserDefaults.standardUserDefaults.integerForKey(key).toInt()
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
-    }
 
     override fun clear() {
         val dict = NSUserDefaults.standardUserDefaults.dictionaryRepresentation()

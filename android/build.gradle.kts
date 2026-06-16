@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2020 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,70 +23,80 @@
  */
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("kotlin-kapt")
-    // id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-}
-
-kapt {
-    correctErrorTypes = true
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    compileSdkVersion = AndroidDependencies.SdkVersion.compileSdk
+    namespace = "com.justadeveloper96.pokedex_kmp.android"
+    compileSdk =
+        libs.versions.android.compile.sdk
+            .get()
+            .toInt()
     defaultConfig {
         applicationId = "${ProjectProperties.group}.android"
-        minSdk = AndroidDependencies.SdkVersion.minSdk
-        targetSdk = AndroidDependencies.SdkVersion.targetSdk
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.target.sdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
         }
     }
     buildFeatures {
         dataBinding = true
         compose = true
+        buildConfig = true
     }
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = AndroidDependencies.Compose.kotlinCompilerVersion
+    packaging {
+        resources {
+            excludes +=
+                setOf(
+                    "META-INF/**.md",
+                    "META-INF/AL2.0",
+                    "META-INF/LGPL2.1",
+                    "META-INF/licenses/**",
+                )
+        }
     }
 }
 
 dependencies {
     implementation(project(":feature_pokemon_list"))
-    implementation(AndroidDependencies.AndroidX.appCompat)
-    implementation(AndroidDependencies.Material.core)
+    implementation(project(":feature_pokemon_list_compose"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.material)
 
-    implementation(AndroidDependencies.swipeRefresh)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
 
-    implementation(AndroidDependencies.Glide.core)
-    kapt(AndroidDependencies.Glide.compiler)
+    implementation(libs.adapterdelegates4.kotlin.dsl)
+    implementation(libs.adapterdelegates4.kotlin.dsl.layoutcontainer)
+    implementation(libs.adapterdelegates4.kotlin.dsl.viewbinding)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
-    debugImplementation(AndroidDependencies.Chucker.debug)
-    releaseImplementation(AndroidDependencies.Chucker.release)
-
-    implementation(AndroidDependencies.AdapterDelegate.core)
-    implementation(AndroidDependencies.AdapterDelegate.layoutcontainer)
-    implementation(AndroidDependencies.AdapterDelegate.viewbinding)
-    implementation(AndroidDependencies.Compose.compose)
-    implementation(AndroidDependencies.Compose.material)
-    implementation(AndroidDependencies.Compose.animation)
-    implementation(AndroidDependencies.Compose.tooling)
-    androidTestImplementation(AndroidDependencies.Compose.uiTesting)
-    implementation(AndroidDependencies.Compose.tooling)
-
-    implementation(AndroidDependencies.Coil.compose)
-    implementation(AndroidDependencies.swipeRefreshCompose)
-    implementation(platform(AndroidDependencies.Firebase.bom))
-    implementation(AndroidDependencies.Firebase.analytics)
-    implementation(AndroidDependencies.Firebase.Crashlytics.crashlytics)
-    implementation(Dependencies.Koin.Android.android)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
 }

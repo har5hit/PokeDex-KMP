@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Harshith Shetty (justadeveloper96@gmail.com)
+ * Copyright (c) 2022 Harshith Shetty (hshetty.biz@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,19 +32,21 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemo
 @Preview
 @Composable
 private fun PreviewConversation() {
-    val uiState = IPokemonListViewModel.UIState(
-        loading = true,
-        list = listOf(
-            PokemonUiModel(
-                name = "Bulbasaur",
-                url = "https://pokeapi.co/api/v2/pokemon/1/"
-            ),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
-            PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/")
-        ),
-        canLoadMore = true
-    )
+    val uiState =
+        IPokemonListViewModel.UIState(
+            loading = true,
+            list =
+                listOf(
+                    PokemonUiModel(
+                        name = "Bulbasaur",
+                        url = "https://pokeapi.co/api/v2/pokemon/1/",
+                    ),
+                    PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/2/"),
+                    PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/3/"),
+                    PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/4/"),
+                    PokemonUiModel(name = "Ivysaur", url = "https://pokeapi.co/api/v2/pokemon/5/"),
+                ),
+            canLoadMore = true,
+        )
     PokemonListScreen(uiState) { println("On Action $it") }
 }
