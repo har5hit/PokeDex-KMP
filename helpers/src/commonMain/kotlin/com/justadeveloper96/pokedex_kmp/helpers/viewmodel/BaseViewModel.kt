@@ -38,8 +38,6 @@ abstract class BaseViewModel<S, E, A>(
     dispatchers: AppCoroutineDispatchers,
 ) : ViewModel(dispatchers),
     IFlowViewModel<S, E, A> {
-    abstract val TAG: String
-
     private val _stateHolder: MutableStateFlow<S> = MutableStateFlow(initialState)
 
     private val _eventHolder: MutableSharedFlow<E?> = MutableSharedFlow(0)

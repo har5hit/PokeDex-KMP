@@ -40,7 +40,9 @@ class PokemonApi(
     private val networkExceptionMapping: INetworkExceptionMapper,
     private val jsonParser: IJsonParser,
 ) : IPokemonApi {
-    private val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
+    companion object {
+        private const val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
+    }
 
     override suspend fun get(
         offset: Int,

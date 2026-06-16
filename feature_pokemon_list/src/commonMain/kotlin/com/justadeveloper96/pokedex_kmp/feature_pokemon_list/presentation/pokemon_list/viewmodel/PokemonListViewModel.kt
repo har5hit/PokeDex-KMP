@@ -40,7 +40,6 @@ class PokemonListViewModel(
         appCoroutineDispatchers,
     ),
     IPokemonListViewModel {
-    override val TAG = "PokemonListViewModel"
     private val limit = 10
     private var offset = 0
     private var loading = false
