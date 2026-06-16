@@ -23,14 +23,12 @@
  */
 
 object ProjectProperties {
-    const val group = "com.justadeveloper96.pokedex_kmp"
-
-    private const val defaultVersion = "1.0.0"
+    private val group = "com.justadeveloper96.pokedex_kmp"
 
     val version: String
         get() {
             val version =
-                System.getProperty("version") ?: Utils.getReleaseVersion(defaultVersion)
+                System.getProperty("version") ?: Utils.getReleaseVersion("1.0.0")
             println("Deployments will be done with version: $version")
             return version
         }

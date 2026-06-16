@@ -23,12 +23,12 @@
  */
 
 import com.android.build.gradle.tasks.factory.AndroidUnitTest
-import org.gradle.api.tasks.testing.TestListener
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.TestDescriptor
+import org.gradle.api.tasks.testing.TestListener
 import org.gradle.api.tasks.testing.TestResult
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
     alias(libs.plugins.ktlint)
@@ -54,9 +54,15 @@ subprojects {
 
             override fun beforeTest(testDescriptor: TestDescriptor) = Unit
 
-            override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) = Unit
+            override fun afterTest(
+                testDescriptor: TestDescriptor,
+                result: TestResult,
+            ) = Unit
 
-            override fun afterSuite(suite: TestDescriptor, result: TestResult) {
+            override fun afterSuite(
+                suite: TestDescriptor,
+                result: TestResult,
+            ) {
                 if (suite.parent == null) {
                     println(
                         "${project.path}:${suite.name} -> " +
