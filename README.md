@@ -22,7 +22,7 @@ Specifications:
 * [Ktlint](https://ktlint.github.io/) for lint.
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) and native Android views for Android.
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/) for iOS.
-* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) for reusable shared UI and Web. [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/).
+* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) for reusable shared UI and Compose Multiplatform Web. [Project Live Demo](https://har5hit.github.io/PokeDex-KMP/).
 * CI-CD using [Github Actions](https://github.com/features/actions).
 * [Kermit](https://github.com/touchlab/Kermit) - Better iOS Crash Report Logging on Kotlin code crashes.
 * KMP Modules Deployment as libraries for external `Android`, `iOS` and `JavaScript` apps.
