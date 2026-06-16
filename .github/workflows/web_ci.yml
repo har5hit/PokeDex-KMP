@@ -24,4 +24,4 @@ jobs:
       - name: Check Kotlin lint
         run: ./gradlew ktlintCheck
       - name: Run tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest testAndroidHostTest

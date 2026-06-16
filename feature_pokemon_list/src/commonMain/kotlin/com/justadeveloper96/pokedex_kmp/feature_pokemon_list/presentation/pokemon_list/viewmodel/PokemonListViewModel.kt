@@ -102,7 +102,12 @@ class PokemonListViewModel(
                     } else {
                         list + newItems
                     }
-                offset += list.size
+                offset =
+                    if (reset) {
+                        newItems.size
+                    } else {
+                        offset + newItems.size
+                    }
                 moreAvailable = list.size < result.data.second
                 loading = false
                 pushState()

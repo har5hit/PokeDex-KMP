@@ -33,6 +33,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 
@@ -56,6 +57,7 @@ class PokemonListViewModelTest :
                 coEvery { repository.get() } returns cached
 
                 val viewModel = PokemonListViewModel(dispatchers, repository)
+                advanceUntilIdle()
 
                 viewModel.stateHolder.value shouldBe
                     IPokemonListViewModel.UIState(
@@ -95,6 +97,7 @@ class PokemonListViewModelTest :
                 coEvery { repository.fetch(10, 10) } returns Success(Pair(page2, 15), 200)
 
                 val viewModel = PokemonListViewModel(dispatchers, repository)
+                advanceUntilIdle()
 
                 viewModel.stateHolder.value shouldBe
                     IPokemonListViewModel.UIState(
@@ -104,6 +107,7 @@ class PokemonListViewModelTest :
                     )
 
                 viewModel.add(IPokemonListViewModel.Action.Fetch)
+                advanceUntilIdle()
 
                 viewModel.stateHolder.value shouldBe
                     IPokemonListViewModel.UIState(
@@ -141,6 +145,7 @@ class PokemonListViewModelTest :
                 coEvery { repository.fetch(0, 10) } returns Success(Pair(initialPage, 20), 200)
 
                 val viewModel = PokemonListViewModel(dispatchers, repository)
+                advanceUntilIdle()
 
                 viewModel.stateHolder.value shouldBe
                     IPokemonListViewModel.UIState(
@@ -152,6 +157,7 @@ class PokemonListViewModelTest :
                 coEvery { repository.fetch(0, 10) } returns Success(Pair(refreshedPage, 3), 200)
 
                 viewModel.add(IPokemonListViewModel.Action.Refresh)
+                advanceUntilIdle()
 
                 viewModel.stateHolder.value shouldBe
                     IPokemonListViewModel.UIState(

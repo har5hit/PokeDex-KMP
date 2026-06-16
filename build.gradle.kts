@@ -22,8 +22,13 @@
  * SOFTWARE.
  */
 
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
+import org.gradle.api.tasks.testing.TestListener
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
+import org.gradle.api.tasks.testing.Test
+import org.gradle.api.tasks.testing.TestDescriptor
+import org.gradle.api.tasks.testing.TestResult
 
 plugins {
     alias(libs.plugins.ktlint)
@@ -42,6 +47,45 @@ plugins {
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    val summaryListener =
+        object : TestListener {
+            override fun beforeSuite(suite: TestDescriptor) = Unit
+
+            override fun beforeTest(testDescriptor: TestDescriptor) = Unit
+
+            override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) = Unit
+
+            override fun afterSuite(suite: TestDescriptor, result: TestResult) {
+                if (suite.parent == null) {
+                    println(
+                        "${project.path}:${suite.name} -> " +
+                            "${result.testCount} tests, " +
+                            "${result.successfulTestCount} successful, " +
+                            "${result.failedTestCount} failed, " +
+                            "${result.skippedTestCount} skipped",
+                    )
+                }
+            }
+        }
+
+    fun Test.configureSummaryOutput() {
+        if (extensions.extraProperties.has("summaryOutputConfigured")) {
+            return
+        }
+        extensions.extraProperties["summaryOutputConfigured"] = true
+        addTestListener(summaryListener)
+    }
+
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        configureSummaryOutput()
+    }
+
+    tasks.withType<AndroidUnitTest>().configureEach {
+        useJUnitPlatform()
+        configureSummaryOutput()
+    }
 
     ktlint {
         version.set("1.7.1")
