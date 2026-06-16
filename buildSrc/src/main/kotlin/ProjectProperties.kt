@@ -23,7 +23,7 @@
  */
 
 object ProjectProperties {
-    private val group = "com.justadeveloper96.pokedex_kmp"
+    val group = "com.justadeveloper96.pokedex_kmp"
 
     val version: String
         get() {
