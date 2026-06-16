@@ -28,6 +28,7 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.reposi
 import com.justadeveloper96.pokedex_kmp.web.compose.data.pokemon.repository.local.WebPokemonDao
 import org.koin.dsl.module
 
-val featurePokemonListModuleOverride = module {
-    single<IPokemonDao> { WebPokemonDao() }
-}
+val featurePokemonListModuleOverride =
+    module {
+        single<IPokemonDao> { WebPokemonDao() }
+    }

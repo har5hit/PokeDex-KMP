@@ -30,7 +30,7 @@ open class NetworkResult<T, E>(
     open val message: String? = null,
     open val exception: Exception? = null,
     open val error: E? = null,
-    open val state: State
+    open val state: State,
 )
 
 enum class State { SUCCESS, UNSUCCESSFUL, ERROR }

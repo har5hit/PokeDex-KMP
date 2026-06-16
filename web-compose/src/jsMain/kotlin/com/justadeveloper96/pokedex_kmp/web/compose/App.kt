@@ -24,9 +24,9 @@
 
 package com.justadeveloper96.pokedex_kmp.web.compose
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
-import androidx.compose.runtime.Composable
 import com.justadeveloper96.pokedex_kmp.web.compose.di.InitKoin
 import com.justadeveloper96.pokedex_kmp.web.compose.presentation.pokemon_list.screen.PokemonListScreenContainer
 import kotlinx.browser.document

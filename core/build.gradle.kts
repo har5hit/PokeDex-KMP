@@ -34,8 +34,14 @@ group = ProjectProperties.group
 kotlin {
     android {
         namespace = "com.justadeveloper96.pokedex_kmp.core"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        compileSdk =
+            libs.versions.android.compile.sdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
         withHostTest {}
     }
     iosArm64()

@@ -28,9 +28,9 @@ import androidx.lifecycle.viewModelScope
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
 
-actual open class ViewModel actual constructor(actual val dispatchers: AppCoroutineDispatchers) :
-    androidx.lifecycle.ViewModel() {
-
+actual open class ViewModel actual constructor(
+    actual val dispatchers: AppCoroutineDispatchers,
+) : androidx.lifecycle.ViewModel() {
     protected actual val vmScope: CoroutineScope = viewModelScope
 
     actual override fun onCleared() {

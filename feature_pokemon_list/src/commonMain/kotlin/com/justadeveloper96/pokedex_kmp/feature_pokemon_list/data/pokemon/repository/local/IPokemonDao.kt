@@ -28,7 +28,6 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModel
 import kotlinx.coroutines.flow.Flow
 
 interface IPokemonDao {
-
     suspend fun insert(list: List<PokemonDaoModel>)
 
     suspend fun insert(item: PokemonDaoModel)

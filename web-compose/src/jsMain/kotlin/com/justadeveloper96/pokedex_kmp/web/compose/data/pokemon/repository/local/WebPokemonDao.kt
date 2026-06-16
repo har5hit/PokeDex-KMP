@@ -38,9 +38,7 @@ class WebPokemonDao : IPokemonDao {
         dataHolder.add(item)
     }
 
-    override suspend fun getAll(): List<PokemonDaoModel> {
-        return dataHolder.toList()
-    }
+    override suspend fun getAll(): List<PokemonDaoModel> = dataHolder.toList()
 
     override suspend fun deleteAll() {
         dataHolder.clear()

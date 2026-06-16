@@ -34,17 +34,17 @@ sealed class AppNetworkResult<T>(
     override val message: String? = null,
     override val error: AppServerError? = null,
     override val exception: Exception? = null,
-    override val state: State
+    override val state: State,
 ) : NetworkResult<T, AppServerError>(
-    data,
-    code,
-    message,
-    exception,
-    error,
-    state
-) {
-    fun <R> map(transform: (T) -> R): AppNetworkResult<R> {
-        return when (this) {
+        data,
+        code,
+        message,
+        exception,
+        error,
+        state,
+    ) {
+    fun <R> map(transform: (T) -> R): AppNetworkResult<R> =
+        when (this) {
             is Success -> {
                 Success(transform(data), code, message)
             }
@@ -57,10 +57,9 @@ sealed class AppNetworkResult<T>(
                 NetworkException(data?.let { transform(it) }, exception, message)
             }
         }
-    }
 
-    fun <T> modify(data: T): AppNetworkResult<T> {
-        return when (this) {
+    fun <T> modify(data: T): AppNetworkResult<T> =
+        when (this) {
             is Success -> {
                 Success(data, code, message)
             }
@@ -73,31 +72,29 @@ sealed class AppNetworkResult<T>(
                 NetworkException(data, exception, message)
             }
         }
-    }
 }
 
 data class Success<T>(
     override val data: T,
     override val code: Int? = null,
-    override val message: String? = null
-) :
-    AppNetworkResult<T>(data, code = code, message = message, state = State.SUCCESS)
+    override val message: String? = null,
+) : AppNetworkResult<T>(data, code = code, message = message, state = State.SUCCESS)
 
 data class Unsuccessful<T>(
     override val data: T? = null,
     override val code: Int,
     override val error: AppServerError? = null,
-    override val message: String? = null
+    override val message: String? = null,
 ) : AppNetworkResult<T>(
-    data,
-    code = code,
-    error = error,
-    message = message,
-    state = State.UNSUCCESSFUL
-)
+        data,
+        code = code,
+        error = error,
+        message = message,
+        state = State.UNSUCCESSFUL,
+    )
 
 data class NetworkException<T>(
     override val data: T? = null,
     override val exception: Exception,
-    override val message: String
+    override val message: String,
 ) : AppNetworkResult<T>(data, exception = exception, message = message, state = State.ERROR)

@@ -31,8 +31,9 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModelQuer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class PokemonDao(private val queries: PokemonDaoModelQueries) : IPokemonDao {
-
+class PokemonDao(
+    private val queries: PokemonDaoModelQueries,
+) : IPokemonDao {
     override suspend fun insert(list: List<PokemonDaoModel>) {
         queries.transaction {
             list.forEach {
@@ -45,9 +46,7 @@ class PokemonDao(private val queries: PokemonDaoModelQueries) : IPokemonDao {
         queries.insert(item)
     }
 
-    override suspend fun getAll(): List<PokemonDaoModel> {
-        return queries.getAll().executeAsList()
-    }
+    override suspend fun getAll(): List<PokemonDaoModel> = queries.getAll().executeAsList()
 
     override suspend fun deleteAll() {
         queries.deleteAll()

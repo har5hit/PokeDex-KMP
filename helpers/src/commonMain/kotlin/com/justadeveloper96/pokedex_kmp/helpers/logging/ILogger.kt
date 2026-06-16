@@ -25,5 +25,8 @@
 package com.justadeveloper96.pokedex_kmp.helpers.logging
 
 interface ILogger {
-    fun log(tag: String, log: Any)
+    fun log(
+        tag: String,
+        log: Any,
+    )
 }

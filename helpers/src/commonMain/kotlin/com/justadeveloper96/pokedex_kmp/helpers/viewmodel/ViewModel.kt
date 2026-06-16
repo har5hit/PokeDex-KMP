@@ -27,8 +27,9 @@ package com.justadeveloper96.pokedex_kmp.helpers.viewmodel
 import com.justadeveloper96.pokedex_kmp.helpers.coroutine.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
 
-expect open class ViewModel(dispatchers: AppCoroutineDispatchers) {
-
+expect open class ViewModel(
+    dispatchers: AppCoroutineDispatchers,
+) {
     val dispatchers: AppCoroutineDispatchers
 
     protected val vmScope: CoroutineScope

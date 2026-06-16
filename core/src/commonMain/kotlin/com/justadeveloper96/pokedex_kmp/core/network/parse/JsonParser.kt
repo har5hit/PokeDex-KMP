@@ -27,9 +27,10 @@ package com.justadeveloper96.pokedex_kmp.core.network.parse
 import kotlinx.serialization.json.Json
 
 class JsonParser : IJsonParser {
-    override val parser = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        prettyPrint = true
-    }
+    override val parser =
+        Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+            prettyPrint = true
+        }
 }

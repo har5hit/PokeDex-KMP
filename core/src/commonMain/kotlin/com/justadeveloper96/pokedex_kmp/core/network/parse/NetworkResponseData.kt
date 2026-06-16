@@ -24,4 +24,7 @@
 
 package com.justadeveloper96.pokedex_kmp.core.network.parse
 
-data class NetworkResponseData(val code: Int, val body: String?)
+data class NetworkResponseData(
+    val code: Int,
+    val body: String?,
+)

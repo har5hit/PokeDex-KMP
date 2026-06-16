@@ -1,4 +1,4 @@
-# Test and deploy KVision Website
+# Test and deploy Compose Multiplatform Web
 name: Web CI-CD
 
 on:
@@ -25,10 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-java@v1
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
-          java-version: 11
+          distribution: temurin
+          java-version: 21
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26.3.0
       - name: Check Kotlin lint
         run: ./gradlew ktlintCheck
       - name: Run tests
@@ -42,18 +48,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-java@v1
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
-          java-version: 11
+          distribution: temurin
+          java-version: 21
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26.3.0
       - name: Build Website
-        run: ./gradlew zip
+        run: ./gradlew :web-compose:jsBrowserDistribution
       - name: Setup Pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './web-kvision/dist'
+          path: web-compose/build/dist/js/productionExecutable
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@main
+        uses: actions/deploy-pages@v4

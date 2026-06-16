@@ -24,7 +24,10 @@
 
 package com.justadeveloper96.pokedex_kmp.helpers.pagination
 
-data class PaginatedList<T>(val data: List<T>, val total: Int) {
+data class PaginatedList<T>(
+    val data: List<T>,
+    val total: Int,
+) {
     val moreAvailable
         get() = data.size < total
 }

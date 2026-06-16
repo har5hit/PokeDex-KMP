@@ -30,7 +30,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.screen.PokemonListScreenContainer
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         return setContent {

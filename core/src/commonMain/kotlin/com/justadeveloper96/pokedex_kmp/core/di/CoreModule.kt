@@ -28,6 +28,7 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.IJsonParser
 import com.justadeveloper96.pokedex_kmp.core.network.parse.JsonParser
 import org.koin.dsl.module
 
-val coreModule = module {
-    single<IJsonParser> { JsonParser() }
-}
+val coreModule =
+    module {
+        single<IJsonParser> { JsonParser() }
+    }

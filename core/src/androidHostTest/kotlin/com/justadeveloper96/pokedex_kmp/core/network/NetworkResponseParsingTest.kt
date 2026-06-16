@@ -37,76 +37,84 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.net.SocketException
 
-class NetworkResponseParsingTest : StringSpec({
+class NetworkResponseParsingTest :
+    StringSpec({
 
-    val networkExceptionMapper = NetworkExceptionMapper()
-    val jsonParser = JsonParser()
-    "success case" {
-        val body = "Abc"
-        val code = 200
+        val networkExceptionMapper = NetworkExceptionMapper()
+        val jsonParser = JsonParser()
+        "success case" {
+            val body = "Abc"
+            val code = 200
 
-        val expected = Success(
-            body,
-            code
-        )
-        val actual = parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
-            NetworkResponseData(
-                code,
-                body
-            )
+            val expected =
+                Success(
+                    body,
+                    code,
+                )
+            val actual =
+                parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
+                    NetworkResponseData(
+                        code,
+                        body,
+                    )
+                }
+
+            actual shouldBe expected
         }
 
-        actual shouldBe expected
-    }
+        "success case 2" {
+            val body = "Abc"
+            val code = 200
 
-    "success case 2" {
-        val body = "Abc"
-        val code = 200
+            val expected = Success(mapOf("data" to body), code)
+            val actual =
+                parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
+                    NetworkResponseData(
+                        code,
+                        body,
+                    )
+                }.map { result -> mapOf("data" to result) }
 
-        val expected = Success(mapOf("data" to body), code)
-        val actual = parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
-            NetworkResponseData(
-                code,
-                body
-            )
-        }.map { result -> mapOf("data" to result) }
-
-        actual shouldBe expected
-    }
-
-    "Unsuccessful case" {
-        val errorMsg = "Bad Request"
-        val body = """
-            {
-              "error": "Bad Request"
-            }
-        """.trimIndent()
-        val code = 400
-
-        val expected = Unsuccessful<String>(
-            error = AppServerError(errorMsg),
-            message = errorMsg,
-            code = code
-        )
-        val actual = parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
-            NetworkResponseData(
-                code,
-                body
-            )
+            actual shouldBe expected
         }
 
-        actual shouldBe expected
-    }
+        "Unsuccessful case" {
+            val errorMsg = "Bad Request"
+            val body =
+                """
+                {
+                  "error": "Bad Request"
+                }
+                """.trimIndent()
+            val code = 400
 
-    "error case" {
-        val exception = SocketException()
+            val expected =
+                Unsuccessful<String>(
+                    error = AppServerError(errorMsg),
+                    message = errorMsg,
+                    code = code,
+                )
+            val actual =
+                parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) {
+                    NetworkResponseData(
+                        code,
+                        body,
+                    )
+                }
 
-        val expected = NetworkException<String>(
-            message = ApiMessages.ERR_TIMEOUT,
-            exception = exception
-        )
-        val actual = parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) { throw exception }
+            actual shouldBe expected
+        }
 
-        actual shouldBe expected
-    }
-})
+        "error case" {
+            val exception = SocketException()
+
+            val expected =
+                NetworkException<String>(
+                    message = ApiMessages.ERR_TIMEOUT,
+                    exception = exception,
+                )
+            val actual = parseToAppNetworkResult<String>(jsonParser, networkExceptionMapper) { throw exception }
+
+            actual shouldBe expected
+        }
+    })

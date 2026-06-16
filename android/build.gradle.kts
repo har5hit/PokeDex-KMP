@@ -29,11 +29,20 @@ plugins {
 
 android {
     namespace = "com.justadeveloper96.pokedex_kmp.android"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compile.sdk
+            .get()
+            .toInt()
     defaultConfig {
         applicationId = "${ProjectProperties.group}.android"
-        minSdk = libs.versions.android.min.sdk.get().toInt()
-        targetSdk = libs.versions.android.target.sdk.get().toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.target.sdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -50,12 +59,13 @@ android {
     }
     packaging {
         resources {
-            excludes += setOf(
-                "META-INF/**.md",
-                "META-INF/AL2.0",
-                "META-INF/LGPL2.1",
-                "META-INF/licenses/**"
-            )
+            excludes +=
+                setOf(
+                    "META-INF/**.md",
+                    "META-INF/AL2.0",
+                    "META-INF/LGPL2.1",
+                    "META-INF/licenses/**",
+                )
         }
     }
 }

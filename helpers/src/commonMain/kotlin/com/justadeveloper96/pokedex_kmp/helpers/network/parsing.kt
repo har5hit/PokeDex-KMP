@@ -30,8 +30,8 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 
-fun Any?.toJsonElement(): JsonElement {
-    return when (this) {
+fun Any?.toJsonElement(): JsonElement =
+    when (this) {
         is Number -> JsonPrimitive(this)
         is Boolean -> JsonPrimitive(this)
         is String -> JsonPrimitive(this)
@@ -41,7 +41,6 @@ fun Any?.toJsonElement(): JsonElement {
         is JsonElement -> this
         else -> JsonNull
     }
-}
 
 private fun Array<*>.toJsonArray(): JsonArray {
     val array = mutableListOf<JsonElement>()

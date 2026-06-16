@@ -30,15 +30,16 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.INetworkExceptionMapp
 import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMapper
 import org.koin.dsl.module
 
-fun platformModule(debug: Boolean) = module {
-    single<INetworkClientProvider> {
-        JsNetworkClientProvider(
-            debug = debug,
-            get()
-        )
-    }
+fun platformModule(debug: Boolean) =
+    module {
+        single<INetworkClientProvider> {
+            JsNetworkClientProvider(
+                debug = debug,
+                get(),
+            )
+        }
 
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+        single<INetworkExceptionMapper> {
+            NetworkExceptionMapper()
+        }
     }
-}

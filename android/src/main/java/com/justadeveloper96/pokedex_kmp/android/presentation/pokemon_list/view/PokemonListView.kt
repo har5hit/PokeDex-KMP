@@ -54,18 +54,20 @@ private fun PokemonListItemView(model: PokemonUiModel) {
     val cardModifier = Modifier.padding(12.dp).height(150.dp)
     Card(modifier = cardModifier) {
         val boxModifier =
-            Modifier.fillMaxSize()
+            Modifier
+                .fillMaxSize()
                 .background(color = Color(android.graphics.Color.parseColor(model.color)))
                 .padding(12.dp)
         Box(modifier = boxModifier) {
             val imageModifier =
-                Modifier.align(Alignment.CenterEnd)
+                Modifier
+                    .align(Alignment.CenterEnd)
                     .width(120.dp)
                     .height(120.dp)
             AsyncImage(
                 model = model.imagePng,
                 contentDescription = null,
-                modifier = imageModifier
+                modifier = imageModifier,
             )
             Text(text = model.name, color = Color.White)
         }
@@ -73,10 +75,13 @@ private fun PokemonListItemView(model: PokemonUiModel) {
 }
 
 @Composable
-fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
+fun PokemonListView(
+    model: List<PokemonUiModel>,
+    onEndReached: () -> Unit,
+) {
     val scrollState = rememberLazyListState()
     LazyColumn(
-        state = scrollState
+        state = scrollState,
     ) {
         itemsIndexed(model, key = { _, item -> item.url }) { _, item ->
             PokemonListItemView(item)
@@ -93,5 +98,4 @@ fun PokemonListView(model: List<PokemonUiModel>, onEndReached: () -> Unit) {
     }
 }
 
-fun LazyListState.isScrolledToEnd() =
-    layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
+fun LazyListState.isScrolledToEnd() = layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1

@@ -35,16 +35,13 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.reposi
 
 class PokemonRepository(
     private val pokemonApi: IPokemonApi,
-    private val pokemonDao: IPokemonDao
+    private val pokemonDao: IPokemonDao,
 ) : IPokemonRepository {
-
-    override suspend fun get(): List<Pokemon> {
-        return pokemonDao.getAll().map { it.toDomainModel() }
-    }
+    override suspend fun get(): List<Pokemon> = pokemonDao.getAll().map { it.toDomainModel() }
 
     override suspend fun fetch(
         offset: Int,
-        limit: Int
+        limit: Int,
     ): AppNetworkResult<Pair<List<Pokemon>, Int>> {
         val result = pokemonApi.get(offset, limit)
         if (result is Success) {

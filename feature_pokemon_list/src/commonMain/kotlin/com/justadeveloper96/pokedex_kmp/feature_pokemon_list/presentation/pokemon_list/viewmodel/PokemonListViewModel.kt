@@ -34,14 +34,12 @@ import kotlinx.coroutines.launch
 
 class PokemonListViewModel(
     private val appCoroutineDispatchers: AppCoroutineDispatchers,
-    private val repository: IPokemonRepository
-) :
-    BaseViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action>(
+    private val repository: IPokemonRepository,
+) : BaseViewModel<IPokemonListViewModel.UIState, IPokemonListViewModel.UIEvent, IPokemonListViewModel.Action>(
         IPokemonListViewModel.UIState(true, listOf(), false),
-        appCoroutineDispatchers
+        appCoroutineDispatchers,
     ),
     IPokemonListViewModel {
-
     override val TAG = "PokemonListViewModel"
     private val limit = 10
     private var offset = 0
@@ -99,11 +97,12 @@ class PokemonListViewModel(
         when (val result = repository.fetch(offset, limit)) {
             is Success -> {
                 val newItems = result.data.first.map { it.toPokemonUiModel() }
-                list = if (reset || offset == 0) {
-                    newItems
-                } else {
-                    list + newItems
-                }
+                list =
+                    if (reset || offset == 0) {
+                        newItems
+                    } else {
+                        list + newItems
+                    }
                 offset += list.size
                 moreAvailable = list.size < result.data.second
                 loading = false
@@ -123,8 +122,8 @@ class PokemonListViewModel(
             IPokemonListViewModel.UIState(
                 loading = loading,
                 list = list,
-                canLoadMore = moreAvailable
-            )
+                canLoadMore = moreAvailable,
+            ),
         )
     }
 

@@ -25,7 +25,5 @@
 package com.justadeveloper96.pokedex_kmp.core.network.parse
 
 class NetworkExceptionMapper : INetworkExceptionMapper {
-    override fun provideMessage(e: Exception): String {
-        return e.message ?: ApiMessages.ERR_DEFAULT_MSG
-    }
+    override fun provideMessage(e: Exception): String = e.message ?: ApiMessages.ERR_DEFAULT_MSG
 }

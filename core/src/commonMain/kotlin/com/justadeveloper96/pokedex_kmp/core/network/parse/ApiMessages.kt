@@ -25,7 +25,6 @@
 package com.justadeveloper96.pokedex_kmp.core.network.parse
 
 object ApiMessages {
-
     const val ERR_DEFAULT_MSG = "Something went wrong! Please try again later."
     const val ERR_NO_INTERNET = "No Internet Connection!"
     const val ERR_TIMEOUT = "Connection Timeout"

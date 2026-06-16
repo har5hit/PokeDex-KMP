@@ -29,5 +29,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PokemonListResponseModel(
     val count: Int,
-    val results: List<PokemonResponseModel>
+    val results: List<PokemonResponseModel>,
 )

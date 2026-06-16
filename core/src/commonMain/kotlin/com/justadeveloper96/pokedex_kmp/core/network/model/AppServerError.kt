@@ -27,4 +27,6 @@ package com.justadeveloper96.pokedex_kmp.core.network.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AppServerError(val error: String)
+data class AppServerError(
+    val error: String,
+)

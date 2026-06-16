@@ -26,8 +26,18 @@ package com.justadeveloper96.pokedex_kmp.helpers.local
 
 interface ILocalStorage {
     fun getString(key: String): String?
-    fun putString(key: String, value: String?)
-    fun putInt(key: String, value: Int?)
+
+    fun putString(
+        key: String,
+        value: String?,
+    )
+
+    fun putInt(
+        key: String,
+        value: Int?,
+    )
+
     fun getInt(key: String): Int?
+
     fun clear()
 }

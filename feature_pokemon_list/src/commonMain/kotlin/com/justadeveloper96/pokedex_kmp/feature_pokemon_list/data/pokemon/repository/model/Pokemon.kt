@@ -24,4 +24,7 @@
 
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model
 
-data class Pokemon(val name: String, val url: String)
+data class Pokemon(
+    val name: String,
+    val url: String,
+)

@@ -31,14 +31,15 @@ import com.justadeveloper96.pokedex_kmp.android.presentation.pokemon_list.view.P
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.IPokemonListViewModel
 
 private const val TAG = "PokemonListScreen"
+
 @Composable
 fun PokemonListScreen(
-    state: IPokemonListViewModel.UIState, onAction: (IPokemonListViewModel.Action) -> Unit
+    state: IPokemonListViewModel.UIState,
+    onAction: (IPokemonListViewModel.Action) -> Unit,
 ) {
-    PullToRefreshBox(
-        isRefreshing = state.loading, onRefresh = {
-            onAction(IPokemonListViewModel.Action.Refresh)
-        }) {
+    PullToRefreshBox(isRefreshing = state.loading, onRefresh = {
+        onAction(IPokemonListViewModel.Action.Refresh)
+    }) {
         PokemonListView(state.list) {
             if (state.canLoadMore) {
                 onAction(IPokemonListViewModel.Action.Fetch)

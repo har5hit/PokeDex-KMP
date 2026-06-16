@@ -27,7 +27,6 @@ plugins {
     alias(libs.plugins.android.multiplatform.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.compose)
-
 }
 
 version = ProjectProperties.version
@@ -36,8 +35,14 @@ group = ProjectProperties.group
 kotlin {
     android {
         namespace = "com.justadeveloper96.pokedex_kmp.helpers"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        compileSdk =
+            libs.versions.android.compile.sdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
         withHostTest {}
     }
     iosArm64()
@@ -83,7 +88,6 @@ kotlin {
                 implementation(libs.androidx.compose.runtime)
                 implementation(libs.androidx.compose.foundation)
                 implementation(libs.androidx.compose.material)
-
             }
         }
         val androidHostTest by getting {

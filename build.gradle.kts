@@ -53,7 +53,6 @@ subprojects {
     }
 }
 
-
 allprojects {
     plugins.withType<NodeJsPlugin> {
         extensions.configure<NodeJsEnvSpec> {

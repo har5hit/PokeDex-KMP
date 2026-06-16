@@ -50,14 +50,15 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list_compose.presentatio
 import com.justadeveloper96.pokedex_kmp.helpers.compose.viewModelContainerWrapper
 import org.koin.compose.koinInject
 
-private enum class PokemonListScreenTab(val label: String) {
+private enum class PokemonListScreenTab(
+    val label: String,
+) {
     Native("Native"),
-    SharedCmp("Shared CMP")
+    SharedCmp("Shared CMP"),
 }
 
 @Composable
 fun PokemonListScreenContainer() {
-
     val viewModel = koinInject<PokemonListViewModel>()
     var selectedTab by remember { mutableStateOf(PokemonListScreenTab.Native) }
 
@@ -71,24 +72,26 @@ fun PokemonListScreenContainer() {
                             onClick = { selectedTab = tab },
                             icon = {
                                 Icon(
-                                    imageVector = if (tab == PokemonListScreenTab.Native) {
-                                        Icons.Filled.Android
-                                    } else {
-                                        Icons.Filled.Layers
-                                    },
-                                    contentDescription = tab.label
+                                    imageVector =
+                                        if (tab == PokemonListScreenTab.Native) {
+                                            Icons.Filled.Android
+                                        } else {
+                                            Icons.Filled.Layers
+                                        },
+                                    contentDescription = tab.label,
                                 )
                             },
-                            label = { Text(tab.label) }
+                            label = { Text(tab.label) },
                         )
                     }
                 }
             },
         ) { paddingValues ->
             Box(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
+                modifier =
+                    Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize(),
             ) {
                 viewModelContainerWrapper(viewModel, viewBlock = {
                     when (selectedTab) {
@@ -112,4 +115,3 @@ fun PokemonListScreenContainer() {
         }
     }
 }
-

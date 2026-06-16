@@ -31,5 +31,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
     suspend fun get(): List<Pokemon>
-    suspend fun fetch(offset: Int, limit: Int): AppNetworkResult<Pair<List<Pokemon>, Int>>
+
+    suspend fun fetch(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<Pair<List<Pokemon>, Int>>
 }

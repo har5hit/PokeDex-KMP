@@ -36,7 +36,7 @@ private const val TAG = "Compose"
 @Composable
 fun <S, E, A> viewModelViewWrapper(
     viewModel: IFlowViewModel<S, E, A>,
-    block: @Composable (S) -> Unit
+    block: @Composable (S) -> Unit,
 ) {
     val state by viewModel.stateHolder.collectAsState()
     block(state)
@@ -45,7 +45,7 @@ fun <S, E, A> viewModelViewWrapper(
 @Composable
 fun <S, E, A> viewModelEventWrapper(
     viewModel: IFlowViewModel<S, E, A>,
-    block: @Composable (E) -> Unit
+    block: @Composable (E) -> Unit,
 ) {
     val event by viewModel.eventHolder.filter { it != null }.collectAsState(null)
     event?.let {
@@ -57,7 +57,7 @@ fun <S, E, A> viewModelEventWrapper(
 fun <S, E, A> viewModelContainerWrapper(
     viewModel: IFlowViewModel<S, E, A>,
     viewBlock: @Composable (S) -> Unit,
-    eventBlock: @Composable (E) -> Unit
+    eventBlock: @Composable (E) -> Unit,
 ) {
     viewModelViewWrapper(viewModel) {
         viewBlock(it)

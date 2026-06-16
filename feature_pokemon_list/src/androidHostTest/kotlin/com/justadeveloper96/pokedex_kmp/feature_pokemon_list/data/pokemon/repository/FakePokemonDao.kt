@@ -29,7 +29,6 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.reposi
 import kotlinx.coroutines.channels.Channel
 
 class FakePokemonDao : IPokemonDao {
-
     val channel = Channel<List<PokemonDaoModel>>(1)
 
     val data = mutableListOf<PokemonDaoModel>()

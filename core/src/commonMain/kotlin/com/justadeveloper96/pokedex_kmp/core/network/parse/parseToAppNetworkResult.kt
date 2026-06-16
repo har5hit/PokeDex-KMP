@@ -30,9 +30,9 @@ import kotlinx.serialization.decodeFromString
 inline fun <reified T> parseToAppNetworkResult(
     jsonParser: IJsonParser,
     networkExceptionMapping: INetworkExceptionMapper,
-    serviceCall: () -> NetworkResponseData
-): AppNetworkResult<T> {
-    return try {
+    serviceCall: () -> NetworkResponseData,
+): AppNetworkResult<T> =
+    try {
         val data = serviceCall()
         try {
             if (data.code in 200..299) {
@@ -43,21 +43,20 @@ inline fun <reified T> parseToAppNetworkResult(
                 Unsuccessful(
                     error = error,
                     code = data.code,
-                    message = error.error
+                    message = error.error,
                 )
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Unsuccessful(
                 code = data.code,
-                message = networkExceptionMapping.provideMessage(e)
+                message = networkExceptionMapping.provideMessage(e),
             )
         }
     } catch (e: Exception) {
         e.printStackTrace()
         NetworkException(
             message = networkExceptionMapping.provideMessage(e),
-            exception = e
+            exception = e,
         )
     }
-}

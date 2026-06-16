@@ -32,12 +32,11 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list_compose.presentatio
 @Composable
 fun PokemonListScreenCmp(
     state: IPokemonListViewModel.UIState,
-    onAction: (IPokemonListViewModel.Action) -> Unit
+    onAction: (IPokemonListViewModel.Action) -> Unit,
 ) {
-    PullToRefreshBox(
-        isRefreshing = state.loading, onRefresh = {
-            onAction(IPokemonListViewModel.Action.Refresh)
-        }) {
+    PullToRefreshBox(isRefreshing = state.loading, onRefresh = {
+        onAction(IPokemonListViewModel.Action.Refresh)
+    }) {
         PokemonListViewCmp(state.list) {
             if (state.canLoadMore) {
                 onAction(IPokemonListViewModel.Action.Fetch)

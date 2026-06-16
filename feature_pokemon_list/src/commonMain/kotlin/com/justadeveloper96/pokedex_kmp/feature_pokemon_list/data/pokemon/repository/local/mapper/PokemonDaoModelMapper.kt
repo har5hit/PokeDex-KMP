@@ -28,23 +28,20 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDaoModel
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.pokemon.repository.network.model.PokemonResponseModel
 
-fun PokemonDaoModel.toDomainModel(): Pokemon {
-    return Pokemon(
+fun PokemonDaoModel.toDomainModel(): Pokemon =
+    Pokemon(
         name,
-        url
+        url,
     )
-}
 
-fun Pokemon.toDaoModel(): PokemonDaoModel {
-    return PokemonDaoModel(
+fun Pokemon.toDaoModel(): PokemonDaoModel =
+    PokemonDaoModel(
         name,
-        url
+        url,
     )
-}
 
-fun PokemonResponseModel.toDaoModel(): PokemonDaoModel {
-    return PokemonDaoModel(
+fun PokemonResponseModel.toDaoModel(): PokemonDaoModel =
+    PokemonDaoModel(
         name,
-        url
+        url,
     )
-}

@@ -24,17 +24,16 @@
 
 package com.justadeveloper96.pokedex_kmp.iosUmbrellaModule.database
 
-import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
-import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.PokemonDatabase
+import com.justadeveloper96.pokedex_kmp.helpers.dao.IDatabaseDriverFactory
 
 class PokemonDatabaseProviderFactory : IDatabaseDriverFactory {
-    override fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(
+    override fun createDriver(): SqlDriver =
+        NativeSqliteDriver(
             schema = PokemonDatabase.Schema,
             name = "pokemon.db",
-            maxReaderConnections = 4
+            maxReaderConnections = 4,
         )
-    }
 }

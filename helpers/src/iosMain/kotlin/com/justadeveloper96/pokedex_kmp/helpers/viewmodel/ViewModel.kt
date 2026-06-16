@@ -29,8 +29,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
-actual open class ViewModel actual constructor(actual val dispatchers: AppCoroutineDispatchers) {
-
+actual open class ViewModel actual constructor(
+    actual val dispatchers: AppCoroutineDispatchers,
+) {
     protected actual val vmScope: CoroutineScope = CoroutineScope(SupervisorJob() + dispatchers.mainImmediate)
 
     protected actual open fun onCleared() {

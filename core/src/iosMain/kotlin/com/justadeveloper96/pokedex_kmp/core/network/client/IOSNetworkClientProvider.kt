@@ -34,16 +34,17 @@ import io.ktor.serialization.kotlinx.json.json
 
 class IOSNetworkClientProvider(
     debug: Boolean,
-    jsonParser: IJsonParser
+    jsonParser: IJsonParser,
 ) : INetworkClientProvider {
-    override val client: HttpClient = HttpClient(Darwin) {
-        engine {
+    override val client: HttpClient =
+        HttpClient(Darwin) {
+            engine {
+            }
+            install(ContentNegotiation) {
+                json(jsonParser.parser)
+            }
+            install(Logging) {
+                level = if (debug) LogLevel.ALL else LogLevel.NONE
+            }
         }
-        install(ContentNegotiation) {
-            json(jsonParser.parser)
-        }
-        install(Logging) {
-            level = if (debug) LogLevel.ALL else LogLevel.NONE
-        }
-    }
 }

@@ -25,7 +25,6 @@
 import java.io.File
 
 object Utils {
-
     private fun getLocalGitBranchName(): String {
         val headFile = File(".git/HEAD")
         if (!headFile.exists()) return "master"
@@ -36,23 +35,25 @@ object Utils {
             headValue.startsWith(refPrefix) -> {
                 headValue.removePrefix(refPrefix)
             }
+
             headValue.isNotBlank() -> {
                 headValue.take(7)
             }
+
             else -> {
                 "master"
             }
         }
     }
 
-    fun getReleaseVersion(version: String): String {
-        return when (val branch = getLocalGitBranchName()) {
+    fun getReleaseVersion(version: String): String =
+        when (val branch = getLocalGitBranchName()) {
             "master" -> {
                 version
             }
+
             else -> {
                 "$branch-$version"
             }
         }
-    }
 }

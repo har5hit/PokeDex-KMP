@@ -38,18 +38,20 @@ import io.ktor.client.statement.bodyAsText
 class PokemonApi(
     private val networkClientProvider: INetworkClientProvider,
     private val networkExceptionMapping: INetworkExceptionMapper,
-    private val jsonParser: IJsonParser
+    private val jsonParser: IJsonParser,
 ) : IPokemonApi {
-
     private val ENDPOINT = "https://pokeapi.co/api/v2/pokemon"
 
-    override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel> {
-        return parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
-            val result = networkClientProvider.client.get(ENDPOINT) {
-                parameter("offset", offset)
-                parameter("limit", limit)
-            }
+    override suspend fun get(
+        offset: Int,
+        limit: Int,
+    ): AppNetworkResult<PokemonListResponseModel> =
+        parseToAppNetworkResult(jsonParser, networkExceptionMapping) {
+            val result =
+                networkClientProvider.client.get(ENDPOINT) {
+                    parameter("offset", offset)
+                    parameter("limit", limit)
+                }
             NetworkResponseData(result.status.value, result.bodyAsText())
         }
-    }
 }

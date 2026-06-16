@@ -43,8 +43,8 @@ class InitKoin {
                     platformModule,
                     featurePokemonListModule,
                     coreModule,
-                    helperModule
-                )
+                    helperModule,
+                ),
             )
         }
     }

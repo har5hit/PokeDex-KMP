@@ -25,7 +25,6 @@
 package com.justadeveloper96.pokedex_kmp.feature_pokemon_list.presentation.pokemon_list.viewmodel.image
 
 object SVGPokemonImageUrl : IPokemonImageUrl {
-    override operator fun invoke(id: String): String {
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/$id.svg"
-    }
+    override operator fun invoke(id: String): String =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/$id.svg"
 }

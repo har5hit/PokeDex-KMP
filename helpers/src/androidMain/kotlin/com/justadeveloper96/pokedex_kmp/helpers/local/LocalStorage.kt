@@ -27,18 +27,25 @@ package com.justadeveloper96.pokedex_kmp.helpers.local
 import android.content.Context
 import com.justadeveloper96.pokedex_kmp.helpers.local.ILocalStorage
 
-class LocalStorage(context: Context,val fileName: String) : ILocalStorage {
+class LocalStorage(
+    context: Context,
+    val fileName: String,
+) : ILocalStorage {
     private val prefs = context.getSharedPreferences(fileName, Context.MODE_PRIVATE)
 
-    override fun getString(key: String): String? {
-        return prefs.getString(key, null)
-    }
+    override fun getString(key: String): String? = prefs.getString(key, null)
 
-    override fun putString(key: String, value: String?) {
+    override fun putString(
+        key: String,
+        value: String?,
+    ) {
         prefs.edit().putString(key, value).apply()
     }
 
-    override fun putInt(key: String, value: Int?) {
+    override fun putInt(
+        key: String,
+        value: Int?,
+    ) {
         if (value == null) {
             prefs.edit().remove(key).apply()
         } else {
@@ -46,13 +53,12 @@ class LocalStorage(context: Context,val fileName: String) : ILocalStorage {
         }
     }
 
-    override fun getInt(key: String): Int? {
-        return if (prefs.contains(key)) {
+    override fun getInt(key: String): Int? =
+        if (prefs.contains(key)) {
             prefs.getInt(key, -1)
         } else {
             null
         }
-    }
 
     override fun clear() {
         prefs.edit().clear().apply()

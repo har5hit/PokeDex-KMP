@@ -4,7 +4,7 @@
 [![Web CI-CD](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml/badge.svg)](https://github.com/har5hit/PokeDex-KMP/actions/workflows/web_ci_cd.yml)
 [![](https://androidweekly.net/issues/issue-528/badge)](https://androidweekly.net/issues/issue-528)
 
-A demo application demonstrating shared business logic and reusable Compose Multiplatform UI across Android, iOS, and Web using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
+A demo application demonstrating shared business logic across native screens built with Android Compose and iOS SwiftUI, plus shared Compose Multiplatform UI reused across Android, iOS, and Web using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) (KMP).
 <br/>
 Specifications:
 * 100% [Kotlin](https://kotlinlang.org/) for common Kotlin code, Android, and Web modules.

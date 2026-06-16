@@ -29,5 +29,5 @@ class AppCoroutineDispatchers(
     val io: CoroutineDispatcher,
     val main: CoroutineDispatcher,
     val default: CoroutineDispatcher,
-    val mainImmediate: CoroutineDispatcher
+    val mainImmediate: CoroutineDispatcher,
 )

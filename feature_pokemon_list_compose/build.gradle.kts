@@ -35,8 +35,14 @@ group = ProjectProperties.group
 kotlin {
     android {
         namespace = "com.justadeveloper96.pokedex_kmp.feature_pokemon_list_compose"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        compileSdk =
+            libs.versions.android.compile.sdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
     }
     iosArm64()
     iosSimulatorArm64()

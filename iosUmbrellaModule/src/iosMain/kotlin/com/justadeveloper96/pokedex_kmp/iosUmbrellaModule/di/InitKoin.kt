@@ -32,16 +32,15 @@ import org.koin.core.Koin
 import org.koin.core.context.startKoin
 
 class InitKoin {
-    operator fun invoke(): Koin {
-        return startKoin {
+    operator fun invoke(): Koin =
+        startKoin {
             modules(
                 listOf(
                     platformModule(true),
                     featurePokemonListModule,
                     coreModule,
-                    helperModule
-                )
+                    helperModule,
+                ),
             )
         }.koin
-    }
 }

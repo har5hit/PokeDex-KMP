@@ -35,10 +35,9 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<S, E, A>(
     final override val initialState: S,
-    dispatchers: AppCoroutineDispatchers
-) :
-    ViewModel(dispatchers), IFlowViewModel<S, E, A> {
-
+    dispatchers: AppCoroutineDispatchers,
+) : ViewModel(dispatchers),
+    IFlowViewModel<S, E, A> {
     abstract val TAG: String
 
     private val _stateHolder: MutableStateFlow<S> = MutableStateFlow(initialState)

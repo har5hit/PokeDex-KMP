@@ -26,21 +26,24 @@ package com.justadeveloper96.pokedex_kmp.helpers.local
 
 class InMemoryLocalStorage : ILocalStorage {
     val map = mutableMapOf<String, Any?>()
-    override fun getString(key: String): String? {
-        return map[key] as? String
-    }
 
-    override fun putString(key: String, value: String?) {
+    override fun getString(key: String): String? = map[key] as? String
+
+    override fun putString(
+        key: String,
+        value: String?,
+    ) {
         map[key] = value
     }
 
-    override fun putInt(key: String, value: Int?) {
+    override fun putInt(
+        key: String,
+        value: Int?,
+    ) {
         map[key] = value
     }
 
-    override fun getInt(key: String): Int? {
-        return map[key] as? Int
-    }
+    override fun getInt(key: String): Int? = map[key] as? Int
 
     override fun clear() {
         map.clear()

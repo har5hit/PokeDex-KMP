@@ -40,33 +40,36 @@ import platform.UIKit.UIViewController
 
 fun PokemonListComposeViewController(
     viewModel: IPokemonListViewModel,
-    onMessage: (String?) -> Unit = {}
-): UIViewController = ComposeUIViewController {
-    PokemonListComposeViewControllerContent(
-        viewModel = viewModel,
-        onMessage = onMessage
-    )
-}
+    onMessage: (String?) -> Unit = {},
+): UIViewController =
+    ComposeUIViewController {
+        PokemonListComposeViewControllerContent(
+            viewModel = viewModel,
+            onMessage = onMessage,
+        )
+    }
 
 @Composable
 private fun PokemonListComposeViewControllerContent(
     viewModel: IPokemonListViewModel,
-    onMessage: (String?) -> Unit
+    onMessage: (String?) -> Unit,
 ) {
     val scope = remember { MainScope() }
     var state by remember { mutableStateOf(viewModel.initialState) }
 
     DisposableEffect(viewModel) {
-        val stateJob = scope.launch {
-            viewModel.stateHolder.collect { state = it }
-        }
-        val eventJob = scope.launch {
-            viewModel.eventHolder.collect { event ->
-                if (event is IPokemonListViewModel.UIEvent.Message) {
-                    onMessage(event.message)
+        val stateJob =
+            scope.launch {
+                viewModel.stateHolder.collect { state = it }
+            }
+        val eventJob =
+            scope.launch {
+                viewModel.eventHolder.collect { event ->
+                    if (event is IPokemonListViewModel.UIEvent.Message) {
+                        onMessage(event.message)
+                    }
                 }
             }
-        }
 
         onDispose {
             stateJob.cancel()
@@ -77,6 +80,6 @@ private fun PokemonListComposeViewControllerContent(
 
     PokemonListScreenCmp(
         state = state,
-        onAction = viewModel::add
+        onAction = viewModel::add,
     )
 }

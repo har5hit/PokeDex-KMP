@@ -28,7 +28,10 @@ import android.util.Log
 import com.justadeveloper96.pokedex_kmp.helpers.logging.ILogger
 
 class AndroidLogger : ILogger {
-    override fun log(tag: String, log: Any) {
+    override fun log(
+        tag: String,
+        log: Any,
+    ) {
         Log.d(tag, log.toString())
     }
 }

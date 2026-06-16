@@ -35,17 +35,18 @@ import kotlin.js.Promise
 
 class InitKoin {
     operator fun invoke(): Promise<Koin> {
-        val koin = startKoin {
-            modules(
-                listOf(
-                    platformModule(true),
-                    featurePokemonListModule,
-                    featurePokemonListModuleOverride,
-                    coreModule,
-                    helperModule
+        val koin =
+            startKoin {
+                modules(
+                    listOf(
+                        platformModule(true),
+                        featurePokemonListModule,
+                        featurePokemonListModuleOverride,
+                        coreModule,
+                        helperModule,
+                    ),
                 )
-            )
-        }.koin
+            }.koin
         return Promise.resolve(koin)
     }
 }

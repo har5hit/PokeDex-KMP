@@ -34,22 +34,23 @@ import com.justadeveloper96.pokedex_kmp.core.network.parse.NetworkExceptionMappe
 import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.PokemonDatabaseProvider
 import org.koin.dsl.module
 
-val platformModule = module {
+val platformModule =
+    module {
 
-    single<INetworkClientProvider> {
-        AndroidNetworkClientProvider(
-            debug = BuildConfig.DEBUG,
-            jsonParser = get(),
-            interceptors = listOf(),
-            networkInterceptor = if (BuildConfig.DEBUG) listOf(ChuckerInterceptor(get())) else listOf()
-        )
-    }
+        single<INetworkClientProvider> {
+            AndroidNetworkClientProvider(
+                debug = BuildConfig.DEBUG,
+                jsonParser = get(),
+                interceptors = listOf(),
+                networkInterceptor = if (BuildConfig.DEBUG) listOf(ChuckerInterceptor(get())) else listOf(),
+            )
+        }
 
-    single {
-        PokemonDatabaseProvider(PokemonDatabaseProviderFactory(get())).instance()
-    }
+        single {
+            PokemonDatabaseProvider(PokemonDatabaseProviderFactory(get())).instance()
+        }
 
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+        single<INetworkExceptionMapper> {
+            NetworkExceptionMapper()
+        }
     }
-}

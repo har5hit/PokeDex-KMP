@@ -38,31 +38,32 @@ class AndroidNetworkClientProvider(
     debug: Boolean,
     jsonParser: IJsonParser,
     interceptors: List<Interceptor>,
-    networkInterceptor: List<Interceptor>
+    networkInterceptor: List<Interceptor>,
 ) : INetworkClientProvider {
-    override val client: HttpClient = HttpClient(OkHttp) {
-        engine {
-            config {
-                callTimeout(30, TimeUnit.SECONDS)
-                connectTimeout(30, TimeUnit.SECONDS)
-                readTimeout(30, TimeUnit.SECONDS)
-                writeTimeout(30, TimeUnit.SECONDS)
+    override val client: HttpClient =
+        HttpClient(OkHttp) {
+            engine {
+                config {
+                    callTimeout(30, TimeUnit.SECONDS)
+                    connectTimeout(30, TimeUnit.SECONDS)
+                    readTimeout(30, TimeUnit.SECONDS)
+                    writeTimeout(30, TimeUnit.SECONDS)
+                }
+
+                interceptors.forEach {
+                    addInterceptor(it)
+                }
+                networkInterceptor.forEach {
+                    addNetworkInterceptor(it)
+                }
             }
 
-            interceptors.forEach {
-                addInterceptor(it)
+            install(ContentNegotiation) {
+                json(jsonParser.parser)
             }
-            networkInterceptor.forEach {
-                addNetworkInterceptor(it)
+
+            install(Logging) {
+                level = if (debug) LogLevel.NONE else LogLevel.NONE
             }
         }
-
-        install(ContentNegotiation) {
-            json(jsonParser.parser)
-        }
-
-        install(Logging) {
-            level = if (debug) LogLevel.NONE else LogLevel.NONE
-        }
-    }
 }

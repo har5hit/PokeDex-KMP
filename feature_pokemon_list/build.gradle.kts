@@ -35,10 +35,15 @@ group = ProjectProperties.group
 kotlin {
     android {
         namespace = "com.justadeveloper96.pokedex_kmp.feature_pokemon_list"
-        compileSdk = libs.versions.android.compile.sdk.get().toInt()
-        minSdk = libs.versions.android.min.sdk.get().toInt()
+        compileSdk =
+            libs.versions.android.compile.sdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.min.sdk
+                .get()
+                .toInt()
         withHostTest {
-
         }
     }
     iosArm64()
@@ -82,7 +87,6 @@ kotlin {
                 api(project(":core"))
                 api(libs.sqldelight.native.driver)
             }
-
         }
 
         val jsMain by getting {

@@ -32,19 +32,20 @@ import com.justadeveloper96.pokedex_kmp.feature_pokemon_list.data.database.Pokem
 import com.justadeveloper96.pokedex_kmp.iosUmbrellaModule.database.PokemonDatabaseProviderFactory
 import org.koin.dsl.module
 
-fun platformModule(debug: Boolean) = module {
-    single<INetworkClientProvider> {
-        IOSNetworkClientProvider(
-            debug = debug,
-            get()
-        )
-    }
+fun platformModule(debug: Boolean) =
+    module {
+        single<INetworkClientProvider> {
+            IOSNetworkClientProvider(
+                debug = debug,
+                get(),
+            )
+        }
 
-    single {
-        PokemonDatabaseProvider(PokemonDatabaseProviderFactory()).instance()
-    }
+        single {
+            PokemonDatabaseProvider(PokemonDatabaseProviderFactory()).instance()
+        }
 
-    single<INetworkExceptionMapper> {
-        NetworkExceptionMapper()
+        single<INetworkExceptionMapper> {
+            NetworkExceptionMapper()
+        }
     }
-}

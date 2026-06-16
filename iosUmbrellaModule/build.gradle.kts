@@ -32,7 +32,7 @@ group = ProjectProperties.group
 kotlin {
     listOf(
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             linkerOpts.add("-lsqlite3")
@@ -70,6 +70,9 @@ kotlin {
 
 configurations.all {
     resolutionStrategy {
-        force(libs.kotlinx.coroutines.core.get())
+        force(
+            libs.kotlinx.coroutines.core
+                .get(),
+        )
     }
 }

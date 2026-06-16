@@ -25,7 +25,10 @@
 package com.justadeveloper96.pokedex_kmp.helpers.logging
 
 class PrintLogger : ILogger {
-    override fun log(tag: String, log: Any) {
+    override fun log(
+        tag: String,
+        log: Any,
+    ) {
         println("$tag : $log")
     }
 }

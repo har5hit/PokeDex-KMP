@@ -27,10 +27,11 @@ package com.justadeveloper96.pokedex_kmp.helpers.coroutine
 import kotlinx.coroutines.Dispatchers
 
 actual object CoroutineDependency {
-    actual val dispatchers: AppCoroutineDispatchers = AppCoroutineDispatchers(
-        io = Dispatchers.Default,
-        main = Dispatchers.Main,
-        default = Dispatchers.Default,
-        mainImmediate = Dispatchers.Main
-    )
+    actual val dispatchers: AppCoroutineDispatchers =
+        AppCoroutineDispatchers(
+            io = Dispatchers.Default,
+            main = Dispatchers.Main,
+            default = Dispatchers.Default,
+            mainImmediate = Dispatchers.Main,
+        )
 }

@@ -29,11 +29,17 @@ import kotlinx.serialization.json.Json
 import java.io.IOException
 import java.nio.charset.Charset
 
-inline fun <reified T> loadModelFromAsset(classLoader: ClassLoader, string: String): T {
-    return Json {}.decodeFromString(loadJSONFromAsset(classLoader, string))
-}
+inline fun <reified T> loadModelFromAsset(
+    classLoader: ClassLoader,
+    string: String,
+): T =
+    Json {
+    }.decodeFromString(loadJSONFromAsset(classLoader, string))
 
-fun loadJSONFromAsset(classLoader: ClassLoader, string: String): String {
+fun loadJSONFromAsset(
+    classLoader: ClassLoader,
+    string: String,
+): String {
     var json: String = ""
     try {
         val `is` = classLoader.getResourceAsStream(string)

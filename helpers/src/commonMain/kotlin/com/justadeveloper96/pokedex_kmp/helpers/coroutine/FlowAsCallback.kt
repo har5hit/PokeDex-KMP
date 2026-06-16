@@ -31,7 +31,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 fun <T> Flow<T>.asCallback(): FlowAsCallback<T> = FlowAsCallback(this)
-class FlowAsCallback<T>(private val origin: Flow<T>) : Flow<T> by origin {
+
+class FlowAsCallback<T>(
+    private val origin: Flow<T>,
+) : Flow<T> by origin {
     fun watch(block: (T) -> Unit): Closeable {
         val job = Job()
 

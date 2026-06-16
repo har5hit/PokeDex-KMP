@@ -32,19 +32,17 @@ import com.justadeveloper96.pokedex_kmp.web.compose.helpers.compose.viewModelCon
 import org.koin.core.Koin
 
 @Composable
-fun PokemonListScreenContainer(
-    di: Koin
-) {
+fun PokemonListScreenContainer(di: Koin) {
     val viewModel = remember(di) { di.get<PokemonListViewModel>() }
     viewModelContainerWrapper(
         viewModel = viewModel,
         viewBlock = {
             PokemonListScreenCmp(
                 state = it,
-                onAction = viewModel::add
+                onAction = viewModel::add,
             )
         },
         eventBlock = {
-        }
+        },
     )
 }

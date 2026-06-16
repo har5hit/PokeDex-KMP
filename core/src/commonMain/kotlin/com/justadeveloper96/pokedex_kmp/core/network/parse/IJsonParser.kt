@@ -27,6 +27,5 @@ package com.justadeveloper96.pokedex_kmp.core.network.parse
 import kotlinx.serialization.json.Json
 
 interface IJsonParser {
-
     val parser: Json
 }
